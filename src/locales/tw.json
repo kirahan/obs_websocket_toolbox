@@ -1,0 +1,30 @@
+{
+    "name": "obs",
+    "Titles": {
+      "TreeList": {
+        "summary": "Introduction"
+      }
+    },
+    "QueryHeaders": {
+      "Params": "Params",
+      "Value": "Value",
+      "Type": "Type",
+      "Des": "Description",
+      "ValueRestrictions": "Value Restrictions",
+      "DefaultBehavior": "Default Behavior"
+    },
+    "ParamsDes": {
+      "obsVersion": "Current OBS Studio version",
+      "obsWebSocketVersion": "Current OBS WebSocket version",
+      "rpcVersion": "Current latest obs-websocket RPC version        ",
+      "availableRequests": "Array of available RPC requests for the currently negotiated RPC version        ",
+      "supportedImageFormats": "Image formats available in GetSourceScreenshot and SaveSourceScreenshot requests.",
+      "platform": "Name of the platform. Usually windows, macos, or ubuntu (linux flavor). Not guaranteed to be any of those",
+      "platformDescription": "Description of the platform, like Windows 10 (10.0)",
+      "sceneName": "Name of the scene the item is in",
+      "itemName": "UUID of the scene the item is in\t",
+      "sceneItemId": "Numeric ID of the scene item\t",
+      "sceneItemEnabled": "New enable state of the scene item\t"
+    }
+  }
+  
