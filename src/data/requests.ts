@@ -930,9 +930,6 @@ const uiRequests:RequestNode = {
 }
 
 
-
-
-
 export interface I_Request_Params {
     name: string,
     type: string,
@@ -1020,6 +1017,281 @@ export const obsRequestDetailData:{[index:string]:I_Request_Detail} = {
             }
         ]
     },
+    GetStats: {
+        key: 'GetStats',
+        title: 'GetStats',
+        des: t('RequestDes.GetStats'),
+        tags: ['General'],
+        requestParams: [],
+        responseParams: [
+            {
+                name: 'cpuUsage',
+                type: "Number",
+                des: t('ParamsDes.cpuUsage'),
+            },
+            {
+                name: 'memoryUsage',
+                type: "Number",
+                des: t('ParamsDes.memoryUsage'),
+            },
+            {
+                name: 'availableDiskSpace',
+                type: "Number",
+                des: t('ParamsDes.availableDiskSpace'),
+            },
+            {
+                name: 'activeFps',
+                type: "Number",
+                des: t('ParamsDes.activeFps'),
+            },
+            {
+                name: 'averageFrameRenderTime',
+                type: 'Number',
+                des: t('ParamsDes.averageFrameRenderTime'),
+            },
+            {
+                name: 'renderSkippedFrames',
+                type: 'Number',
+                des: t('ParamsDes.renderSkippedFrames'),
+            },
+            {
+                name: 'renderTotalFrames',
+                type: 'Number',
+                des: t('ParamsDes.renderTotalFrames'),
+            },
+            {
+                name: 'outputSkippedFrames',
+                type: 'Number',
+                des: t('ParamsDes.outputSkippedFrames'),
+            },
+            {
+                name: 'outputTotalFrames',
+                type: 'Number',
+                des: t('ParamsDes.outputTotalFrames'),
+            },
+            {
+                name: 'webSocketSessionIncomingMessages',
+                type: 'Number',
+                des: t('ParamsDes.webSocketSessionIncomingMessages'),
+            },
+            {
+                name: 'webSocketSessionOutgoingMessages',
+                type: 'Number',
+                des: t('ParamsDes.webSocketSessionOutgoingMessages'),
+            }
+        ]
+    },
+    BroadcastCustomEvent: {
+        key: 'BroadcastCustomEvent',
+        title: 'BroadcastCustomEvent',
+        des: t('RequestDes.BroadcastCustomEvent'),
+        tags: ['General'],
+        requestParams: [
+            {
+                name: 'eventData',
+                type: "Object",
+                des: t('ParamsDes.eventData'),
+                default: '',
+                require: true,
+                valueRestrictions: 'None',
+                defaultBehavior: 'N/A'
+            },
+        ],
+        responseParams: [
+        ]
+    },
+    CallVendorRequest: {
+        key: 'CallVendorRequest',
+        title: 'CallVendorRequest',
+        des: t('RequestDes.CallVendorRequest'),
+        tags: ['General'],
+        requestParams: [
+            {
+                name: 'vendorName',
+                type: "String",
+                des: t('ParamsDes.vendorName'),
+                default: '',
+                require: true,
+                valueRestrictions: 'None',
+                defaultBehavior: 'N/A'
+            },
+            {
+                name: 'requestType',
+                type: "String",
+                des: t('ParamsDes.requestType'),
+                default: '',
+                require: true,
+                valueRestrictions: 'None',
+                defaultBehavior: 'N/A'
+            },
+            {
+                name: 'requestData',
+                type: "Object",
+                des: t('ParamsDes.requestData'),
+                default: '',
+                require: false,
+                valueRestrictions: 'None',
+                defaultBehavior: '{}'
+            },
+        ],
+        responseParams: [
+            {
+                name: 'vendorName',
+                type: "String",
+                des: t('ParamsDes.vendorName'),
+            },
+            {
+                name: 'requestType',
+                type: "String",
+                des: t('ParamsDes.requestType'),
+            },
+            {
+                name: 'responseData',
+                type: "Object",
+                des: t('ParamsDes.responseData'),
+            },
+        ]
+    },
+    GetHotkeyList: {
+        key: 'GetHotkeyList',
+        title: 'GetHotkeyList',
+        des: t('RequestDes.GetHotkeyList'),
+        tags: ['General'],
+        requestParams: [
+        ],
+        responseParams: [
+            {
+                name: 'hotkeys',
+                type: "Array<String>",
+                des: t('ParamsDes.hotkeys'),
+            },
+        ]
+    },
+    TriggerHotkeyByName: {
+        key: 'TriggerHotkeyByName',
+        title: 'TriggerHotkeyByName',
+        des: t('RequestDes.TriggerHotkeyByName'),
+        tags: ['General'],
+        requestParams: [
+            {
+                name: 'hotkeyName',
+                type: "String",
+                des: t('ParamsDes.hotkeyName'),
+                default: '',
+                require: true,
+                valueRestrictions: 'None',
+                defaultBehavior: 'N/A'
+            },
+            {
+                name: 'contextName',
+                type: "String",
+                des: t('ParamsDes.contextName'),
+                default: '',
+                require: false,
+                valueRestrictions: 'None',
+                defaultBehavior: 'Unknown'
+            },
+        ],
+        responseParams: [
+        ]
+    },
+    TriggerHotkeyByKeySequence: {
+        key: 'TriggerHotkeyByKeySequence',
+        title: 'TriggerHotkeyByKeySequence',
+        des: t('RequestDes.TriggerHotkeyByKeySequence'),
+        tags: ['General'],
+        requestParams: [
+            {
+                name: 'keyId',
+                type: "String",
+                des: t('ParamsDes.keyId'),
+                default: '',
+                require: false,
+                valueRestrictions: 'None',
+                defaultBehavior: 'Not pressed'
+            },
+            {
+                name: 'keyModifiers',
+                type: "String",
+                des: t('ParamsDes.keyModifiers'),
+                default: '',
+                require: false,
+                valueRestrictions: 'None',
+                defaultBehavior: 'Not pressed'
+            },
+            {
+                name: 'keyModifiers.shift',
+                type: "Boolean",
+                des: t('ParamsDes.keyModifiers.shift'),
+                default: '',
+                require: false,
+                valueRestrictions: 'None',
+                defaultBehavior: 'Not pressed'
+            },
+            {
+                name: 'keyModifiers.control',
+                type: "Boolean",
+                des: t('ParamsDes.keyModifiers.control'),
+                default: '',
+                require: false,
+                valueRestrictions: 'None',
+                defaultBehavior: 'Not pressed'
+            },
+            {
+                name: 'keyModifiers.alt',
+                type: "Boolean",
+                des: t('ParamsDes.keyModifiers.alt'),
+                default: '',
+                require: false,
+                valueRestrictions: 'None',
+                defaultBehavior: 'Not pressed'
+            },
+            {
+                name: 'keyModifiers.command',
+                type: "Boolean",
+                des: t('ParamsDes.keyModifiers.command'),
+                default: '',
+                require: false,
+                valueRestrictions: 'None',
+                defaultBehavior: 'Not pressed'
+            },
+        ],
+        responseParams: [
+        ]
+    },
+    Sleep: {
+        key: 'Sleep',
+        title: 'Sleep',
+        des: t('RequestDes.Sleep'),
+        tags: ['General'],
+        requestParams: [
+            {
+                name: 'sleepMillis',
+                type: "Number",
+                des: t('ParamsDes.sleepMillis'),
+                default: '',
+                require: false,
+                valueRestrictions: '>= 0, <= 50000',
+                defaultBehavior: 'Unknown'
+            },
+            {
+                name: 'sleepFrames',
+                type: "Number",
+                des: t('ParamsDes.sleepFrames'),
+                default: '',
+                require: false,
+                valueRestrictions: '>= 0, <= 10000',
+                defaultBehavior: 'Unknown'
+            },
+        ],
+        responseParams: [
+        ]
+    },
+
+
+
+
+
     SetSceneItemEnabled: {
         key: 'SetSceneItemEnabled',
         title: 'SetSceneItemEnabled',
