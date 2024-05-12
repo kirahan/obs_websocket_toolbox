@@ -2,6 +2,7 @@
 // export * from './requests';
 import { ref } from 'vue';
 import {obsRequestTreeData} from './requests';
+import {obsEventTreeData} from './events';
 
 
 export const obsTreeData = [
@@ -13,6 +14,6 @@ export const obsTreeData = [
     {
         title: 'Events',
         key: 'Events',
-        children:[]
+        children:obsEventTreeData
     }
 ]
