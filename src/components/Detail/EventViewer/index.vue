@@ -72,7 +72,7 @@ import { CopyOutlined } from "@ant-design/icons-vue";
 import { I_Event_item, WSEventAndRequestHistory } from "../../../state";
 import {ref} from 'vue'
 
-const activeKey = ref(['1'])
+const activeKey = ref([''])
 
 const headerStyle = {
     height:'5px!',

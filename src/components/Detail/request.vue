@@ -38,17 +38,23 @@
                     <!-- 如果require 给name前面增加一个* -->
                     <template v-if="column.dataIndex=='name'">
                         <span v-if="record.require" class="require">*</span>
-                        {{text}}
+                        <CaretRightOutlined v-if="record.type=='Object'" />
+                        <span :class="!!record.parentNode ? 'ObjectChildNode' :''">{{text}}</span>
                     </template>
 
                     <template v-else-if="column.dataIndex=='model'">
-
                         <a-input 
+                        v-if="record.type != 'Object'"
                         v-model:value="modelStorage[record.name]" 
                         :status="record.require && !modelStorage[record.name] ? 'error' : ''"
                         @blur="()=>inputBlur(record)"
                         type="text" />
 
+                        <!-- 当type为Object时候需要创建子表单 -->
+                        <!-- <div v-else >123</div> -->
+                        <a-input v-else type="text" :disabled="true" 
+                        v-model:value="modelStorage[record.name]" 
+                        ></a-input>
                     </template>
                     <template v-else>
                         {{text}}
@@ -80,6 +86,7 @@ import { WSEventAndRequestHistory } from "../../state";
 import { computed } from "vue";
 import { ref } from "vue";
 import { message } from 'ant-design-vue';
+import { CaretRightOutlined } from "@ant-design/icons-vue";
 
 import { useStorage } from "@vueuse/core";
 import { obsEventDetailData } from "../../data/events";
@@ -94,18 +101,37 @@ const props = defineProps({
 })
 
 // const modelRefs = ref({} as {[index:string]:any})
-const modelStorage = useStorage('modelStorage',{})
+const modelStorage = useStorage('modelStorage',{} as {[index:string]:any})
 
 
 const inputBlur = (record:I_Request_Params)=>{
     console.log('inputBlur',record);
+    // 如果更新的是子节点则需要同步更新父节点的值
+    updateParentNode(record)
+}
+
+
+// 用于更新父节点对象数据，最终转为json字符串
+const updateParentNode = (childRecord:I_Request_Params)=>{
+    const childNode = childRecord.name
+    const parentNode = childRecord.parentNode
+    if(!parentNode) return;
+    const realChildKey = childRecord.name.replace(childRecord.parentNode+'.','')
+
+    // 如果规定初始化或者parentNodes是空
+    if(!modelStorage.value[parentNode]){
+        modelStorage.value[parentNode] = '{}'
+    }
+
+    const parentObject = JSON.parse(modelStorage.value[parentNode]) || {};
+    parentObject[realChildKey] = modelStorage.value[childNode] || childRecord.default || ''
+    modelStorage.value[parentNode] = JSON.stringify(parentObject);
 }
 
 const handleResizeColumn = (w:number, col)=>{
     console.log(w,col);
     col.width = w;
 }
-
 
 const elementInfo = computed(() => {
     const elementType = props.name in obsRequestDetailData ? 'request' :
@@ -126,16 +152,20 @@ const elementInfo = computed(() => {
     };
 });
 
-
 const requestParams = computed(() => {
     if(props.name in obsRequestDetailData){
         // 循环申明每个参数的ref
         // @ts-ignore
         const params = obsRequestDetailData[props.name].requestParams as I_Request_Params[]
-        
+        console.log('params is:',params);
         params.map((item)=>{
             if(!Object.keys(modelStorage.value).includes(item.name)){
-                modelStorage.value[item.name] = item.default || '';
+                modelStorage.value[item.name] = item.default || item.type == 'Object'? '{}' :'';
+
+                // 有父节点，表示这是父节点对象中的一个key，需要更新父节点的值
+                if(item.parentNode){
+                    updateParentNode(item)
+                }
             }
         })
         
@@ -166,11 +196,11 @@ const validateParams = () => {
 };
 
 const sendRequest = () => {
-    if(!obs.connected.value){
-        console.error('websocket not connected');
-        message.error('websocket not connected');
-        return;
-    }
+    // if(!obs.connected.value){
+    //     console.error('websocket not connected');
+    //     message.error('websocket not connected');
+    //     return;
+    // }
     if(!props.name) {
         console.error('name is empty');
         message.error('name is empty');
@@ -184,17 +214,23 @@ const sendRequest = () => {
     requestParams.value?.forEach((item)=>{
         console.log(item);
         console.log(modelStorage.value[item.name]);
-        if(modelStorage.value[item.name]){
+
+        const isChildNode = item.parentNode
+        // 排除子节点
+        if(!isChildNode && modelStorage.value[item.name]){
             const dataType = item.type.toLocaleLowerCase()
             switch(dataType){
                 case 'string':
-                query[item.name] = modelStorage.value[item.name];
+                    query[item.name] = modelStorage.value[item.name];
                     break
                 case 'number':
-                query[item.name] = Number(modelStorage.value[item.name]);
+                    query[item.name] = Number(modelStorage.value[item.name]);
                     break
                 case 'boolean':
-                query[item.name] = modelStorage.value[item.name] === 'true';
+                    query[item.name] = modelStorage.value[item.name] === 'true';
+                    break
+                case 'object':
+                    query[item.name] = JSON.parse(modelStorage.value[item.name]);
                     break
                 default:
                     break
@@ -266,6 +302,10 @@ const sendRequest = () => {
     .queryPanel{
         .require{
             color: red;
+        }
+
+        .ObjectChildNode{
+            padding-left: 20px;
         }
     }
 

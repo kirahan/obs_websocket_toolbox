@@ -929,7 +929,6 @@ const uiRequests:RequestNode = {
     ]
 }
 
-
 export interface I_Request_Params {
     name: string,
     type: string,
@@ -937,7 +936,9 @@ export interface I_Request_Params {
     default: string,
     require: boolean,
     valueRestrictions: string,
-    defaultBehavior: string
+    defaultBehavior: string,
+    parentNode?: string,
+    // objectConfigs?: I_Request_Params[]
 }
 
 export interface I_Response_Params {
@@ -1212,12 +1213,12 @@ export const obsRequestDetailData:{[index:string]:I_Request_Detail} = {
             },
             {
                 name: 'keyModifiers',
-                type: "String",
+                type: "Object",
                 des: t('ParamsDes.keyModifiers'),
-                default: '',
+                default: '{}',
                 require: false,
                 valueRestrictions: 'None',
-                defaultBehavior: 'Not pressed'
+                defaultBehavior: 'Not pressed',
             },
             {
                 name: 'keyModifiers.shift',
@@ -1226,7 +1227,8 @@ export const obsRequestDetailData:{[index:string]:I_Request_Detail} = {
                 default: '',
                 require: false,
                 valueRestrictions: 'None',
-                defaultBehavior: 'Not pressed'
+                defaultBehavior: 'Not pressed',
+                parentNode: 'keyModifiers',
             },
             {
                 name: 'keyModifiers.control',
@@ -1235,7 +1237,8 @@ export const obsRequestDetailData:{[index:string]:I_Request_Detail} = {
                 default: '',
                 require: false,
                 valueRestrictions: 'None',
-                defaultBehavior: 'Not pressed'
+                defaultBehavior: 'Not pressed',
+                parentNode: 'keyModifiers',
             },
             {
                 name: 'keyModifiers.alt',
@@ -1244,7 +1247,8 @@ export const obsRequestDetailData:{[index:string]:I_Request_Detail} = {
                 default: '',
                 require: false,
                 valueRestrictions: 'None',
-                defaultBehavior: 'Not pressed'
+                defaultBehavior: 'Not pressed',
+                parentNode: 'keyModifiers',
             },
             {
                 name: 'keyModifiers.command',
@@ -1253,7 +1257,8 @@ export const obsRequestDetailData:{[index:string]:I_Request_Detail} = {
                 default: '',
                 require: false,
                 valueRestrictions: 'None',
-                defaultBehavior: 'Not pressed'
+                defaultBehavior: 'Not pressed',
+                parentNode: 'keyModifiers',
             },
         ],
         responseParams: [
