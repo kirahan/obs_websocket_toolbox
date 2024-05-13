@@ -27,6 +27,7 @@ declare module 'vue' {
     AStyleProvider: typeof import('ant-design-vue/es')['StyleProvider']
     ATable: typeof import('ant-design-vue/es')['Table']
     ATag: typeof import('ant-design-vue/es')['Tag']
+    ATextarea: typeof import('ant-design-vue/es')['Textarea']
     BottomBar: typeof import('./src/components/BottomBar/index.vue')['default']
     EventList: typeof import('./src/components/Detail/EventViewer/eventList.vue')['default']
     EventViewer: typeof import('./src/components/Detail/EventViewer/index.vue')['default']

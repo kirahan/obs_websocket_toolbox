@@ -10,6 +10,7 @@ export const WSconnected = ref(false)
 
 
 export interface I_Event_item {
+    uuid: string,
     type: string,
     name: string,
     params: {

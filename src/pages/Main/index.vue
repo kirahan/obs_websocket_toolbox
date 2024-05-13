@@ -104,6 +104,7 @@ const handleClick = (e: Event,data:any) => {
     padding: 0;
     height: calc(100vh - 60px);
     .listContainer{
+        overflow: auto;
         // background-color: aqua;
         display: flex;
         flex-direction: column;

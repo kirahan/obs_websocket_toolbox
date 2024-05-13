@@ -130,8 +130,8 @@ class OBS {
     registOBSEvent(){
         this.ws.on('CurrentPreviewSceneChanged', async (data) => {
             console.log('[obs]CurrentPreviewSceneChanged', data)
-            // @ts-ignore
             WSEventAndRequestHistory.value.push({
+                uuid: Math.random().toString(),
                 type: 'event',
                 name: 'CurrentPreviewSceneChanged',
                 timestamp: new Date().toLocaleTimeString(),
@@ -140,8 +140,8 @@ class OBS {
         });
         this.ws.on('SceneItemEnableStateChanged', async (data) => {
             console.log('[obs]SceneItemEnableStateChanged', data)
-            // @ts-ignore
             WSEventAndRequestHistory.value.push({
+                uuid: Math.random().toString(),
                 type: 'event',
                 name: 'SceneItemEnableStateChanged',
                 timestamp: new Date().toLocaleTimeString(),
@@ -150,8 +150,8 @@ class OBS {
         });
         this.ws.on('CurrentProgramSceneChanged', async (data) => {
             console.log('[obs]CurrentProgramSceneChanged', data)
-             // @ts-ignore
             WSEventAndRequestHistory.value.push({
+                uuid: Math.random().toString(),
                 type: 'event',
                 name: 'CurrentPreviewSceneChanged',
                 timestamp: new Date().toLocaleTimeString(),

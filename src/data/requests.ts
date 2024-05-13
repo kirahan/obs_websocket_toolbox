@@ -938,6 +938,7 @@ export interface I_Request_Params {
     valueRestrictions: string,
     defaultBehavior: string,
     parentNode?: string,
+    isCustomerObject?: boolean //会变成手动输入的模式
     // objectConfigs?: I_Request_Params[]
 }
 
@@ -1092,10 +1093,11 @@ export const obsRequestDetailData:{[index:string]:I_Request_Detail} = {
                 name: 'eventData',
                 type: "Object",
                 des: t('ParamsDes.eventData'),
-                default: '',
+                default: '{}',
                 require: true,
                 valueRestrictions: 'None',
-                defaultBehavior: 'N/A'
+                defaultBehavior: 'N/A',
+                isCustomerObject: true,
             },
         ],
         responseParams: [
@@ -1132,7 +1134,8 @@ export const obsRequestDetailData:{[index:string]:I_Request_Detail} = {
                 default: '',
                 require: false,
                 valueRestrictions: 'None',
-                defaultBehavior: '{}'
+                defaultBehavior: '{}',
+                isCustomerObject: true,
             },
         ],
         responseParams: [
@@ -1292,7 +1295,6 @@ export const obsRequestDetailData:{[index:string]:I_Request_Detail} = {
         responseParams: [
         ]
     },
-
 
 
 

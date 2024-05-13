@@ -50,11 +50,17 @@
                         @blur="()=>inputBlur(record)"
                         type="text" />
 
-                        <!-- 当type为Object时候需要创建子表单 -->
-                        <!-- <div v-else >123</div> -->
-                        <a-input v-else type="text" :disabled="true" 
+                        <!-- 当type为Object时候需要创建子节点 -->
+                        <a-textarea v-else
+                        :disabled="!record.isCustomerObject" 
                         v-model:value="modelStorage[record.name]" 
-                        ></a-input>
+                        :status="record.require && !modelStorage[record.name] ? 'error' : ''"
+                        ></a-textarea>
+
+
+                        <!-- <a-input v-else type="text" :disabled="true" 
+                        v-model:value="modelStorage[record.name]" 
+                        ></a-input> -->
                     </template>
                     <template v-else>
                         {{text}}
@@ -196,11 +202,11 @@ const validateParams = () => {
 };
 
 const sendRequest = () => {
-    // if(!obs.connected.value){
-    //     console.error('websocket not connected');
-    //     message.error('websocket not connected');
-    //     return;
-    // }
+    if(!obs.connected.value){
+        console.error('websocket not connected');
+        message.error('websocket not connected');
+        return;
+    }
     if(!props.name) {
         console.error('name is empty');
         message.error('name is empty');
@@ -242,6 +248,7 @@ const sendRequest = () => {
 
     // @ts-ignore
     WSEventAndRequestHistory.value.push({
+            uuid: Math.random().toString(),
             type: "request",
             name: props.name,
             params: query,
@@ -261,6 +268,7 @@ const sendRequest = () => {
     }).catch((err)=>{
         // 插入错误信息
         WSEventAndRequestHistory.value.push({
+            uuid: Math.random().toString(),
             type: "error",
             name: props.name,
             params: err.message as any,

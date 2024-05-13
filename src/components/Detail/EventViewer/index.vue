@@ -1,6 +1,7 @@
 <template>
     <div class="no_p_m_body flex_column">
         <h3>{{ $t('Titles.Detail.EventViewer') }}</h3>
+        <a-button v-if="WSEventAndRequestHistory.length" size="small" type="primary" @click="clearAll">{{$t('Actions.Clear')}}</a-button>
         <a-collapse v-model:activeKey="activeKey">
             <a-collapse-panel key="1" :header='$t("Actions.ClickToExpand")'>
                 <div class="content">
@@ -11,6 +12,14 @@
                         class="item flex_row" :class="item.type">
                             <!-- <UploadOutlined v-if="item.type=='request'"/> -->
                             <!-- <DownloadOutlined  v-else/> -->
+                            
+                            <div class="w_5">
+                                <a-button type="text" size="small" @click.stop="handleRemove(item)">
+                                    <template  #icon>
+                                        <CloseOutlined />
+                                    </template>
+                                </a-button>
+                            </div>
                             <div class="w_10">
                                 <a-tag :color="item.type=='request'?'green':'red'">{{ item.type=='request'? 'Req': 'Res' }}</a-tag>
                             </div>
@@ -68,7 +77,7 @@
 </template>
 
 <script setup lang="ts">
-import { CopyOutlined } from "@ant-design/icons-vue";
+import { CopyOutlined,CloseOutlined } from "@ant-design/icons-vue";
 import { I_Event_item, WSEventAndRequestHistory } from "../../../state";
 import {ref} from 'vue'
 
@@ -85,6 +94,17 @@ const open = ref(false)
 
 const onClose = ()=>{
     open.value = false
+}
+
+const clearAll = ()=>{
+    WSEventAndRequestHistory.value = []
+}
+
+const handleRemove = (element:I_Event_item)=>{
+
+    const newArr = WSEventAndRequestHistory.value.filter(record=>record!=element)
+    WSEventAndRequestHistory.value = newArr
+
 }
 
 const handleCopy = ()=>{
@@ -135,6 +155,12 @@ const handleSelect = (item:I_Event_item)=>{
             width:400px;
             height: 300px;
         }
+    }
+    .w_5{
+        width: 5%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
     }
     .w_10{
         width: 10%;
