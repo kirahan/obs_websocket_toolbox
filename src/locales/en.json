@@ -22,6 +22,15 @@
   },
   "RequestDes":{
     "GetVersion": "Gets data about the current plugin and RPC version.",
+    "GetStats":"Gets statistics about OBS, obs-websocket, and the current session.",
+    "BroadcastCustomEvent":"Broadcasts a CustomEvent to all WebSocket clients. Receivers are clients which are identified and subscribed.",
+    "CallVendorRequest":"Call a request registered to a vendor.<br><br>A vendor is a unique name registered by a third-party plugin or script, which allows for custom requests and events to be added to obs-websocket. If a plugin or script implements vendor requests or events, documentation is expected to be provided with them.",
+    "GetHotkeyList":"Gets an array of all hotkey names in OBS.<br><br>Note: Hotkey functionality in obs-websocket comes as-is, and we do not guarantee support if things are broken. In 9/10 usages of hotkey requests, there exists a better, more reliable method via other requests.",
+    "TriggerHotkeyByName":"Triggers a hotkey using its name. See GetHotkeyList.<br><br>Note: Hotkey functionality in obs-websocket comes as-is, and we do not guarantee support if things are broken. In 9/10 usages of hotkey requests, there exists a better, more reliable method via other requests.",
+    "TriggerHotkeyByKeySequence":"Triggers a hotkey using a sequence of keys.<br><br>Note: Hotkey functionality in obs-websocket comes as-is, and we do not guarantee support if things are broken. In 9/10 usages of hotkey requests, there exists a better, more reliable method via other requests.",
+    "Sleep":"Sleeps for a time duration or number of frames. Only available in request batches with types SERIAL_REALTIME or SERIAL_FRAME.",
+    "":"",
+    "":"",
     "GetAuthRequired": "Check if authentication is required"
   },
   "EventDes":{},

@@ -9,7 +9,8 @@
                 <a-tag color="cyan" v-for="t in elementInfo.tags" :key="t">{{ t }}</a-tag>
             </div>
 
-            <div class="describe">{{ elementInfo?.des }}</div>
+            <div class="describe" v-html="elementInfo?.des"></div>
+            <!-- <div class="describe" v-html="elementInfo?.des">{{ elementInfo?.des }}</div> -->
 
         </div>
 
