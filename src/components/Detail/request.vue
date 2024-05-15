@@ -53,7 +53,8 @@
 
                         <!-- 当type为Object时候需要创建子节点 -->
                         <a-textarea v-else
-                        :disabled="!record.isCustomerObject" 
+                        :disabled="!record.isCustomerObject"
+                        :rows="4" 
                         v-model:value="modelStorage[record.name]" 
                         :status="record.require && !modelStorage[record.name] ? 'error' : ''"
                         ></a-textarea>
