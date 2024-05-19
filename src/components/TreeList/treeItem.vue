@@ -17,10 +17,10 @@
             <span class="title">{{ options.title }}</span>
         </div>
         <!-- 父级 显示图标和计数 -->
-        <div v-else>
+        <div v-else-if="options.children?.length">
             <FolderOutlined />
             <span class="title">{{ options.title }}</span>
-            <a-badge count="5" />
+            <a-badge :count="options.children?.length" />
         </div>
     </div>
 </template>
@@ -41,12 +41,15 @@ interface TreeItemProps {
     complexity_rating?: string,
     rpc_version?: string,
     websocket_version: string,
-    obs_version?: string
+    obs_version?: string,
+    children?:[]
 }
 
 
 const supported = computed(() => {
     const localVersion = WSversions.value.obsWebSocketVersion || '0.0.0'
+    if(localVersion == '0.0.0') return true;
+    console.log('localVersion',localVersion)
     const remoteVersion = props.options.websocket_version || '5.0.0'
     return semver.gt(localVersion,remoteVersion)
 })
@@ -63,7 +66,8 @@ const props = defineProps({
             complexity_rating: "1/5",
             rpc_version: "1",
             websocket_version: "5.0.0",
-            obs_version: "28"
+            obs_version: "28",
+            children:[]
         }
     }
 })
