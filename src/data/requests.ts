@@ -251,12 +251,6 @@ const configRequests:RequestNode = {
         },
         {
             ...defaultData,
-            title:'GetStreamServiceSettings',
-            key:'GetStreamServiceSettings',
-            complexity_rating: '4/5',
-        },
-        {
-            ...defaultData,
             title:'SetStreamServiceSettings',
             key:'SetStreamServiceSettings',
             complexity_rating: '4/5',

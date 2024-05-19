@@ -9,18 +9,20 @@
         <a-layout-sider width="400" theme="light" class="side">
             <div class="listContainer">
                 <div class="searchSection flex-al-center">
-                    <a-input v-model:value="searchValue" type="text">
+                    <!-- <a-input v-model:value="searchValue" type="text">
                         <template #prefix>
                             <SearchOutlined />
                         </template>
-                    </a-input>
-                    <!-- <a-auto-complete
+                    </a-input> -->
+                    <a-auto-complete
                         v-model:value="searchValue"
                         allowClear
                         style="width: 200px"
+                        :options="searchOptions"
+                        :filter-option="filterOption"
                         placeholder="input here"
-                    /> -->
-                    <a-button>search</a-button>
+                    />
+                    <a-button @click="handleSearch">search</a-button>
                 </div>
                 <div class="summarySection flex-al-center" :class="summarySelected?'selected':''"
                     @click="handleSummaryClick"
@@ -60,18 +62,54 @@ import HeaderBar from "../../components/HeaderBar/index.vue";
 import BottomBar from "../../components/BottomBar/index.vue";
 import TreeItem from "../../components/TreeList/treeItem.vue";
 import Detail from "../../components/Detail/request.vue";
-import { ref } from "vue";
+import { ref,computed,onMounted } from "vue";
 import { TreeProps } from "ant-design-vue";
 import { SearchOutlined,ReadOutlined,PushpinOutlined } from "@ant-design/icons-vue";
 import { t } from "../../locales";
 import {obsTreeData} from "../../data";
+import { onBeforeRouteUpdate } from "vue-router";
+import { DataNode } from "ant-design-vue/es/tree";
 
 
 const searchValue = ref("");
 const summarySelected = ref(false);
 const detailName = ref('')
+const searchOptions = ref([])
 
 const selectedKeys = ref<string[]>([]);
+
+const handleSearch = ()=>{
+  if(searchValue.value){
+    summarySelected.value = false;
+    detailName.value = searchValue.value
+  }
+}
+
+const filterOption = (input: string, option:any) => {
+  return option.value.toUpperCase().indexOf(input.toUpperCase()) >= 0;
+};
+
+
+const expendData = (lists:DataNode[])=>{
+  lists.map(list=>{
+    if(list.children && list.children.length){
+      expendData(list.children)
+    }else{
+      // @ts-ignore
+      searchOptions.value.push({
+        value: list.title,
+        key: list.key
+      })
+    }
+  })
+}
+
+onMounted(()=>{
+  expendData(obsTreeData)
+  console.log('searchOptions',searchOptions.value)
+})
+
+
 
 const handleSummaryClick = () => {
     summarySelected.value = true;
