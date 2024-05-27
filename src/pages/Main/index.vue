@@ -17,7 +17,7 @@
                     <a-auto-complete
                         v-model:value="searchValue"
                         allowClear
-                        style="width: 200px"
+                        style="width: 100%"
                         :options="searchOptions"
                         :filter-option="filterOption"
                         placeholder="input here"
