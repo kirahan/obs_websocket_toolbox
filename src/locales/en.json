@@ -332,6 +332,233 @@
       "propertyName": "Name of the button property to press\t",
       "inputUuid": "UUID of the input\t",
       "inputName": "Name of the input\t"
+    },
+    "SetCurrentSceneTransition": {
+      "transitionName": "Name of the transition to make active\t"
+    },
+    "SetCurrentSceneTransitionDuration": {
+      "transitionDuration": "Duration in milliseconds\t"
+    },
+    "SetCurrentSceneTransitionSettings": {
+      "transitionSettings": "Settings object to apply to the transition. Can be {}\t",
+      "overlay": "Whether to overlay over the current settings or replace them\t"
+    },
+    "SetTBarPosition": {
+      "position": "New position\t",
+      "release": "Whether to release the TBar. Only set false if you know that you will be sending another position update\t"
+    },
+    "GetSourceFilterList": {
+      "sourceName": "Name of the source\t",
+      "sourceUuid": "UUID of the source\t"
+    },
+    "GetSourceFilterDefaultSettings": {
+      "filterKind": "Filter kind to get the default settings for\t"
+    },
+    "CreateSourceFilter": {
+      "sourceName": "Name of the source to add the filter to\t",
+      "sourceUuid": "UUID of the source to add the filter to\t",
+      "filterName": "Name of the new filter to be created\t",
+      "filterKind": "The kind of filter to be created\t",
+      "filterSettings": "Settings object to initialize the filter with\t"
+    },
+    "RemoveSourceFilter": {
+      "sourceName": "Name of the source the filter is on\t",
+      "sourceUuid": "UUID of the source the filter is on\t",
+      "filterName": "Name of the filter to remove\t"
+    },
+    "SetSourceFilterName": {
+      "sourceName": "Name of the source the filter is on\t",
+      "sourceUuid": "UUID of the source the filter is on\t",
+      "newFilterName": "New name for the filter\t",
+      "filterName": "Current name of the filter\t"
+    },
+    "GetSourceFilter": {
+      "filterName": "Name of the filter\t",
+      "sourceUuid": "UUID of the source\t",
+      "sourceName": "Name of the source\t"
+    },
+    "SetSourceFilterIndex": {
+      "sourceName": "Name of the source the filter is on\t",
+      "sourceUuid": "UUID of the source the filter is on\t",
+      "filterName": "Name of the filter\t",
+      "filterIndex": "New index position of the filter\t"
+    },
+    "SetSourceFilterSettings": {
+      "sourceName": "Name of the source the filter is on\t",
+      "sourceUuid": "UUID of the source the filter is on\t",
+      "filterName": "Name of the filter to set the settings of\t",
+      "filterIndex": "Object of settings to apply\t",
+      "overlay": "True == apply the settings on top of existing ones, False == reset the input to its defaults, then apply settings.\t"
+    },
+    "SetSourceFilterEnabled": {
+      "filterEnabled": "New enable state of the filter\t",
+      "filterName": "Name of the filter\t",
+      "sourceUuid": "UUID of the source the filter is on\t",
+      "sourceName": "Name of the source the filter is on\t"
+    },
+    "GetSceneItemList": {
+      "sourceName": "Name of the scene to get the items of\t",
+      "sourceUuid": "UUID of the scene to get the items of\t",
+      "sceneName": "Name of the scene to get the items of\t",
+      "sceneUuid": "UUID of the scene to get the items of\t"
+    },
+    "GetGroupSceneItemList": {
+      "sourceName": "Name of the group to get the items of\t",
+      "sourceUuid": "UUID of the group to get the items of\t",
+      "sceneUuid": "UUID of the group to get the items of\t",
+      "sceneName": "Name of the group to get the items of\t"
+    },
+    "GetSceneItemId": {
+      "sourceName": "Name of the source to find\t",
+      "sourceUuid": "UUID of the scene or group to search in\t",
+      "searchOffset": "Number of matches to skip during search. >= 0 means first forward. -1 means last (top) item\t"
+    },
+    "GetSceneItemSource": {
+      "sourceName": "Name of the scene the item is in\t",
+      "sourceUuid": "UUID of the scene the item is in\t",
+      "sceneItemId": "Numeric ID of the scene item\t"
+    },
+    "CreateSceneItem": {
+      "sourceName": "Name of the scene to create the new item in\t",
+      "sourceUuid": "UUID of the scene to create the new item in\t",
+      "sceneItemEnabled": "Enable state to apply to the scene item on creation\t"
+    },
+    "RemoveSceneItem": {
+      "sourceName": "Name of the scene the item is in\t",
+      "sourceUuid": "UUID of the scene the item is in\t",
+      "sceneItemId": "Numeric ID of the scene item\t",
+      "sceneName": "Name of the scene the item is in\t",
+      "sceneUuid": "UUID of the scene the item is in\t"
+    },
+    "DuplicateSceneItem": {
+      "sourceName": "Name of the scene the item is in\t",
+      "sourceUuid": "UUID of the scene the item is in\t",
+      "sceneUuid": "UUID of the scene the item is in\t",
+      "sceneName": "Name of the scene the item is in\t",
+      "sceneItemId": "Numeric ID of the scene item\t",
+      "destinationSceneName": "Name of the scene to create the duplicated item in\t",
+      "destinationSceneUuid": "UUID of the scene to create the duplicated item in\t"
+    },
+    "GetSceneItemTransform": {
+      "sceneName": "Name of the scene the item is in\t",
+      "sceneUuid": "UUID of the scene the item is in\t",
+      "sceneItemId": "Numeric ID of the scene item\t"
+    },
+    "SetSceneItemTransform": {
+      "sceneName": "Name of the scene the item is in\t",
+      "sceneUuid": "UUID of the scene the item is in\t",
+      "sceneItemId": "Numeric ID of the scene item\t",
+      "sceneItemTransform": "Object containing scene item transform info to update\t"
+    },
+    "GetSceneItemEnabled": {
+      "sceneName": "Name of the scene the item is in\t",
+      "sceneUuid": "UUID of the scene the item is in\t",
+      "sceneItemId": "Numeric ID of the scene item\t"
+    },
+    "SetSceneItemEnabled": {
+      "sceneName": "Name of the scene the item is in\t",
+      "sceneUuid": "UUID of the scene the item is in\t",
+      "sceneItemId": "Numeric ID of the scene item\t",
+      "sceneItemEnabled": "New enable state of the scene item\t"
+    },
+    "GetSceneItemLocked": {
+      "sceneName": "Name of the scene the item is in\t",
+      "sceneUuid": "UUID of the scene the item is in\t",
+      "sceneItemId": "Numeric ID of the scene item\t"
+    },
+    "SetSceneItemLocked": {
+      "sceneName": "Name of the scene the item is in\t",
+      "sceneUuid": "UUID of the scene the item is in\t",
+      "sceneItemId": "Numeric ID of the scene item\t",
+      "sceneItemLocked": "New lock state of the scene item\t"
+    },
+    "GetSceneItemIndex": {
+      "sceneName": "Name of the scene the item is in\t",
+      "sceneUuid": "UUID of the scene the item is in\t",
+      "sceneItemId": "Numeric ID of the scene item\t"
+    },
+    "SetSceneItemIndex": {
+      "sceneName": "Name of the scene the item is in\t",
+      "sceneUuid": "UUID of the scene the item is in\t",
+      "sceneItemId": "Numeric ID of the scene item\t",
+      "sceneItemIndex": "New index position of the scene item\t"
+    },
+    "GetSceneItemBlendMode": {
+      "sceneItemId": "Numeric ID of the scene item\t",
+      "sceneUuid": "UUID of the scene the item is in\t",
+      "sceneName": "Name of the scene the item is in\t"
+    },
+    "SetSceneItemBlendMode": {
+      "sceneName": "Name of the scene the item is in\t",
+      "sceneUuid": "UUID of the scene the item is in\t",
+      "sceneItemId": "Numeric ID of the scene item\t"
+    },
+    "GetOutputStatus": {
+      "outputName": "Output name\t"
+    },
+    "ToggleOutput": {
+      "outputName": "Output name\t"
+    },
+    "StartOutput": {
+      "outputName": "Output name\t"
+    },
+    "StopOutput": {
+      "outputName": "Output name\t"
+    },
+    "GetOutputSettings": {
+      "outputName": "Output name\t"
+    },
+    "SetOutputSettings": {
+      "outputSettings": "Output settings\t",
+      "outputName": "Output name\t"
+    },
+    "SendStreamCaption": {
+      "captionText": "Caption text\t"
+    },
+    "GetMediaInputStatus": {
+      "inputUuid": "UUID of the media input\t",
+      "inputName": "Name of the media input\t"
+    },
+    "SetMediaInputCursor": {
+      "inputName": "Name of the media input\t",
+      "inputUuid": "UUID of the media input\t",
+      "mediaCursor": "New cursor position to set\t"
+    },
+    "OffsetMediaInputCursor": {
+      "inputName": "Name of the media input\t",
+      "inputUuid": "UUID of the media input\t",
+      "mediaCursorOffset": "Value to offset the current cursor position by\t"
+    },
+    "TriggerMediaInputAction": {
+      "inputName": "Name of the media input\t",
+      "inputUuid": "UUID of the media input\t",
+      "mediaAction": "Identifier of the ObsMediaInputAction enum\t"
+    },
+    "SetStudioModeEnabled": {
+      "inputName": "True == Enabled, False == Disabled\t"
+    },
+    "OpenInputPropertiesDialog": {
+      "inputUuid": "UUID of the input to open the dialog of\t",
+      "inputName": "Name of the input to open the dialog of\t"
+    },
+    "OpenInputFiltersDialog": {
+      "inputName": "Name of the input to open the dialog of\t",
+      "inputUuid": "UUID of the input to open the dialog of\t"
+    },
+    "OpenInputInteractDialog": {
+      "inputName": "Name of the input to open the dialog of\t",
+      "inputUuid": "UUID of the input to open the dialog of\t"
+    },
+    "OpenVideoMixProjector": {
+      "videoMixType": "Type of mix to open\t",
+      "monitorIndex": "Monitor index, use GetMonitorList to obtain index\t",
+      "projectorGeometry": "Size/Position data for a windowed projector, in Qt Base64 encoded format. Mutually exclusive with monitorIndex\t"
+    },
+    "OpenSourceProjector": {
+      "projectorGeometry": "Size/Position data for a windowed projector, in Qt Base64 encoded format. Mutually exclusive with monitorIndex\t",
+      "monitorIndex": "Monitor index, use GetMonitorList to obtain index\t",
+      "sourceUuid": "UUID of the source to open a projector for\t",
+      "sourceName": "Name of the source to open a projector for\t"
     }
   },
   "ResParamsDes": {
@@ -436,6 +663,144 @@
     "GetInputAudioTracks": {
       "inputAudioTracks": "Object of audio tracks and associated enable states",
       "propertyItems": "Array of items in the list property"
+    },
+    "GetTransitionKindList": {
+      "transitionKinds": "Array of transition kinds"
+    },
+    "GetSceneTransitionList": {
+      "currentSceneTransitionName": "Name of the current scene transition. Can be null",
+      "currentSceneTransitionUuid": "UUID of the current scene transition. Can be null",
+      "currentSceneTransitionKind": "Kind of the current scene transition. Can be null",
+      "transitions": "Array of transitions"
+    },
+    "GetCurrentSceneTransition": {
+      "transitionName": "Name of the transition",
+      "transitionUuid": "UUID of the transition",
+      "transitionKind": "Kind of the transition",
+      "transitionFixed": "Whether the transition uses a fixed (unconfigurable) duration",
+      "transitionDuration": "Configured transition duration in milliseconds. null if transition is fixed",
+      "transitionConfigurable": "Whether the transition supports being configured",
+      "transitionSettings": "Object of settings for the transition. null if transition is not configurable"
+    },
+    "GetCurrentSceneTransitionCursor": {
+      "transitionCursor": "Cursor position, between 0.0 and 1.0"
+    },
+    "GetSourceFilterKindList": {
+      "sourceFilterKinds": "Array of source filter kinds"
+    },
+    "GetSourceFilterList": {
+      "filters": "Array of filters"
+    },
+    "GetSourceFilter": {
+      "filterEnabled": "Whether the filter is enabled",
+      "filterIndex": "Index of the filter in the list, beginning at 0",
+      "filterKind": "The kind of filter",
+      "filters": "Settings object associated with the filter"
+    },
+    "GetSceneItemList": {
+      "sceneItems": "Array of scene items in the scene"
+    },
+    "GetGroupSceneItemList": {
+      "sceneItems": "Array of scene items in the group"
+    },
+    "GetSceneItemId": {
+      "sceneItemId": "Numeric ID of the scene item"
+    },
+    "GetSceneItemSource": {
+      "sourceName": "Name of the source associated with the scene item",
+      "sourceUuid": "UUID of the source associated with the scene item"
+    },
+    "CreateSceneItem": {
+      "sceneItemId": "Numeric ID of the scene item"
+    },
+    "DuplicateSceneItem": {
+      "sceneItemId": "Numeric ID of the duplicated scene item"
+    },
+    "GetSceneItemTransform": {
+      "sceneItemTransform": "Object containing scene item transform info"
+    },
+    "GetSceneItemEnabled": {
+      "sceneItemEnabled": "Whether the scene item is enabled. true for enabled, false for disabled"
+    },
+    "GetSceneItemLocked": {
+      "sceneItemLocked": "Whether the scene item is locked. true for locked, false for unlocked"
+    },
+    "GetSceneItemIndex": {
+      "sceneItemIndex": "Index position of the scene item"
+    },
+    "GetSceneItemBlendMode": {
+      "sceneItemBlendMode": "Current blend mode"
+    },
+    "GetVirtualCamStatus": {
+      "outputActive": "Whether the output is active"
+    },
+    "ToggleVirtualCam": {
+      "outputActive": "Whether the output is active"
+    },
+    "GetReplayBufferStatus": {
+      "outputActive": "Whether the output is active"
+    },
+    "ToggleReplayBuffer": {
+      "outputActive": "Whether the output is active"
+    },
+    "GetLastReplayBufferReplay": {
+      "savedReplayPath": "File path"
+    },
+    "GetOutputList": {
+      "outputs": "Array of outputs"
+    },
+    "GetOutputStatus": {
+      "outputDuration": "Current duration in milliseconds for the output",
+      "outputSkippedFrames": "Number of frames skipped by the output's process",
+      "outputBytes": "Number of bytes sent by the output",
+      "outputCongestion": "Congestion of the output",
+      "outputTimecode": "Current formatted timecode string for the output",
+      "outputReconnecting": "Whether the output is reconnecting",
+      "outputActive": "Whether the output is active",
+      "outputTotalFrames": "Total number of frames delivered by the output's process"
+    },
+    "ToggleOutput": {
+      "outputActive": "Whether the output is active"
+    },
+    "GetOutputSettings": {
+      "outputSettings": "Output settings"
+    },
+    "GetStreamStatus": {
+      "outputActive": "Whether the output is active",
+      "outputReconnecting": "Whether the output is currently reconnecting",
+      "outputTimecode": "Current formatted timecode string for the output",
+      "outputDuration": "Current duration in milliseconds for the output",
+      "outputCongestion": "Congestion of the output",
+      "outputBytes": "Number of bytes sent by the output",
+      "outputSkippedFrames": "Number of frames skipped by the output's process",
+      "outputTotalFrames": "Total number of frames delivered by the output's process"
+    },
+    "ToggleStream": {
+      "outputActive": "New state of the stream output"
+    },
+    "GetRecordStatus": {
+      "outputActive": "Whether the output is active",
+      "outputPaused": "Whether the output is paused",
+      "outputTimecode": "Current formatted timecode string for the output",
+      "outputDuration": "Current duration in milliseconds for the output",
+      "outputBytes": "Number of bytes sent by the output"
+    },
+    "ToggleRecord": {
+      "outputActive": "The new active state of the output"
+    },
+    "StopRecord": {
+      "outputPath": "File name for the saved recording"
+    },
+    "GetMediaInputStatus": {
+      "mediaCursor": "Position of the cursor in milliseconds. null if not playing",
+      "mediaDuration": "Total duration of the playing media in milliseconds. null if not playing",
+      "mediaState": "State of the media input"
+    },
+    "GetStudioModeEnabled": {
+      "studioModeEnabled": "Whether studio mode is enabled"
+    },
+    "GetMonitorList": {
+      "monitors": "a list of detected monitors with some information"
     }
   },
   "Actions": {

@@ -573,12 +573,6 @@ const sceneItemsRequests:RequestNode = {
         },
         {
             ...defaultData,
-            title:'CreateSourceFilter',
-            key:'CreateSourceFilter',
-            complexity_rating: '3/5',
-        },
-        {
-            ...defaultData,
             title:'GetSceneItemSource',
             key:'GetSceneItemSource',
             complexity_rating: '3/5',
@@ -3170,92 +3164,2311 @@ export const obsRequestDetailData:{[index:string]:I_Request_Detail} = {
         ]
     },
     // Transitions Requests
-
-
-
-
-
-
-
-
-
-
-
-
-
-    aaa: {
-        key: 'aaa',
-        title: 'aaa',
-        des: t('RequestDes.aaaa'),
-        tags: ['General'],
+    GetTransitionKindList: {
+        key: 'GetTransitionKindList',
+        title: 'GetTransitionKindList',
+        des: t('RequestDes.GetTransitionKindList'),
+        tags: ['Transitions'],
+        requestParams: [
+        ],
+        responseParams: [
+            {
+                name: 'transitionKinds',
+                type: "Array<String>",
+                des: t('ResParamsDes.GetTransitionKindList.transitionKinds'),
+            },
+        ]
+    },
+    GetSceneTransitionList: {
+        key: 'GetSceneTransitionList',
+        title: 'GetSceneTransitionList',
+        des: t('RequestDes.GetSceneTransitionList'),
+        tags: ['Transitions'],
+        requestParams: [
+        ],
+        responseParams: [
+            {
+                name: 'currentSceneTransitionName',
+                type: "String",
+                des: t('ResParamsDes.GetSceneTransitionList.currentSceneTransitionName'),
+            },
+            {
+                name: 'currentSceneTransitionUuid',
+                type: "String",
+                des: t('ResParamsDes.GetSceneTransitionList.currentSceneTransitionUuid'),
+            },
+            {
+                name: 'currentSceneTransitionKind',
+                type: "String",
+                des: t('ResParamsDes.GetSceneTransitionList.currentSceneTransitionKind'),
+            },
+            {
+                name: 'transitions',
+                type: "Array<Object>",
+                des: t('ResParamsDes.GetSceneTransitionList.transitions'),
+            },
+        ]
+    },
+    GetCurrentSceneTransition: {
+        key: 'GetCurrentSceneTransition',
+        title: 'GetCurrentSceneTransition',
+        des: t('RequestDes.GetCurrentSceneTransition'),
+        tags: ['Transitions'],
+        requestParams: [
+        ],
+        responseParams: [
+            {
+                name: 'transitionName',
+                type: "String",
+                des: t('ResParamsDes.GetCurrentSceneTransition.transitionName'),
+            },
+            {
+                name: 'transitionUuid',
+                type: "String",
+                des: t('ResParamsDes.GetCurrentSceneTransition.transitionUuid'),
+            },
+            {
+                name: 'transitionKind',
+                type: "String",
+                des: t('ResParamsDes.GetCurrentSceneTransition.transitionKind'),
+            },
+            {
+                name: 'transitionFixed',
+                type: "Boolean",
+                des: t('ResParamsDes.GetCurrentSceneTransition.transitionFixed'),
+            },
+            {
+                name: 'transitionDuration',
+                type: "Number",
+                des: t('ResParamsDes.GetCurrentSceneTransition.transitionDuration'),
+            },
+            {
+                name: 'transitionConfigurable',
+                type: "Boolean",
+                des: t('ResParamsDes.GetCurrentSceneTransition.transitionConfigurable'),
+            },
+            {
+                name: 'transitionSettings',
+                type: "Object",
+                des: t('ResParamsDes.GetCurrentSceneTransition.transitionSettings'),
+            },
+        ]
+    },
+    SetCurrentSceneTransition: {
+        key: 'SetCurrentSceneTransition',
+        title: 'SetCurrentSceneTransition',
+        des: t('RequestDes.SetCurrentSceneTransition'),
+        tags: ['Transitions'],
         requestParams: [
             {
-                name: 'hotkeyName',
+                name: 'transitionName',
                 type: "String",
-                des: t('ReqParamsDes.hotkeyName'),
+                des: t('ReqParamsDes.SetCurrentSceneTransition.transitionName'),
                 default: '',
                 require: true,
                 valueRestrictions: 'None',
-                defaultBehavior: 'N/A'
+                defaultBehavior: 'N/A',
+            },
+        ],
+        responseParams: [
+        ]
+    },
+    SetCurrentSceneTransitionDuration: {
+        key: 'SetCurrentSceneTransitionDuration',
+        title: 'SetCurrentSceneTransitionDuration',
+        des: t('RequestDes.SetCurrentSceneTransitionDuration'),
+        tags: ['Transitions'],
+        requestParams: [
+            {
+                name: 'transitionDuration',
+                type: "Number",
+                des: t('ReqParamsDes.SetCurrentSceneTransitionDuration.transitionDuration'),
+                default: '',
+                require: true,
+                valueRestrictions: '>= 50, <= 20000',
+                defaultBehavior: 'N/A',
+            },
+        ],
+        responseParams: [
+        ]
+    },
+    SetCurrentSceneTransitionSettings: {
+        key: 'SetCurrentSceneTransitionSettings',
+        title: 'SetCurrentSceneTransitionSettings',
+        des: t('RequestDes.SetCurrentSceneTransitionSettings'),
+        tags: ['Transitions'],
+        requestParams: [
+            {
+                name: 'transitionSettings',
+                type: "Object",
+                des: t('ReqParamsDes.SetCurrentSceneTransitionSettings.transitionSettings'),
+                default: '{}',
+                require: true,
+                valueRestrictions: 'None',
+                defaultBehavior: 'N/A',
+                isCustomerObject: true,
+            },
+            {
+                name: 'overlay',
+                type: "Boolean",
+                des: t('ReqParamsDes.SetCurrentSceneTransitionSettings.overlay'),
+                default: 'true',
+                require: false,
+                valueRestrictions: 'None',
+                defaultBehavior: 'true',
+            },
+        ],
+        responseParams: [
+        ]
+    },
+    GetCurrentSceneTransitionCursor: {
+        key: 'GetCurrentSceneTransitionCursor',
+        title: 'GetCurrentSceneTransitionCursor',
+        des: t('RequestDes.GetCurrentSceneTransitionCursor'),
+        tags: ['Transitions'],
+        requestParams: [
+        ],
+        responseParams: [
+            {
+                name: 'transitionCursor',
+                type: "Number",
+                des: t('ResParamsDes.GetCurrentSceneTransitionCursor.transitionCursor'),
+            },
+        ]
+    },
+    TriggerStudioModeTransition: {
+        key: 'TriggerStudioModeTransition',
+        title: 'TriggerStudioModeTransition',
+        des: t('RequestDes.TriggerStudioModeTransition'),
+        tags: ['Transitions'],
+        requestParams: [
+        ],
+        responseParams: [
+        ]
+    },
+    SetTBarPosition: {
+        key: 'SetTBarPosition',
+        title: 'SetTBarPosition',
+        des: t('RequestDes.SetTBarPosition'),
+        tags: ['Transitions'],
+        requestParams: [
+            {
+                name: 'position',
+                type: "Number",
+                des: t('ReqParamsDes.SetTBarPosition.position'),
+                default: '',
+                require: true,
+                valueRestrictions: '>= 0.0, <= 1.0',
+                defaultBehavior: 'N/A',
+            },
+            {
+                name: 'release',
+                type: "Boolean",
+                des: t('ReqParamsDes.SetTBarPosition.release'),
+                default: 'true',
+                require: false,
+                valueRestrictions: 'None',
+                defaultBehavior: 'true',
+            },
+        ],
+        responseParams: [
+        ]
+    },
+    // Filters Requests
+    GetSourceFilterKindList: {
+        key: 'GetSourceFilterKindList',
+        title: 'GetSourceFilterKindList',
+        des: t('RequestDes.GetSourceFilterKindList'),
+        tags: ['Filters'],
+        requestParams: [
+        ],
+        responseParams: [
+            {
+                name: 'sourceFilterKinds',
+                type: "Array<String>",
+                des: t('ResParamsDes.GetSourceFilterKindList.sourceFilterKinds'),
+            },
+        ]
+    },
+    GetSourceFilterList: {
+        key: 'GetSourceFilterList',
+        title: 'GetSourceFilterList',
+        des: t('RequestDes.GetSourceFilterList'),
+        tags: ['Filters'],
+        requestParams: [
+            {
+                name: 'sourceName',
+                type: "String",
+                des: t('ReqParamsDes.GetSourceFilterList.sourceName'),
+                default: 'true',
+                require: false,
+                valueRestrictions: 'None',
+                defaultBehavior: 'Unknown',
+            },
+            {
+                name: 'sourceUuid',
+                type: "String",
+                des: t('ReqParamsDes.GetSourceFilterList.sourceUuid'),
+                default: 'true',
+                require: false,
+                valueRestrictions: 'None',
+                defaultBehavior: 'Unknown',
             },
         ],
         responseParams: [
             {
-                name: 'hotkeys',
-                type: "Array<String>",
-                des: t('ResParamsDes.hotkeys'),
+                name: 'filters',
+                type: "Array<Object>",
+                des: t('ResParamsDes.GetSourceFilterList.filters'),
             },
+        ]
+    },
+    GetSourceFilterDefaultSettings: {
+        key: 'GetSourceFilterDefaultSettings',
+        title: 'GetSourceFilterDefaultSettings',
+        des: t('RequestDes.GetSourceFilterDefaultSettings'),
+        tags: ['Filters'],
+        requestParams: [
+            {
+                name: 'filterKind',
+                type: "String",
+                des: t('ReqParamsDes.GetSourceFilterDefaultSettings.filterKind'),
+                default: 'true',
+                require: true,
+                valueRestrictions: 'None',
+                defaultBehavior: 'N/A',
+            },
+        ],
+        responseParams: [
+            {
+                name: 'defaultFilterSettings',
+                type: "Object",
+                des: t('ResParamsDes.GetSourceFilterDefaultSettings.defaultFilterSettings'),
+            },
+        ]
+    },
+    CreateSourceFilter: {
+        key: 'CreateSourceFilter',
+        title: 'CreateSourceFilter',
+        des: t('RequestDes.CreateSourceFilter'),
+        tags: ['Filters'],
+        requestParams: [
+            {
+                name: 'sourceName',
+                type: "String",
+                des: t('ReqParamsDes.CreateSourceFilter.sourceName'),
+                default: '',
+                require: false,
+                valueRestrictions: 'None',
+                defaultBehavior: 'Unknown',
+            },
+            {
+                name: 'sourceUuid',
+                type: "String",
+                des: t('ReqParamsDes.CreateSourceFilter.sourceUuid'),
+                default: '',
+                require: false,
+                valueRestrictions: 'None',
+                defaultBehavior: 'Unknown',
+            },
+            {
+                name: 'filterName',
+                type: "String",
+                des: t('ReqParamsDes.CreateSourceFilter.filterName'),
+                default: '',
+                require: true,
+                valueRestrictions: 'None',
+                defaultBehavior: 'N/A',
+            },
+            {
+                name: 'filterKind',
+                type: "String",
+                des: t('ReqParamsDes.CreateSourceFilter.filterKind'),
+                default: '',
+                require: true,
+                valueRestrictions: 'None',
+                defaultBehavior: 'N/A',
+            },
+            {
+                name: 'filterSettings',
+                type: "Object",
+                des: t('ReqParamsDes.CreateSourceFilter.filterSettings'),
+                default: '',
+                require: false,
+                valueRestrictions: 'None',
+                defaultBehavior: 'Default settings used',
+                isCustomerObject: true,
+            },
+        ],
+        responseParams: [
+        ]
+    },
+    RemoveSourceFilter: {
+        key: 'RemoveSourceFilter',
+        title: 'RemoveSourceFilter',
+        des: t('RequestDes.RemoveSourceFilter'),
+        tags: ['Filters'],
+        requestParams: [
+            {
+                name: 'sourceName',
+                type: "String",
+                des: t('ReqParamsDes.RemoveSourceFilter.sourceName'),
+                default: '',
+                require: false,
+                valueRestrictions: 'None',
+                defaultBehavior: 'Unknown',
+            },
+            {
+                name: 'sourceUuid',
+                type: "String",
+                des: t('ReqParamsDes.RemoveSourceFilter.sourceUuid'),
+                default: '',
+                require: false,
+                valueRestrictions: 'None',
+                defaultBehavior: 'Unknown',
+            },
+            {
+                name: 'filterName',
+                type: "String",
+                des: t('ReqParamsDes.RemoveSourceFilter.filterName'),
+                default: '',
+                require: true,
+                valueRestrictions: 'None',
+                defaultBehavior: 'N/A',
+            },
+        ],
+        responseParams: [
+        ]
+    },
+    SetSourceFilterName: {
+        key: 'SetSourceFilterName',
+        title: 'SetSourceFilterName',
+        des: t('RequestDes.SetSourceFilterName'),
+        tags: ['Filters'],
+        requestParams: [
+            {
+                name: 'sourceName',
+                type: "String",
+                des: t('ReqParamsDes.SetSourceFilterName.sourceName'),
+                default: '',
+                require: false,
+                valueRestrictions: 'None',
+                defaultBehavior: 'Unknown',
+            },
+            {
+                name: 'sourceUuid',
+                type: "String",
+                des: t('ReqParamsDes.SetSourceFilterName.sourceUuid'),
+                default: '',
+                require: false,
+                valueRestrictions: 'None',
+                defaultBehavior: 'Unknown',
+            },
+            {
+                name: 'filterName',
+                type: "String",
+                des: t('ReqParamsDes.SetSourceFilterName.filterName'),
+                default: '',
+                require: true,
+                valueRestrictions: 'None',
+                defaultBehavior: 'N/A',
+            },
+            {
+                name: 'newFilterName',
+                type: "String",
+                des: t('ReqParamsDes.SetSourceFilterName.newFilterName'),
+                default: '',
+                require: true,
+                valueRestrictions: 'None',
+                defaultBehavior: 'N/A',
+            },
+        ],
+        responseParams: [
+        ]
+    },
+    GetSourceFilter: {
+        key: 'GetSourceFilter',
+        title: 'GetSourceFilter',
+        des: t('RequestDes.GetSourceFilter'),
+        tags: ['Filters'],
+        requestParams: [
+            {
+                name: 'sourceName',
+                type: "String",
+                des: t('ReqParamsDes.GetSourceFilter.sourceName'),
+                default: '',
+                require: false,
+                valueRestrictions: 'None',
+                defaultBehavior: 'Unknown',
+            },
+            {
+                name: 'sourceUuid',
+                type: "String",
+                des: t('ReqParamsDes.GetSourceFilter.sourceUuid'),
+                default: '',
+                require: false,
+                valueRestrictions: 'None',
+                defaultBehavior: 'Unknown',
+            },
+            {
+                name: 'filterName',
+                type: "String",
+                des: t('ReqParamsDes.GetSourceFilter.filterName'),
+                default: '',
+                require: true,
+                valueRestrictions: 'None',
+                defaultBehavior: 'N/A',
+            },
+        ],
+        responseParams: [
+            {
+                name: 'filterEnabled',
+                type: "Boolean",
+                des: t('ResParamsDes.GetSourceFilter.filterEnabled'),
+            },
+            {
+                name: 'filterIndex',
+                type: "Number",
+                des: t('ResParamsDes.GetSourceFilter.filterIndex'),
+            },
+            {
+                name: 'filterKind',
+                type: "String",
+                des: t('ResParamsDes.GetSourceFilter.filterKind'),
+            },
+            {
+                name: 'filters',
+                type: "Array<Object>",
+                des: t('ResParamsDes.GetSourceFilter.filters'),
+            },
+        ]
+    },
+    SetSourceFilterIndex: {
+        key: 'SetSourceFilterIndex',
+        title: 'SetSourceFilterIndex',
+        des: t('RequestDes.SetSourceFilterIndex'),
+        tags: ['Filters'],
+        requestParams: [
+            {
+                name: 'sourceName',
+                type: "String",
+                des: t('ReqParamsDes.SetSourceFilterIndex.sourceName'),
+                default: '',
+                require: false,
+                valueRestrictions: 'None',
+                defaultBehavior: 'Unknown',
+            },
+            {
+                name: 'sourceUuid',
+                type: "String",
+                des: t('ReqParamsDes.SetSourceFilterIndex.sourceUuid'),
+                default: '',
+                require: false,
+                valueRestrictions: 'None',
+                defaultBehavior: 'Unknown',
+            },
+            {
+                name: 'filterName',
+                type: "String",
+                des: t('ReqParamsDes.SetSourceFilterIndex.filterName'),
+                default: '',
+                require: true,
+                valueRestrictions: 'None',
+                defaultBehavior: 'N/A',
+            },
+            {
+                name: 'filterIndex',
+                type: "Number",
+                des: t('ReqParamsDes.SetSourceFilterIndex.filterIndex'),
+                default: '',
+                require: true,
+                valueRestrictions: '>= 0',
+                defaultBehavior: 'N/A',
+            },
+        ],
+        responseParams: [
+        ]
+    },
+    SetSourceFilterSettings: {
+        key: 'SetSourceFilterSettings',
+        title: 'SetSourceFilterSettings',
+        des: t('RequestDes.SetSourceFilterSettings'),
+        tags: ['Filters'],
+        requestParams: [
+            {
+                name: 'sourceName',
+                type: "String",
+                des: t('ReqParamsDes.SetSourceFilterSettings.sourceName'),
+                default: '',
+                require: false,
+                valueRestrictions: 'None',
+                defaultBehavior: 'Unknown',
+            },
+            {
+                name: 'sourceUuid',
+                type: "String",
+                des: t('ReqParamsDes.SetSourceFilterSettings.sourceUuid'),
+                default: '',
+                require: false,
+                valueRestrictions: 'None',
+                defaultBehavior: 'Unknown',
+            },
+            {
+                name: 'filterName',
+                type: "String",
+                des: t('ReqParamsDes.SetSourceFilterSettings.filterName'),
+                default: '',
+                require: true,
+                valueRestrictions: 'None',
+                defaultBehavior: 'N/A',
+            },
+            {
+                name: 'filterIndex',
+                type: "Object",
+                des: t('ReqParamsDes.SetSourceFilterSettings.filterIndex'),
+                default: '{}',
+                require: true,
+                valueRestrictions: 'None',
+                defaultBehavior: 'N/A',
+            },
+            {
+                name: 'overlay',
+                type: "Boolean",
+                des: t('ReqParamsDes.SetSourceFilterSettings.overlay'),
+                default: 'true',
+                require: false,
+                valueRestrictions: 'None',
+                defaultBehavior: 'N/A',
+            },
+        ],
+        responseParams: [
+        ]
+    },
+    SetSourceFilterEnabled: {
+        key: 'SetSourceFilterEnabled',
+        title: 'SetSourceFilterEnabled',
+        des: t('RequestDes.SetSourceFilterEnabled'),
+        tags: ['Filters'],
+        requestParams: [
+            {
+                name: 'sourceName',
+                type: "String",
+                des: t('ReqParamsDes.SetSourceFilterEnabled.sourceName'),
+                default: '',
+                require: false,
+                valueRestrictions: 'None',
+                defaultBehavior: 'Unknown',
+            },
+            {
+                name: 'sourceUuid',
+                type: "String",
+                des: t('ReqParamsDes.SetSourceFilterEnabled.sourceUuid'),
+                default: '',
+                require: false,
+                valueRestrictions: 'None',
+                defaultBehavior: 'Unknown',
+            },
+            {
+                name: 'filterName',
+                type: "String",
+                des: t('ReqParamsDes.SetSourceFilterEnabled.filterName'),
+                default: '',
+                require: true,
+                valueRestrictions: 'None',
+                defaultBehavior: 'N/A',
+            },
+            {
+                name: 'filterEnabled',
+                type: "Boolean",
+                des: t('ReqParamsDes.SetSourceFilterEnabled.filterEnabled'),
+                default: '',
+                require: false,
+                valueRestrictions: 'None',
+                defaultBehavior: 'N/A',
+            },
+        ],
+        responseParams: [
+        ]
+    },
+    // Scene Items Requests
+    GetSceneItemList: {
+        key: 'GetSceneItemList',
+        title: 'GetSceneItemList',
+        des: t('RequestDes.GetSceneItemList'),
+        tags: ['Scene Items'],
+        requestParams: [
+            {
+                name: 'sceneName',
+                type: "String",
+                des: t('ReqParamsDes.GetSceneItemList.sceneName'),
+                default: '',
+                require: false,
+                valueRestrictions: 'None',
+                defaultBehavior: 'Unknown',
+            },
+            {
+                name: 'sceneUuid',
+                type: "String",
+                des: t('ReqParamsDes.GetSceneItemList.sceneUuid'),
+                default: '',
+                require: false,
+                valueRestrictions: 'None',
+                defaultBehavior: 'Unknown',
+            },
+        ],
+        responseParams: [
+            {
+                name: 'sceneItems',
+                type: "Array<Object>",
+                des: t('ResParamsDes.GetSceneItemList.sceneItems'),
+            },
+        ]
+    },
+    GetGroupSceneItemList: {
+        key: 'GetGroupSceneItemList',
+        title: 'GetGroupSceneItemList',
+        des: t('RequestDes.GetGroupSceneItemList'),
+        tags: ['Scene Items'],
+        requestParams: [
+            {
+                name: 'sceneName',
+                type: "String",
+                des: t('ReqParamsDes.GetGroupSceneItemList.sceneName'),
+                default: '',
+                require: false,
+                valueRestrictions: 'None',
+                defaultBehavior: 'Unknown',
+            },
+            {
+                name: 'sceneUuid',
+                type: "String",
+                des: t('ReqParamsDes.GetGroupSceneItemList.sceneUuid'),
+                default: '',
+                require: false,
+                valueRestrictions: 'None',
+                defaultBehavior: 'Unknown',
+            },
+        ],
+        responseParams: [
+            {
+                name: 'sceneItems',
+                type: "Array<Object>",
+                des: t('ResParamsDes.GetGroupSceneItemList.sceneItems'),
+            },
+        ]
+    },
+    GetSceneItemId: {
+        key: 'GetSceneItemId',
+        title: 'GetSceneItemId',
+        des: t('RequestDes.GetSceneItemId'),
+        tags: ['Scene Items'],
+        requestParams: [
+            {
+                name: 'sceneName',
+                type: "String",
+                des: t('ReqParamsDes.GetSceneItemId.sourceName'),
+                default: '',
+                require: false,
+                valueRestrictions: 'None',
+                defaultBehavior: 'Unknown',
+            },
+            {
+                name: 'sceneUuid',
+                type: "String",
+                des: t('ReqParamsDes.GetSceneItemId.sourceUuid'),
+                default: '',
+                require: false,
+                valueRestrictions: 'None',
+                defaultBehavior: 'Unknown',
+            },
+            {
+                name: 'sourceName',
+                type: "String",
+                des: t('ReqParamsDes.GetSceneItemId.sourceName'),
+                default: '',
+                require: true,
+                valueRestrictions: 'None',
+                defaultBehavior: 'N/A',
+            },
+            {
+                name: 'searchOffset',
+                type: "Number",
+                des: t('ReqParamsDes.GetSceneItemId.searchOffset'),
+                default: '0',
+                require: false,
+                valueRestrictions: '>= -1',
+                defaultBehavior: '0',
+            },
+        ],
+        responseParams: [
+            {
+                name: 'sceneItemId',
+                type: "Number",
+                des: t('ResParamsDes.GetSceneItemId.sceneItemId'),
+            },
+        ]
+    },
+    GetSceneItemSource: {
+        key: 'GetSceneItemSource',
+        title: 'GetSceneItemSource',
+        des: t('RequestDes.GetSceneItemSource'),
+        tags: ['Scene Items'],
+        requestParams: [
+            {
+                name: 'sceneName',
+                type: "String",
+                des: t('ReqParamsDes.GetSceneItemSource.sourceName'),
+                default: '',
+                require: false,
+                valueRestrictions: 'None',
+                defaultBehavior: 'Unknown',
+            },
+            {
+                name: 'sceneUuid',
+                type: "String",
+                des: t('ReqParamsDes.GetSceneItemSource.sourceUuid'),
+                default: '',
+                require: false,
+                valueRestrictions: 'None',
+                defaultBehavior: 'Unknown',
+            },
+            {
+                name: 'sceneItemId',
+                type: "Number",
+                des: t('ReqParamsDes.GetSceneItemSource.sceneItemId'),
+                default: '0',
+                require: true,
+                valueRestrictions: '>=0',
+                defaultBehavior: 'N/A',
+            },
+        ],
+        responseParams: [
+            {
+                name: 'sourceName',
+                type: "String",
+                des: t('ResParamsDes.GetSceneItemSource.sourceName'),
+            },
+            {
+                name: 'sourceUuid',
+                type: "String",
+                des: t('ResParamsDes.GetSceneItemSource.sourceUuid'),
+            },
+        ]
+    },
+    CreateSceneItem: {
+        key: 'CreateSceneItem',
+        title: 'CreateSceneItem',
+        des: t('RequestDes.CreateSceneItem'),
+        tags: ['Scene Items'],
+        requestParams: [
+            {
+                name: 'sceneName',
+                type: "String",
+                des: t('ReqParamsDes.CreateSceneItem.sourceName'),
+                default: '',
+                require: false,
+                valueRestrictions: 'None',
+                defaultBehavior: 'Unknown',
+            },
+            {
+                name: 'sceneUuid',
+                type: "String",
+                des: t('ReqParamsDes.CreateSceneItem.sourceUuid'),
+                default: '',
+                require: false,
+                valueRestrictions: 'None',
+                defaultBehavior: 'Unknown',
+            },
+            {
+                name: 'sourceName',
+                type: "String",
+                des: t('ReqParamsDes.CreateSceneItem.sourceName'),
+                default: '',
+                require: false,
+                valueRestrictions: 'None',
+                defaultBehavior: 'N/A',
+            },
+            {
+                name: 'sourceUuid',
+                type: "String",
+                des: t('ReqParamsDes.CreateSceneItem.sourceUuid'),
+                default: '',
+                require: false,
+                valueRestrictions: 'None',
+                defaultBehavior: 'Unknown',
+            },
+            {
+                name: 'sceneItemEnabled',
+                type: "Boolean	",
+                des: t('ReqParamsDes.CreateSceneItem.sceneItemEnabled'),
+                default: 'true',
+                require: false,
+                valueRestrictions: 'None',
+                defaultBehavior: 'true',
+            },
+        ],
+        responseParams: [
+            {
+                name: 'sceneItemId',
+                type: "Number",
+                des: t('ResParamsDes.CreateSceneItem.sceneItemId'),
+            },
+        ]
+    },
+    RemoveSceneItem: {
+        key: 'RemoveSceneItem',
+        title: 'RemoveSceneItem',
+        des: t('RequestDes.RemoveSceneItem'),
+        tags: ['Scene Items'],
+        requestParams: [
+            {
+                name: 'sceneName',
+                type: "String",
+                des: t('ReqParamsDes.RemoveSceneItem.sceneName'),
+                default: '',
+                require: false,
+                valueRestrictions: 'None',
+                defaultBehavior: 'Unknown',
+            },
+            {
+                name: 'sceneUuid',
+                type: "String",
+                des: t('ReqParamsDes.RemoveSceneItem.sceneUuid'),
+                default: '',
+                require: false,
+                valueRestrictions: 'None',
+                defaultBehavior: 'Unknown',
+            },
+            {
+                name: 'sceneItemId',
+                type: "String",
+                des: t('ReqParamsDes.RemoveSceneItem.sceneItemId'),
+                default: '',
+                require: true,
+                valueRestrictions: '>= 0',
+                defaultBehavior: 'N/A',
+            },
+        ],
+        responseParams: [
+        ]
+    },
+    DuplicateSceneItem: {
+        key: 'DuplicateSceneItem',
+        title: 'DuplicateSceneItem',
+        des: t('RequestDes.DuplicateSceneItem'),
+        tags: ['Scene Items'],
+        requestParams: [
+            {
+                name: 'sceneName',
+                type: "String",
+                des: t('ReqParamsDes.DuplicateSceneItem.sceneName'),
+                default: '',
+                require: false,
+                valueRestrictions: 'None',
+                defaultBehavior: 'Unknown',
+            },
+            {
+                name: 'sceneUuid',
+                type: "String",
+                des: t('ReqParamsDes.DuplicateSceneItem.sceneUuid'),
+                default: '',
+                require: false,
+                valueRestrictions: 'None',
+                defaultBehavior: 'Unknown',
+            },
+            {
+                name: 'sceneItemId',
+                type: "Number",
+                des: t('ReqParamsDes.DuplicateSceneItem.sceneItemId'),
+                default: '',
+                require: true,
+                valueRestrictions: '>= 0',
+                defaultBehavior: 'N/A',
+            },
+            {
+                name: 'destinationSceneName',
+                type: "String",
+                des: t('ReqParamsDes.DuplicateSceneItem.destinationSceneName'),
+                default: '',
+                require: false,
+                valueRestrictions: 'None',
+                defaultBehavior: 'From scene is assumed',
+            },
+            {
+                name: 'destinationSceneUuid',
+                type: "String",
+                des: t('ReqParamsDes.DuplicateSceneItem.destinationSceneUuid'),
+                default: '',
+                require: false,
+                valueRestrictions: 'None',
+                defaultBehavior: 'From scene is assumed',
+            },
+        ],
+        responseParams: [
+            {
+                name: 'sceneItemId',
+                type: "Number",
+                des: t('ResParamsDes.DuplicateSceneItem.sceneItemId'),
+            },
+        ]
+    },
+    GetSceneItemTransform: {
+        key: 'GetSceneItemTransform',
+        title: 'GetSceneItemTransform',
+        des: t('RequestDes.GetSceneItemTransform'),
+        tags: ['Scene Items'],
+        requestParams: [
+            {
+                name: 'sceneName',
+                type: "String",
+                des: t('ReqParamsDes.GetSceneItemTransform.sceneName'),
+                default: '',
+                require: false,
+                valueRestrictions: 'None',
+                defaultBehavior: 'Unknown',
+            },
+            {
+                name: 'sceneUuid',
+                type: "String",
+                des: t('ReqParamsDes.GetSceneItemTransform.sceneUuid'),
+                default: '',
+                require: false,
+                valueRestrictions: 'None',
+                defaultBehavior: 'Unknown',
+            },
+            {
+                name: 'sceneItemId',
+                type: "String",
+                des: t('ReqParamsDes.GetSceneItemTransform.sceneItemId'),
+                default: '',
+                require: true,
+                valueRestrictions: '>= 0',
+                defaultBehavior: 'N/A',
+            },
+        ],
+        responseParams: [
+            {
+                name: 'sceneItemTransform',
+                type: "Object",
+                des: t('ResParamsDes.GetSceneItemTransform.sceneItemTransform'),
+            },
+        ]
+    },
+    SetSceneItemTransform: {
+        key: 'SetSceneItemTransform',
+        title: 'SetSceneItemTransform',
+        des: t('RequestDes.SetSceneItemTransform'),
+        tags: ['Scene Items'],
+        requestParams: [
+            {
+                name: 'sceneName',
+                type: "String",
+                des: t('ReqParamsDes.SetSceneItemTransform.sceneName'),
+                default: '',
+                require: false,
+                valueRestrictions: 'None',
+                defaultBehavior: 'Unknown',
+            },
+            {
+                name: 'sceneUuid',
+                type: "String",
+                des: t('ReqParamsDes.SetSceneItemTransform.sceneUuid'),
+                default: '',
+                require: false,
+                valueRestrictions: 'None',
+                defaultBehavior: 'Unknown',
+            },
+            {
+                name: 'sceneItemId',
+                type: "String",
+                des: t('ReqParamsDes.SetSceneItemTransform.sceneItemId'),
+                default: '',
+                require: true,
+                valueRestrictions: '>= 0',
+                defaultBehavior: 'N/A',
+            },
+            {
+                name: 'sceneItemTransform',
+                type: "Object",
+                des: t('ReqParamsDes.SetSceneItemTransform.sceneItemTransform'),
+                default: '',
+                require: true,
+                valueRestrictions: 'None',
+                defaultBehavior: 'N/A',
+                isCustomerObject: true,
+            },
+        ],
+        responseParams: [
+        ]
+    },
+    GetSceneItemEnabled: {
+        key: 'GetSceneItemEnabled',
+        title: 'GetSceneItemEnabled',
+        des: t('RequestDes.GetSceneItemEnabled'),
+        tags: ['Scene Items'],
+        requestParams: [
+            {
+                name: 'sceneName',
+                type: "String",
+                des: t('ReqParamsDes.GetSceneItemEnabled.sceneName'),
+                default: '',
+                require: false,
+                valueRestrictions: 'None',
+                defaultBehavior: 'Unknown',
+            },
+            {
+                name: 'sceneUuid',
+                type: "String",
+                des: t('ReqParamsDes.GetSceneItemEnabled.sceneUuid'),
+                default: '',
+                require: false,
+                valueRestrictions: 'None',
+                defaultBehavior: 'Unknown',
+            },
+            {
+                name: 'sceneItemId',
+                type: "String",
+                des: t('ReqParamsDes.GetSceneItemEnabled.sceneItemId'),
+                default: '',
+                require: true,
+                valueRestrictions: '>= 0',
+                defaultBehavior: 'N/A',
+            },
+        ],
+        responseParams: [
+            {
+                name: 'sceneItemEnabled',
+                type: "Boolean",
+                des: t('ResParamsDes.GetSceneItemEnabled.sceneItemEnabled'),
+            },
+        ]
+    },
+    SetSceneItemEnabled: {
+        key: 'SetSceneItemEnabled',
+        title: 'SetSceneItemEnabled',
+        des: t('RequestDes.SetSceneItemEnabled'),
+        tags: ['Scene Items'],
+        requestParams: [
+            {
+                name: 'sceneName',
+                type: "String",
+                des: t('ReqParamsDes.SetSceneItemEnabled.sceneName'),
+                default: '',
+                require: false,
+                valueRestrictions: 'None',
+                defaultBehavior: 'Unknown',
+            },
+            {
+                name: 'sceneUuid',
+                type: "String",
+                des: t('ReqParamsDes.SetSceneItemEnabled.sceneUuid'),
+                default: '',
+                require: false,
+                valueRestrictions: 'None',
+                defaultBehavior: 'Unknown',
+            },
+            {
+                name: 'sceneItemId',
+                type: "String",
+                des: t('ReqParamsDes.SetSceneItemEnabled.sceneItemId'),
+                default: '',
+                require: true,
+                valueRestrictions: '>= 0',
+                defaultBehavior: 'N/A',
+            },
+            {
+                name: 'sceneItemEnabled',
+                type: "Boolean",
+                des: t('ReqParamsDes.SetSceneItemEnabled.sceneItemEnabled'),
+                default: '',
+                require: true,
+                valueRestrictions: 'None',
+                defaultBehavior: 'N/A',
+            },
+        ],
+        responseParams: [
+        ]
+    },
+    GetSceneItemLocked: {
+        key: 'GetSceneItemLocked',
+        title: 'GetSceneItemLocked',
+        des: t('RequestDes.GetSceneItemLocked'),
+        tags: ['Scene Items'],
+        requestParams: [
+            {
+                name: 'sceneName',
+                type: "String",
+                des: t('ReqParamsDes.GetSceneItemLocked.sceneName'),
+                default: '',
+                require: false,
+                valueRestrictions: 'None',
+                defaultBehavior: 'Unknown',
+            },
+            {
+                name: 'sceneUuid',
+                type: "String",
+                des: t('ReqParamsDes.GetSceneItemLocked.sceneUuid'),
+                default: '',
+                require: false,
+                valueRestrictions: 'None',
+                defaultBehavior: 'Unknown',
+            },
+            {
+                name: 'sceneItemId',
+                type: "String",
+                des: t('ReqParamsDes.GetSceneItemLocked.sceneItemId'),
+                default: '',
+                require: true,
+                valueRestrictions: '>= 0',
+                defaultBehavior: 'N/A',
+            },
+        ],
+        responseParams: [
+            {
+                name: 'sceneItemLocked',
+                type: "Boolean",
+                des: t('ResParamsDes.GetSceneItemLocked.sceneItemLocked'),
+            },
+        ]
+    },
+    SetSceneItemLocked: {
+        key: 'SetSceneItemLocked',
+        title: 'SetSceneItemLocked',
+        des: t('RequestDes.SetSceneItemLocked'),
+        tags: ['Scene Items'],
+        requestParams: [
+            {
+                name: 'sceneName',
+                type: "String",
+                des: t('ReqParamsDes.SetSceneItemLocked.sceneName'),
+                default: '',
+                require: false,
+                valueRestrictions: 'None',
+                defaultBehavior: 'Unknown',
+            },
+            {
+                name: 'sceneUuid',
+                type: "String",
+                des: t('ReqParamsDes.SetSceneItemLocked.sceneUuid'),
+                default: '',
+                require: false,
+                valueRestrictions: 'None',
+                defaultBehavior: 'Unknown',
+            },
+            {
+                name: 'sceneItemId',
+                type: "String",
+                des: t('ReqParamsDes.SetSceneItemLocked.sceneItemId'),
+                default: '',
+                require: true,
+                valueRestrictions: '>= 0',
+                defaultBehavior: 'N/A',
+            },
+            {
+                name: 'sceneItemLocked',
+                type: "Boolean",
+                des: t('ReqParamsDes.SetSceneItemLocked.sceneItemLocked'),
+                default: '',
+                require: true,
+                valueRestrictions: 'None',
+                defaultBehavior: 'N/A',
+            },
+        ],
+        responseParams: [
+        ]
+    },
+    GetSceneItemIndex: {
+        key: 'GetSceneItemIndex',
+        title: 'GetSceneItemIndex',
+        des: t('RequestDes.GetSceneItemIndex'),
+        tags: ['Scene Items'],
+        requestParams: [
+            {
+                name: 'sceneName',
+                type: "String",
+                des: t('ReqParamsDes.GetSceneItemIndex.sceneName'),
+                default: '',
+                require: false,
+                valueRestrictions: 'None',
+                defaultBehavior: 'Unknown',
+            },
+            {
+                name: 'sceneUuid',
+                type: "String",
+                des: t('ReqParamsDes.GetSceneItemIndex.sceneUuid'),
+                default: '',
+                require: false,
+                valueRestrictions: 'None',
+                defaultBehavior: 'Unknown',
+            },
+            {
+                name: 'sceneItemId',
+                type: "String",
+                des: t('ReqParamsDes.GetSceneItemIndex.sceneItemId'),
+                default: '',
+                require: true,
+                valueRestrictions: '>= 0',
+                defaultBehavior: 'N/A',
+            },
+        ],
+        responseParams: [
+            {
+                name: 'sceneItemIndex',
+                type: "Number",
+                des: t('ResParamsDes.GetSceneItemIndex.sceneItemIndex'),
+            },
+        ]
+    },
+    SetSceneItemIndex: {
+        key: 'SetSceneItemIndex',
+        title: 'SetSceneItemIndex',
+        des: t('RequestDes.SetSceneItemIndex'),
+        tags: ['Scene Items'],
+        requestParams: [
+            {
+                name: 'sceneName',
+                type: "String",
+                des: t('ReqParamsDes.SetSceneItemIndex.sceneName'),
+                default: '',
+                require: false,
+                valueRestrictions: 'None',
+                defaultBehavior: 'Unknown',
+            },
+            {
+                name: 'sceneUuid',
+                type: "String",
+                des: t('ReqParamsDes.SetSceneItemIndex.sceneUuid'),
+                default: '',
+                require: false,
+                valueRestrictions: 'None',
+                defaultBehavior: 'Unknown',
+            },
+            {
+                name: 'sceneItemId',
+                type: "String",
+                des: t('ReqParamsDes.SetSceneItemIndex.sceneItemId'),
+                default: '',
+                require: true,
+                valueRestrictions: '>= 0',
+                defaultBehavior: 'N/A',
+            },
+            {
+                name: 'sceneItemIndex',
+                type: "Number",
+                des: t('ReqParamsDes.SetSceneItemIndex.sceneItemIndex'),
+                default: '',
+                require: true,
+                valueRestrictions: 'None',
+                defaultBehavior: 'N/A',
+            },
+        ],
+        responseParams: [
+        ]
+    },
+    GetSceneItemBlendMode: {
+        key: 'GetSceneItemBlendMode',
+        title: 'GetSceneItemBlendMode',
+        des: t('RequestDes.GetSceneItemBlendMode'),
+        tags: ['Scene Items'],
+        requestParams: [
+            {
+                name: 'sceneName',
+                type: "String",
+                des: t('ReqParamsDes.GetSceneItemBlendMode.sceneName'),
+                default: '',
+                require: false,
+                valueRestrictions: 'None',
+                defaultBehavior: 'Unknown',
+            },
+            {
+                name: 'sceneUuid',
+                type: "String",
+                des: t('ReqParamsDes.GetSceneItemBlendMode.sceneUuid'),
+                default: '',
+                require: false,
+                valueRestrictions: 'None',
+                defaultBehavior: 'Unknown',
+            },
+            {
+                name: 'sceneItemId',
+                type: "String",
+                des: t('ReqParamsDes.GetSceneItemBlendMode.sceneItemId'),
+                default: '',
+                require: true,
+                valueRestrictions: '>= 0',
+                defaultBehavior: 'N/A',
+            },
+        ],
+        responseParams: [
+            {
+                name: 'sceneItemBlendMode',
+                type: "String",
+                des: t('ResParamsDes.GetSceneItemBlendMode.sceneItemBlendMode'),
+            },
+        ]
+    },
+    SetSceneItemBlendMode: {
+        key: 'SetSceneItemBlendMode',
+        title: 'SetSceneItemBlendMode',
+        des: t('RequestDes.SetSceneItemBlendMode'),
+        tags: ['Scene Items'],
+        requestParams: [
+            {
+                name: 'sceneName',
+                type: "String",
+                des: t('ReqParamsDes.SetSceneItemBlendMode.sceneName'),
+                default: '',
+                require: false,
+                valueRestrictions: 'None',
+                defaultBehavior: 'Unknown',
+            },
+            {
+                name: 'sceneUuid',
+                type: "String",
+                des: t('ReqParamsDes.SetSceneItemBlendMode.sceneUuid'),
+                default: '',
+                require: false,
+                valueRestrictions: 'None',
+                defaultBehavior: 'Unknown',
+            },
+            {
+                name: 'sceneItemId',
+                type: "String",
+                des: t('ReqParamsDes.SetSceneItemBlendMode.sceneItemId'),
+                default: '',
+                require: true,
+                valueRestrictions: '>= 0',
+                defaultBehavior: 'N/A',
+            },
+            {
+                name: 'sceneItemBlendMode',
+                type: "String",
+                des: t('ReqParamsDes.SetSceneItemBlendMode.sceneItemBlendMode'),
+                default: '',
+                require: true,
+                valueRestrictions: 'None',
+                defaultBehavior: 'N/A',
+            },
+        ],
+        responseParams: [
+        ]
+    },
+    // Outputs Requests
+    GetVirtualCamStatus: {
+        key: 'GetVirtualCamStatus',
+        title: 'GetVirtualCamStatus',
+        des: t('RequestDes.GetVirtualCamStatus'),
+        tags: ['Outputs'],
+        requestParams: [
+        ],
+        responseParams: [
+            {
+                name: 'outputActive',
+                type: "Boolean",
+                des: t('ResParamsDes.GetVirtualCamStatus.outputActive'),
+            },
+        ]
+    },
+    ToggleVirtualCam: {
+        key: 'ToggleVirtualCam',
+        title: 'ToggleVirtualCam',
+        des: t('RequestDes.ToggleVirtualCam'),
+        tags: ['Outputs'],
+        requestParams: [
+        ],
+        responseParams: [
+            {
+                name: 'outputActive',
+                type: "Boolean",
+                des: t('ResParamsDes.ToggleVirtualCam.outputActive'),
+            },
+        ]
+    },
+    StartVirtualCam: {
+        key: 'StartVirtualCam',
+        title: 'StartVirtualCam',
+        des: t('RequestDes.StartVirtualCam'),
+        tags: ['Outputs'],
+        requestParams: [
+        ],
+        responseParams: [
+        ]
+    },
+    StopVirtualCam: {
+        key: 'StopVirtualCam',
+        title: 'StopVirtualCam',
+        des: t('RequestDes.StopVirtualCam'),
+        tags: ['Outputs'],
+        requestParams: [
+        ],
+        responseParams: [
+        ]
+    },
+    GetReplayBufferStatus: {
+        key: 'GetReplayBufferStatus',
+        title: 'GetReplayBufferStatus',
+        des: t('RequestDes.GetReplayBufferStatus'),
+        tags: ['Outputs'],
+        requestParams: [
+        ],
+        responseParams: [
+            {
+                name: 'outputActive',
+                type: "Boolean",
+                des: t('ResParamsDes.GetReplayBufferStatus.outputActive'),
+            },
+        ]
+    },
+    ToggleReplayBuffer: {
+        key: 'ToggleReplayBuffer',
+        title: 'ToggleReplayBuffer',
+        des: t('RequestDes.ToggleReplayBuffer'),
+        tags: ['Outputs'],
+        requestParams: [
+        ],
+        responseParams: [
+            {
+                name: 'outputActive',
+                type: "Boolean",
+                des: t('ResParamsDes.ToggleReplayBuffer.outputActive'),
+            },
+        ]
+    },
+    StartReplayBuffer: {
+        key: 'StartReplayBuffer',
+        title: 'StartReplayBuffer',
+        des: t('RequestDes.StartReplayBuffer'),
+        tags: ['Outputs'],
+        requestParams: [
+        ],
+        responseParams: [
+        ]
+    },
+    StopReplayBuffer: {
+        key: 'StopReplayBuffer',
+        title: 'StopReplayBuffer',
+        des: t('RequestDes.StopReplayBuffer'),
+        tags: ['Outputs'],
+        requestParams: [
+        ],
+        responseParams: [
+        ]
+    },
+    SaveReplayBuffer: {
+        key: 'SaveReplayBuffer',
+        title: 'SaveReplayBuffer',
+        des: t('RequestDes.SaveReplayBuffer'),
+        tags: ['Outputs'],
+        requestParams: [
+        ],
+        responseParams: [
+        ]
+    },
+    GetLastReplayBufferReplay: {
+        key: 'GetLastReplayBufferReplay',
+        title: 'GetLastReplayBufferReplay',
+        des: t('RequestDes.GetLastReplayBufferReplay'),
+        tags: ['Outputs'],
+        requestParams: [
+        ],
+        responseParams: [
+            {
+                name: 'savedReplayPath',
+                type: "Boolean",
+                des: t('ResParamsDes.GetLastReplayBufferReplay.savedReplayPath'),
+            },
+        ]
+    },
+    GetOutputList: {
+        key: 'GetOutputList',
+        title: 'GetOutputList',
+        des: t('RequestDes.GetOutputList'),
+        tags: ['Outputs'],
+        requestParams: [
+        ],
+        responseParams: [
+            {
+                name: 'outputs',
+                type: "Array<Object>",
+                des: t('ResParamsDes.GetOutputList.outputs'),
+            },
+        ]
+    },
+    GetOutputStatus: {
+        key: 'GetOutputStatus',
+        title: 'GetOutputStatus',
+        des: t('RequestDes.GetOutputStatus'),
+        tags: ['Outputs'],
+        requestParams: [
+            {
+                name: 'outputName',
+                type: "String",
+                des: t('ReqParamsDes.GetOutputStatus.outputName'),
+                default: '',
+                require: true,
+                valueRestrictions: 'None',
+                defaultBehavior: 'N/A',
+            },
+        ],
+        responseParams: [
+            {
+                name: 'outputActive',
+                type: "Boolean",
+                des: t('ResParamsDes.GetOutputStatus.outputActive'),
+            },
+            {
+                name: 'outputReconnecting',
+                type: "Boolean",
+                des: t('ResParamsDes.GetOutputStatus.outputReconnecting'),
+            },
+            {
+                name: 'outputTimecode',
+                type: "String",
+                des: t('ResParamsDes.GetOutputStatus.outputTimecode'),
+            },
+            {
+                name: 'outputDuration',
+                type: "Number",
+                des: t('ResParamsDes.GetOutputStatus.outputDuration'),
+            },
+            {
+                name: 'outputCongestion',
+                type: "Number",
+                des: t('ResParamsDes.GetOutputStatus.outputCongestion'),
+            },
+            {
+                name: 'outputBytes',
+                type: "Number",
+                des: t('ResParamsDes.GetOutputStatus.outputBytes'),
+            },
+            {
+                name: 'outputSkippedFrames',
+                type: "Number",
+                des: t('ResParamsDes.GetOutputStatus.outputSkippedFrames'),
+            },
+            {
+                name: 'outputTotalFrames',
+                type: "Number",
+                des: t('ResParamsDes.GetOutputStatus.outputTotalFrames'),
+            },
+        ]
+    },
+    ToggleOutput: {
+        key: 'ToggleOutput',
+        title: 'ToggleOutput',
+        des: t('RequestDes.ToggleOutput'),
+        tags: ['Outputs'],
+        requestParams: [
+            {
+                name: 'outputName',
+                type: "String",
+                des: t('ReqParamsDes.ToggleOutput.outputName'),
+                default: '',
+                require: true,
+                valueRestrictions: 'None',
+                defaultBehavior: 'N/A',
+            },
+        ],
+        responseParams: [
+            {
+                name: 'outputActive',
+                type: "Boolean",
+                des: t('ResParamsDes.ToggleOutput.outputActive'),
+            },
+        ]
+    },
+    StartOutput: {
+        key: 'StartOutput',
+        title: 'StartOutput',
+        des: t('RequestDes.StartOutput'),
+        tags: ['Outputs'],
+        requestParams: [
+            {
+                name: 'outputName',
+                type: "String",
+                des: t('ReqParamsDes.StartOutput.outputName'),
+                default: '',
+                require: true,
+                valueRestrictions: 'None',
+                defaultBehavior: 'N/A',
+            },
+        ],
+        responseParams: [
+        ]
+    },
+    StopOutput: {
+        key: 'StopOutput',
+        title: 'StopOutput',
+        des: t('RequestDes.StopOutput'),
+        tags: ['Outputs'],
+        requestParams: [
+            {
+                name: 'outputName',
+                type: "String",
+                des: t('ReqParamsDes.StopOutput.outputName'),
+                default: '',
+                require: true,
+                valueRestrictions: 'None',
+                defaultBehavior: 'N/A',
+            },
+        ],
+        responseParams: [
+        ]
+    },
+    GetOutputSettings: {
+        key: 'GetOutputSettings',
+        title: 'GetOutputSettings',
+        des: t('RequestDes.GetOutputSettings'),
+        tags: ['Outputs'],
+        requestParams: [
+            {
+                name: 'outputName',
+                type: "String",
+                des: t('ReqParamsDes.GetOutputSettings.outputName'),
+                default: '',
+                require: true,
+                valueRestrictions: 'None',
+                defaultBehavior: 'N/A',
+            },
+        ],
+        responseParams: [
+            {
+                name: 'outputSettings',
+                type: "Object",
+                des: t('ResParamsDes.GetOutputSettings.outputSettings'),
+            },
+        ]
+    },
+    SetOutputSettings: {
+        key: 'SetOutputSettings',
+        title: 'SetOutputSettings',
+        des: t('RequestDes.SetOutputSettings'),
+        tags: ['Outputs'],
+        requestParams: [
+            {
+                name: 'outputName',
+                type: "String",
+                des: t('ReqParamsDes.SetOutputSettings.outputName'),
+                default: '',
+                require: true,
+                valueRestrictions: 'None',
+                defaultBehavior: 'N/A',
+            },
+            {
+                name: 'outputSettings',
+                type: "Object",
+                des: t('ReqParamsDes.SetOutputSettings.outputSettings'),
+                default: '',
+                require: true,
+                valueRestrictions: 'None',
+                defaultBehavior: 'N/A',
+                isCustomerObject:true,
+            },
+        ],
+        responseParams: [
+        ]
+    },
+    // Stream Requests
+    GetStreamStatus: {
+        key: 'GetStreamStatus',
+        title: 'GetStreamStatus',
+        des: t('RequestDes.GetStreamStatus'),
+        tags: ['Stream'],
+        requestParams: [
+        ],
+        responseParams: [
+            {
+                name: 'outputActive',
+                type: "Boolean",
+                des: t('ResParamsDes.GetStreamStatus.outputActive'),
+            },
+            {
+                name: 'outputReconnecting',
+                type: "Boolean",
+                des: t('ResParamsDes.GetStreamStatus.outputReconnecting'),
+            },
+            {
+                name: 'outputTimecode',
+                type: "String",
+                des: t('ResParamsDes.GetStreamStatus.outputTimecode'),
+            },
+            {
+                name: 'outputDuration',
+                type: "Number",
+                des: t('ResParamsDes.GetStreamStatus.outputDuration'),
+            },
+            {
+                name: 'outputCongestion',
+                type: "Number",
+                des: t('ResParamsDes.GetStreamStatus.outputCongestion'),
+            },
+            {
+                name: 'outputBytes',
+                type: "Number",
+                des: t('ResParamsDes.GetStreamStatus.outputBytes'),
+            },
+            {
+                name: 'outputSkippedFrames',
+                type: "Number",
+                des: t('ResParamsDes.GetStreamStatus.outputSkippedFrames'),
+            },
+            {
+                name: 'outputTotalFrames',
+                type: "Number",
+                des: t('ResParamsDes.GetStreamStatus.outputTotalFrames'),
+            },
+        ]
+    },
+    ToggleStream: {
+        key: 'ToggleStream',
+        title: 'ToggleStream',
+        des: t('RequestDes.ToggleStream'),
+        tags: ['Stream'],
+        requestParams: [
+        ],
+        responseParams: [
+            {
+                name: 'outputActive',
+                type: "Boolean",
+                des: t('ResParamsDes.ToggleStream.outputActive'),
+            },
+        ]
+    },
+    StartStream: {
+        key: 'StartStream',
+        title: 'StartStream',
+        des: t('RequestDes.StartStream'),
+        tags: ['Stream'],
+        requestParams: [
+        ],
+        responseParams: [
+        ]
+    },
+    StopStream: {
+        key: 'StopStream',
+        title: 'StopStream',
+        des: t('RequestDes.StopStream'),
+        tags: ['Stream'],
+        requestParams: [
+        ],
+        responseParams: [
+        ]
+    },
+    SendStreamCaption: {
+        key: 'SendStreamCaption',
+        title: 'SendStreamCaption',
+        des: t('RequestDes.SendStreamCaption'),
+        tags: ['Stream'],
+        requestParams: [
+            {
+                name: 'captionText',
+                type: "String",
+                des: t('ReqParamsDes.SendStreamCaption.captionText'),
+                default: '',
+                require: true,
+                valueRestrictions: 'None',
+                defaultBehavior: 'N/A',
+            },
+        ],
+        responseParams: [
+        ]
+    },
+    // Stream Requests
+    GetRecordStatus: {
+        key: 'GetRecordStatus',
+        title: 'GetRecordStatus',
+        des: t('RequestDes.GetRecordStatus'),
+        tags: ['Record'],
+        requestParams: [
+        ],
+        responseParams: [
+            {
+                name: 'outputActive',
+                type: "Boolean",
+                des: t('ResParamsDes.GetRecordStatus.outputActive'),
+            },
+            {
+                name: 'outputPaused',
+                type: "Boolean",
+                des: t('ResParamsDes.GetRecordStatus.outputPaused'),
+            },
+            {
+                name: 'outputTimecode',
+                type: "String",
+                des: t('ResParamsDes.GetRecordStatus.outputTimecode'),
+            },
+            {
+                name: 'outputDuration',
+                type: "Number",
+                des: t('ResParamsDes.GetRecordStatus.outputDuration'),
+            },
+            {
+                name: 'outputBytes',
+                type: "Number",
+                des: t('ResParamsDes.GetRecordStatus.outputBytes'),
+            },
+        ]
+    },
+    ToggleRecord: {
+        key: 'ToggleRecord',
+        title: 'ToggleRecord',
+        des: t('RequestDes.ToggleRecord'),
+        tags: ['Record'],
+        requestParams: [
+        ],
+        responseParams: [
+            {
+                name: 'outputActive',
+                type: "Boolean",
+                des: t('ResParamsDes.ToggleRecord.outputActive'),
+            },
+        ]
+    },
+    StartRecord: {
+        key: 'StartRecord',
+        title: 'StartRecord',
+        des: t('RequestDes.StartRecord'),
+        tags: ['Record'],
+        requestParams: [
+        ],
+        responseParams: [
+        ]
+    },
+    StopRecord: {
+        key: 'StopRecord',
+        title: 'StopRecord',
+        des: t('RequestDes.StopRecord'),
+        tags: ['Record'],
+        requestParams: [
+        ],
+        responseParams: [
+            {
+                name: 'outputPath',
+                type: "String",
+                des: t('ResParamsDes.StopRecord.outputPath'),
+            },
+        ]
+    },
+    ToggleRecordPause: {
+        key: 'ToggleRecordPause',
+        title: 'ToggleRecordPause',
+        des: t('RequestDes.ToggleRecordPause'),
+        tags: ['Record'],
+        requestParams: [
+        ],
+        responseParams: [
+        ]
+    },
+    PauseRecord: {
+        key: 'PauseRecord',
+        title: 'PauseRecord',
+        des: t('RequestDes.PauseRecord'),
+        tags: ['Record'],
+        requestParams: [
+        ],
+        responseParams: [
+        ]
+    },
+    ResumeRecord: {
+        key: 'ResumeRecord',
+        title: 'ResumeRecord',
+        des: t('RequestDes.ResumeRecord'),
+        tags: ['Record'],
+        requestParams: [
+        ],
+        responseParams: [
+        ]
+    },
+    // Media Inputs Requests
+    GetMediaInputStatus: {
+        key: 'GetMediaInputStatus',
+        title: 'GetMediaInputStatus',
+        des: t('RequestDes.GetMediaInputStatus'),
+        tags: ['Media Inputs'],
+        requestParams: [
+            {
+                name: 'inputName',
+                type: "String",
+                des: t('ReqParamsDes.GetMediaInputStatus.inputName'),
+                default: '',
+                require: false,
+                valueRestrictions: 'None',
+                defaultBehavior: 'Unknown',
+            },
+            {
+                name: 'inputUuid',
+                type: "String",
+                des: t('ReqParamsDes.GetMediaInputStatus.inputUuid'),
+                default: '',
+                require: false,
+                valueRestrictions: 'None',
+                defaultBehavior: 'Unknown',
+            },
+        ],
+        responseParams: [
+            {
+                name: 'mediaState',
+                type: "String",
+                des: t('ResParamsDes.GetMediaInputStatus.mediaState'),
+            },
+            {
+                name: 'mediaDuration',
+                type: "Number",
+                des: t('ResParamsDes.GetMediaInputStatus.mediaDuration'),
+            },
+            {
+                name: 'mediaCursor',
+                type: "Number",
+                des: t('ResParamsDes.GetMediaInputStatus.mediaCursor'),
+            },
+        ]
+    },
+    SetMediaInputCursor: {
+        key: 'SetMediaInputCursor',
+        title: 'SetMediaInputCursor',
+        des: t('RequestDes.SetMediaInputCursor'),
+        tags: ['Media Inputs'],
+        requestParams: [
+            {
+                name: 'inputName',
+                type: "String",
+                des: t('ReqParamsDes.SetMediaInputCursor.inputName'),
+                default: '',
+                require: false,
+                valueRestrictions: 'None',
+                defaultBehavior: 'Unknown',
+            },
+            {
+                name: 'inputUuid',
+                type: "String",
+                des: t('ReqParamsDes.SetMediaInputCursor.inputUuid'),
+                default: '',
+                require: false,
+                valueRestrictions: 'None',
+                defaultBehavior: 'Unknown',
+            },
+            {
+                name: 'mediaCursor',
+                type: "Number",
+                des: t('ReqParamsDes.SetMediaInputCursor.mediaCursor'),
+                default: '',
+                require: true,
+                valueRestrictions: '>= 0',
+                defaultBehavior: 'Unknown',
+            },
+        ],
+        responseParams: [
+        ]
+    },
+    OffsetMediaInputCursor: {
+        key: 'OffsetMediaInputCursor',
+        title: 'OffsetMediaInputCursor',
+        des: t('RequestDes.OffsetMediaInputCursor'),
+        tags: ['Media Inputs'],
+        requestParams: [
+            {
+                name: 'inputName',
+                type: "String",
+                des: t('ReqParamsDes.OffsetMediaInputCursor.inputName'),
+                default: '',
+                require: false,
+                valueRestrictions: 'None',
+                defaultBehavior: 'Unknown',
+            },
+            {
+                name: 'inputUuid',
+                type: "String",
+                des: t('ReqParamsDes.OffsetMediaInputCursor.inputUuid'),
+                default: '',
+                require: false,
+                valueRestrictions: 'None',
+                defaultBehavior: 'Unknown',
+            },
+            {
+                name: 'mediaCursorOffset',
+                type: "Number",
+                des: t('ReqParamsDes.OffsetMediaInputCursor.mediaCursorOffset'),
+                default: '',
+                require: true,
+                valueRestrictions: 'None',
+                defaultBehavior: 'Unknown',
+            },
+        ],
+        responseParams: [
+        ]
+    },
+    TriggerMediaInputAction: {
+        key: 'TriggerMediaInputAction',
+        title: 'TriggerMediaInputAction',
+        des: t('RequestDes.TriggerMediaInputAction'),
+        tags: ['Media Inputs'],
+        requestParams: [
+            {
+                name: 'inputName',
+                type: "String",
+                des: t('ReqParamsDes.TriggerMediaInputAction.inputName'),
+                default: '',
+                require: false,
+                valueRestrictions: 'None',
+                defaultBehavior: 'Unknown',
+            },
+            {
+                name: 'inputUuid',
+                type: "String",
+                des: t('ReqParamsDes.TriggerMediaInputAction.inputUuid'),
+                default: '',
+                require: false,
+                valueRestrictions: 'None',
+                defaultBehavior: 'Unknown',
+            },
+            {
+                name: 'mediaAction',
+                type: "Number",
+                des: t('ReqParamsDes.TriggerMediaInputAction.mediaAction'),
+                default: '',
+                require: true,
+                valueRestrictions: 'None',
+                defaultBehavior: 'Unknown',
+            },
+        ],
+        responseParams: [
+        ]
+    },
+    // Ui Requests
+    GetStudioModeEnabled: {
+        key: 'GetStudioModeEnabled',
+        title: 'GetStudioModeEnabled',
+        des: t('RequestDes.GetStudioModeEnabled'),
+        tags: ['Ui'],
+        requestParams: [
+        ],
+        responseParams: [
+            {
+                name: 'studioModeEnabled',
+                type: "Boolean",
+                des: t('ResParamsDes.GetStudioModeEnabled.studioModeEnabled'),
+            },
+        ]
+    },
+    SetStudioModeEnabled: {
+        key: 'SetStudioModeEnabled',
+        title: 'SetStudioModeEnabled',
+        des: t('RequestDes.SetStudioModeEnabled'),
+        tags: ['Ui'],
+        requestParams: [
+            {
+                name: 'studioModeEnabled',
+                type: "Boolean",
+                des: t('ReqParamsDes.SetStudioModeEnabled.inputName'),
+                default: '',
+                require: true,
+                valueRestrictions: 'None',
+                defaultBehavior: 'N/A',
+            },
+        ],
+        responseParams: [
+        ]
+    },
+    OpenInputPropertiesDialog: {
+        key: 'OpenInputPropertiesDialog',
+        title: 'OpenInputPropertiesDialog',
+        des: t('RequestDes.OpenInputPropertiesDialog'),
+        tags: ['Ui'],
+        requestParams: [
+            {
+                name: 'inputName',
+                type: "String",
+                des: t('ReqParamsDes.OpenInputPropertiesDialog.inputName'),
+                default: '',
+                require: false,
+                valueRestrictions: 'None',
+                defaultBehavior: 'Unknown',
+            },
+            {
+                name: 'inputUuid',
+                type: "String",
+                des: t('ReqParamsDes.OpenInputPropertiesDialog.inputUuid'),
+                default: '',
+                require: false,
+                valueRestrictions: 'None',
+                defaultBehavior: 'Unknown',
+            },
+        ],
+        responseParams: [
+        ]
+    },
+    OpenInputFiltersDialog: {
+        key: 'OpenInputFiltersDialog',
+        title: 'OpenInputFiltersDialog',
+        des: t('RequestDes.OpenInputFiltersDialog'),
+        tags: ['Ui'],
+        requestParams: [
+            {
+                name: 'inputName',
+                type: "String",
+                des: t('ReqParamsDes.OpenInputFiltersDialog.inputName'),
+                default: '',
+                require: false,
+                valueRestrictions: 'None',
+                defaultBehavior: 'Unknown',
+            },
+            {
+                name: 'inputUuid',
+                type: "String",
+                des: t('ReqParamsDes.OpenInputFiltersDialog.inputUuid'),
+                default: '',
+                require: false,
+                valueRestrictions: 'None',
+                defaultBehavior: 'Unknown',
+            },
+        ],
+        responseParams: [
+        ]
+    },
+    OpenInputInteractDialog: {
+        key: 'OpenInputInteractDialog',
+        title: 'OpenInputInteractDialog',
+        des: t('RequestDes.OpenInputInteractDialog'),
+        tags: ['Ui'],
+        requestParams: [
+            {
+                name: 'inputName',
+                type: "String",
+                des: t('ReqParamsDes.OpenInputInteractDialog.inputName'),
+                default: '',
+                require: false,
+                valueRestrictions: 'None',
+                defaultBehavior: 'Unknown',
+            },
+            {
+                name: 'inputUuid',
+                type: "String",
+                des: t('ReqParamsDes.OpenInputInteractDialog.inputUuid'),
+                default: '',
+                require: false,
+                valueRestrictions: 'None',
+                defaultBehavior: 'Unknown',
+            },
+        ],
+        responseParams: [
+        ]
+    },
+    GetMonitorList: {
+        key: 'GetMonitorList',
+        title: 'GetMonitorList',
+        des: t('RequestDes.GetMonitorList'),
+        tags: ['Ui'],
+        requestParams: [
+        ],
+        responseParams: [
+            {
+                name: 'monitors',
+                type: "Array<Object>",
+                des: t('ResParamsDes.GetMonitorList.monitors'),
+            },
+        ]
+    },
+    OpenVideoMixProjector: {
+        key: 'OpenVideoMixProjector',
+        title: 'OpenVideoMixProjector',
+        des: t('RequestDes.OpenVideoMixProjector'),
+        tags: ['Ui'],
+        requestParams: [
+            {
+                name: 'videoMixType',
+                type: "String",
+                des: t('ReqParamsDes.OpenVideoMixProjector.videoMixType'),
+                default: '',
+                require: true,
+                valueRestrictions: 'None',
+                defaultBehavior: 'N/A',
+            },
+            {
+                name: 'monitorIndex',
+                type: "Number",
+                des: t('ReqParamsDes.OpenVideoMixProjector.monitorIndex'),
+                default: '',
+                require: false,
+                valueRestrictions: 'None',
+                defaultBehavior: '-1: Opens projector in windowed mode',
+            },
+            {
+                name: 'projectorGeometry',
+                type: "String",
+                des: t('ReqParamsDes.OpenVideoMixProjector.projectorGeometry'),
+                default: '',
+                require: false,
+                valueRestrictions: 'None',
+                defaultBehavior: 'N/A',
+            },
+        ],
+        responseParams: [
+        ]
+    },
+    OpenSourceProjector: {
+        key: 'OpenSourceProjector',
+        title: 'OpenSourceProjector',
+        des: t('RequestDes.OpenSourceProjector'),
+        tags: ['Ui'],
+        requestParams: [
+            {
+                name: 'sourceName',
+                type: "String",
+                des: t('ReqParamsDes.OpenSourceProjector.sourceName'),
+                default: '',
+                require: false,
+                valueRestrictions: 'None',
+                defaultBehavior: 'Unknown',
+            },
+            {
+                name: 'sourceUuid',
+                type: "String",
+                des: t('ReqParamsDes.OpenSourceProjector.sourceUuid'),
+                default: '',
+                require: false,
+                valueRestrictions: 'None',
+                defaultBehavior: 'Unknown',
+            },
+            {
+                name: 'monitorIndex',
+                type: "Number",
+                des: t('ReqParamsDes.OpenSourceProjector.monitorIndex'),
+                default: '',
+                require: false,
+                valueRestrictions: 'None',
+                defaultBehavior: '-1: Opens projector in windowed mode',
+            },
+            {
+                name: 'projectorGeometry',
+                type: "String",
+                des: t('ReqParamsDes.OpenSourceProjector.projectorGeometry'),
+                default: '',
+                require: false,
+                valueRestrictions: 'None',
+                defaultBehavior: 'N/A',
+            },
+        ],
+        responseParams: [
         ]
     },
 
 
 
-    SetSceneItemEnabled: {
-        key: 'SetSceneItemEnabled',
-        title: 'SetSceneItemEnabled',
-        des: 'Enable or disable a specified source item within a scene',
-        tags: ['Scene'],
-        requestParams: [
-            {
-                name: 'sceneName',
-                type: "String",
-                des: t('ReqParamsDes.sceneName'),
-                default: '',
-                require: false,
-                valueRestrictions: 'None',
-                defaultBehavior: 'Unkown'
-            },
-            {
-                name: 'sceneUuid',
-                type: "String",
-                default: '',
-                des: t('ReqParamsDes.itemName'),
-                require: false,
-                valueRestrictions: 'None',
-                defaultBehavior: 'Unkown'
-            },
-            {
-                name: 'sceneItemId',
-                type: "Number",
-                default: '',
-                des: t('ReqParamsDes.sceneItemId'),
-                require: true,
-                valueRestrictions: '>= 0',
-                defaultBehavior: 'N/A'
-            },
-            {
-                name: 'sceneItemEnabled',
-                type: "Boolean",
-                default: 'false',
-                des: t('ReqParamsDes.sceneItemEnabled'),
-                require: true,
-                valueRestrictions: 'None',
-                defaultBehavior: 'N/A'
-            }
-        ] as I_Request_Params[],
-        responseParams: []
-    
-    },
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 }
 
 export const QueryColumns = [
