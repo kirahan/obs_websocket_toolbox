@@ -24,7 +24,9 @@
                                 <a-tag :color="item.type=='request'?'green':'red'">{{ item.type=='request'? 'Req': 'Res' }}</a-tag>
                             </div>
                             <div class="w_40">
-                                <span>{{ item.name }}</span>
+                                <a-button type="text" size="small" @click.stop="handleSeeDoc(item)">
+                                    {{ item.name }}
+                                </a-button>
                             </div>
 
                             <div class="w_10">
@@ -78,7 +80,7 @@
 
 <script setup lang="ts">
 import { CopyOutlined,CloseOutlined } from "@ant-design/icons-vue";
-import { I_Event_item, WSEventAndRequestHistory } from "../../../state";
+import { I_Event_item, WSEventAndRequestHistory, detailName, expandedKeys, getParentListFromKey, selectedKeys } from "../../../state";
 import {ref} from 'vue'
 
 const activeKey = ref([''])
@@ -98,6 +100,24 @@ const onClose = ()=>{
 
 const clearAll = ()=>{
     WSEventAndRequestHistory.value = []
+}
+
+
+const handleSeeDoc = (item:I_Event_item)=>{
+    console.log('see doc',item)
+    detailName.value = item.name
+    selectedKeys.value = [item.name]
+    const expandedList = getParentListFromKey(item.name)
+    // console.log('expandedList',expandedList)
+    // 如果父节点不再expandedKeys中，添加进去，展开父节点
+    if(expandedList.length){
+        expandedList.forEach(key=>{
+            if(!expandedKeys.value.includes(key)){
+                expandedKeys.value.push(key)
+            }
+        })
+    }
+    // console.log('expandedKeys',expandedKeys.value)
 }
 
 const handleRemove = (element:I_Event_item)=>{

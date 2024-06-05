@@ -34,6 +34,7 @@
                     <a-directory-tree
                         :showIcon="false"
                         v-model:selectedKeys="selectedKeys"
+                        v-model:expandedKeys="expandedKeys"
                         :tree-data="obsTreeData"
                         @click="handleClick"
                     >
@@ -69,14 +70,15 @@ import { t } from "../../locales";
 import {obsTreeData} from "../../data";
 import { onBeforeRouteUpdate } from "vue-router";
 import { DataNode } from "ant-design-vue/es/tree";
+import { detailName, selectedKeys, expandedKeys } from "../../state";
 
 
 const searchValue = ref("");
 const summarySelected = ref(false);
-const detailName = ref('')
+
 const searchOptions = ref([])
 
-const selectedKeys = ref<string[]>([]);
+
 
 const handleSearch = ()=>{
   if(searchValue.value){
@@ -119,8 +121,10 @@ const handleSummaryClick = () => {
 const handleClick = (e: Event,data:any) => {
     summarySelected.value = false;
     detailName.value = data.key
-    console.log(data);
-    console.log(data.key)
+    console.log('handleClick data',data)
+    console.log('data key',data.key)
+    console.log('expandedKeys',expandedKeys.value);
+    console.log('selectedKeys',selectedKeys.value);
 };
 
 
