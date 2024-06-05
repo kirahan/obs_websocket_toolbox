@@ -5451,24 +5451,6 @@ export const obsRequestDetailData:{[index:string]:I_Request_Detail} = {
         responseParams: [
         ]
     },
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 }
 
 export const QueryColumns = [

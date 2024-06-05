@@ -162,7 +162,62 @@
     "OpenVideoMixProjector": "Opens a projector for a specific output video mix.<br><br>Mix types:<br>OBS_WEBSOCKET_VIDEO_MIX_TYPE_PREVIEW<br>OBS_WEBSOCKET_VIDEO_MIX_TYPE_PROGRAM<br>OBS_WEBSOCKET_VIDEO_MIX_TYPE_MULTIVIEW<br><br>Note: This request serves to provide feature parity with 4.x. It is very likely to be changed/deprecated in a future release.",
     "OpenSourceProjector": "Opens a projector for a source.<br><br>Note: This request serves to provide feature parity with 4.x. It is very likely to be changed/deprecated in a future release."
   },
-  "EventDes": {},
+  "EventDes": {
+    "ExitStarted": "OBS has begun the shutdown process.",
+    "VendorEvent": "An event has been emitted from a vendor.  A vendor is a unique name registered by a third-party plugin or script, which allows for custom requests and events to be added to obs-websocket. If a plugin or script implements vendor requests or events, documentation is expected to be provided with them.",
+    "CustomEvent": "Custom event emitted by BroadcastCustomEvent.",
+    "CurrentSceneCollectionChanging": "The current scene collection has begun changing.  Note: We recommend using this event to trigger a pause of all polling requests, as performing any requests during a scene collection change is considered undefined behavior and can cause crashes!",
+    "CurrentSceneCollectionChanged": "The current scene collection has changed.  Note: If polling has been paused during CurrentSceneCollectionChanging, this is the que to restart polling.",
+    "SceneCollectionListChanged": "The scene collection list has changed.",
+    "CurrentProfileChanging": "The current profile has begun changing.",
+    "CurrentProfileChanged": "The current profile has changed.",
+    "ProfileListChanged": "The profile list has changed.",
+    "SceneCreated": "A new scene has been created.",
+    "SceneRemoved": "A scene has been removed.",
+    "SceneNameChanged": "The name of a scene has changed.",
+    "CurrentProgramSceneChanged": "The current program scene has changed.",
+    "CurrentPreviewSceneChanged": "The current preview scene has changed.",
+    "SceneListChanged": "The list of scenes has changed.  TODO: Make OBS fire this event when scenes are reordered.",
+    "InputCreated": "An input has been created.",
+    "InputRemoved": "An input has been removed.",
+    "InputNameChanged": "The name of an input has changed.",
+    "InputSettingsChanged": "An input's settings have changed (been updated).  Note: On some inputs, changing values in the properties dialog will cause an immediate update. Pressing the \"Cancel\" button will revert the settings, resulting in another event being fired.",
+    "InputActiveStateChanged": "An input's active state has changed.  When an input is active, it means it's being shown by the program feed.",
+    "InputShowStateChanged": "An input's show state has changed.  When an input is showing, it means it's being shown by the preview or a dialog.",
+    "InputMuteStateChanged": "An input's mute state has changed.",
+    "InputVolumeChanged": "An input's volume level has changed.",
+    "InputAudioBalanceChanged": "The audio balance value of an input has changed.",
+    "InputAudioSyncOffsetChanged": "The sync offset of an input has changed.",
+    "InputAudioTracksChanged": "The audio tracks of an input have changed.",
+    "InputAudioMonitorTypeChanged": "The monitor type of an input has changed.  Available types are:  OBS_MONITORING_TYPE_NONE  OBS_MONITORING_TYPE_MONITOR_ONLY  OBS_MONITORING_TYPE_MONITOR_AND_OUTPUT",
+    "InputVolumeMeters": "A high-volume event providing volume levels of all active inputs every 50 milliseconds.",
+    "CurrentSceneTransitionChanged": "The current scene transition has changed.",
+    "CurrentSceneTransitionDurationChanged": "The current scene transition duration has changed.",
+    "SceneTransitionStarted": "A scene transition has started.",
+    "SceneTransitionEnded": "A scene transition has completed fully.  Note: Does not appear to trigger when the transition is interrupted by the user.",
+    "SceneTransitionVideoEnded": "A scene transition's video has completed fully.  Useful for stinger transitions to tell when the video actually ends. SceneTransitionEnded only signifies the cut point, not the completion of transition playback.  Note: Appears to be called by every transition, regardless of relevance.",
+    "SourceFilterListReindexed": "A source's filter list has been reindexed.",
+    "SourceFilterCreated": "A filter has been added to a source.",
+    "SourceFilterSettingsChanged": "An source filter's settings have changed (been updated).",
+    "SourceFilterEnableStateChanged": "A source filter's enable state has changed.",
+    "SceneItemCreated": "A scene item has been created.",
+    "SceneItemRemoved": "A scene item has been removed.  This event is not emitted when the scene the item is in is removed.",
+    "SceneItemListReindexed": "A scene's item list has been reindexed.",
+    "SceneItemEnableStateChanged": "A scene item's enable state has changed.",
+    "SceneItemLockStateChanged": "A scene item's lock state has changed.",
+    "SceneItemSelected": "A scene item has been selected in the Ui.",
+    "SceneItemTransformChanged": "The transform/crop of a scene item has changed.",
+    "StreamStateChanged": "The state of the stream output has changed.",
+    "RecordStateChanged": "The state of the record output has changed.",
+    "ReplayBufferStateChanged": "The state of the replay buffer output has changed.",
+    "VirtualcamStateChanged": "The state of the virtualcam output has changed.",
+    "ReplayBufferSaved": "The replay buffer has been saved.",
+    "MediaInputPlaybackStarted": "A media input has started playing.",
+    "MediaInputPlaybackEnded": "A media input has finished playing.",
+    "MediaInputActionTriggered": "An action has been performed on an input.",
+    "StudioModeStateChanged": "Studio mode has been enabled or disabled.",
+    "ScreenshotSaved": "A screenshot has been saved.  Note: Triggered for the screenshot feature available in Settings -> Hotkeys -> Screenshot Output ONLY. Applications using Get/SaveSourceScreenshot should implement a CustomEvent if this kind of inter-client communication is desired."
+  },
   "ReqParamsDes": {
     "obsVersion": "Current OBS Studio version",
     "obsWebSocketVersion": "Current OBS WebSocket version",
@@ -801,6 +856,255 @@
     },
     "GetMonitorList": {
       "monitors": "a list of detected monitors with some information"
+    },
+    "VendorEvent": {
+      "vendorName": "Name of the vendor emitting the event",
+      "eventData": "Vendor-provided event data. {} if event does not provide any data",
+      "eventType": "Vendor-provided event typedef"
+    },
+    "CustomEvent": {
+      "eventData": "Custom event data"
+    },
+    "CurrentSceneCollectionChanging": {
+      "sceneCollectionName": "Name of the current scene collection"
+    },
+    "CurrentSceneCollectionChanged": {
+      "sceneCollectionName": "Name of the new scene collection"
+    },
+    "SceneCollectionListChanged": {
+      "sceneCollections": "Updated list of scene collections"
+    },
+    "CurrentProfileChanging": {
+      "profileName": "Name of the current profile"
+    },
+    "CurrentProfileChanged": {
+      "profileName": "Name of the new profile"
+    },
+    "ProfileListChanged": {
+      "profiles": "Updated list of profiles"
+    },
+    "SceneCreated": {
+      "sceneName": "Name of the new scene",
+      "sceneUuid": "UUID of the new scene",
+      "isGroup": "Whether the new scene is a group"
+    },
+    "SceneRemoved": {
+      "sceneName": "Name of the removed scene",
+      "sceneUuid": "UUID of the removed scene",
+      "isGroup": "Whether the scene was a group"
+    },
+    "SceneNameChanged": {
+      "sceneUuid": "UUID of the scene",
+      "sceneName": "New name of the scene",
+      "oldSceneName": "Old name of the scene"
+    },
+    "CurrentProgramSceneChanged": {
+      "sceneName": "Name of the scene that was switched to",
+      "sceneUuid": "UUID of the scene that was switched to"
+    },
+    "CurrentPreviewSceneChanged": {
+      "sceneName": "Name of the scene that was switched to",
+      "sceneUuid": "UUID of the scene that was switched to"
+    },
+    "SceneListChanged": {
+      "scenes": "Updated array of scenes"
+    },
+    "InputCreated": {
+      "inputName": "Name of the input",
+      "inputUuid": "UUID of the input",
+      "inputKind": "The kind of the input",
+      "inputSettings": "The settings configured to the input when it was created",
+      "unversionedInputKind": "The unversioned kind of input (aka no _v2 stuff)",
+      "defaultInputSettings": "The default settings for the input"
+    },
+    "InputRemoved": {
+      "inputName": "Name of the input",
+      "inputUuid": "UUID of the input"
+    },
+    "InputNameChanged": {
+      "inputUuid": "UUID of the input",
+      "oldInputName": "Old name of the input",
+      "inputName": "New name of the input"
+    },
+    "InputSettingsChanged": {
+      "inputName": "Name of the input",
+      "settings": "New settings object of the input",
+      "inputSettings": "New settings object of the input",
+      "inputUuid": "UUID of the input"
+    },
+    "InputActiveStateChanged": {
+      "inputName": "Name of the input",
+      "inputUuid": "UUID of the input",
+      "videoActive": "Whether the input is active"
+    },
+    "InputShowStateChanged": {
+      "inputName": "Name of the input",
+      "inputUuid": "UUID of the input",
+      "videoShowing": "Whether the input is showing"
+    },
+    "InputMuteStateChanged": {
+      "inputName": "Name of the input",
+      "inputUuid": "UUID of the input",
+      "inputMuted": "Whether the input is muted"
+    },
+    "InputVolumeChanged": {
+      "inputName": "Name of the input",
+      "inputUuid": "UUID of the input",
+      "inputVolumeMul": "New volume level multiplier",
+      "inputVolumeDb": "New volume level in dB"
+    },
+    "InputAudioBalanceChanged": {
+      "inputName": "Name of the input",
+      "inputUuid": "UUID of the input",
+      "inputAudioBalance": "New audio balance value of the input"
+    },
+    "InputAudioSyncOffsetChanged": {
+      "inputName": "Name of the input",
+      "inputUuid": "UUID of the input",
+      "inputAudioSyncOffset": "New sync offset in milliseconds"
+    },
+    "InputAudioTracksChanged": {
+      "inputName": "Name of the input",
+      "inputUuid": "UUID of the input",
+      "inputAudioTracks": "Object of audio tracks along with their associated enable states"
+    },
+    "InputAudioMonitorTypeChanged": {
+      "inputName": "Name of the input",
+      "inputUuid": "UUID of the input",
+      "monitorType": "New monitor type of the input"
+    },
+    "InputVolumeMeters": {
+      "inputs": "Array of active inputs with their associated volume levels"
+    },
+    "CurrentSceneTransitionChanged": {
+      "transitionName": "Name of the new transition",
+      "transitionUuid": "UUID of the new transition"
+    },
+    "CurrentSceneTransitionDurationChanged": {
+      "transitionDuration": "Transition duration in milliseconds"
+    },
+    "SceneTransitionStarted": {
+      "transitionName": "Scene transition name",
+      "transitionUuid": "Scene transition UUID"
+    },
+    "SceneTransitionEnded": {
+      "transitionName": "Scene transition name",
+      "transitionUuid": "Scene transition UUID"
+    },
+    "SceneTransitionVideoEnded": {
+      "transitionName": "Scene transition name",
+      "transitionUuid": "Scene transition UUID"
+    },
+    "SourceFilterListReindexed": {
+      "sourceName": "Name of the source",
+      "filters": "Array of filter objects"
+    },
+    "SourceFilterCreated": {
+      "sourceName": "Name of the source the filter was added to",
+      "filterName": "Name of the filter",
+      "defaultFilterSettings": "The default settings for the filter",
+      "filterSettings": "The settings configured to the filter when it was created",
+      "filterIndex": "Index position of the filter",
+      "filterKind": "The kind of the filter"
+    },
+    "SourceFilterRemoved": {
+      "sourceName": "Name of the source the filter was on",
+      "filterName": "Name of the filter"
+    },
+    "SourceFilterNameChanged": {
+      "sourceName": "The source the filter is on",
+      "filterName": "New name of the filter",
+      "oldFilterName": "Old name of the filter"
+    },
+    "SourceFilterSettingsChanged": {
+      "sourceName": "Name of the source the filter is on",
+      "filterName": "Name of the filter",
+      "filterSettings": "New settings object of the filter"
+    },
+    "SourceFilterEnableStateChanged": {
+      "sourceName": "Name of the source the filter is on",
+      "filterName": "Name of the filter",
+      "filterEnabled": "Whether the filter is enabled"
+    },
+    "SceneItemCreated": {
+      "sceneName": "Name of the scene the item was added to",
+      "sceneUuid": "UUID of the scene the item was added to",
+      "sourceName": "Name of the underlying source (input/scene)",
+      "sourceUuid": "UUID of the underlying source (input/scene)",
+      "sceneItemId": "Numeric ID of the scene item",
+      "sceneItemIndex": "Index position of the item"
+    },
+    "SceneItemRemoved": {
+      "sceneName": "Name of the scene the item was removed from",
+      "sceneUuid": "UUID of the scene the item was removed from",
+      "sourceName": "Name of the underlying source (input/scene)",
+      "sourceUuid": "UUID of the underlying source (input/scene)",
+      "sceneItemId": "Numeric ID of the scene item"
+    },
+    "SceneItemListReindexed": {
+      "sceneName": "Name of the scene",
+      "sceneUuid": "UUID of the scene",
+      "sceneItems": "Array of scene item objects"
+    },
+    "SceneItemEnableStateChanged": {
+      "sceneName": "Name of the scene the item is in",
+      "sceneUuid": "UUID of the scene the item is in",
+      "sceneItemId": "Numeric ID of the scene item",
+      "sceneItemEnabled": "Whether the scene item is enabled (visible)"
+    },
+    "SceneItemLockStateChanged": {
+      "sceneName": "Name of the scene the item is in",
+      "sceneUuid": "UUID of the scene the item is in",
+      "sceneItemId": "Numeric ID of the scene item",
+      "sceneItemLocked": "Whether the scene item is locked"
+    },
+    "SceneItemSelected": {
+      "sceneName": "Name of the scene the item is in",
+      "sceneUuid": "UUID of the scene the item is in",
+      "sceneItemId": "Numeric ID of the scene item"
+    },
+    "SceneItemTransformChanged": {
+      "sceneName": "The name of the scene the item is in",
+      "sceneUuid": "The UUID of the scene the item is in",
+      "sceneItemId": "Numeric ID of the scene item",
+      "sceneItemTransform": "New transform/crop info of the scene item"
+    },
+    "StreamStateChanged": {
+      "outputActive": "Whether the output is active",
+      "outputState": "The specific state of the output"
+    },
+    "RecordStateChanged": {
+      "outputActive": "Whether the output is active",
+      "outputState": "The specific state of the output",
+      "outputPath": "File name for the saved recording, if record stopped. null otherwise"
+    },
+    "ReplayBufferStateChanged": {
+      "outputActive": "Whether the output is active",
+      "outputState": "The specific state of the output"
+    },
+    "VirtualcamStateChanged": {
+      "outputActive": "Whether the output is active",
+      "outputState": "The specific state of the output",
+      "savedReplayPath": "Path of the saved replay file"
+    },
+    "MediaInputPlaybackStarted": {
+      "inputName": "Name of the input",
+      "inputUuid": "UUID of the input"
+    },
+    "MediaInputPlaybackEnded": {
+      "inputName": "Name of the input",
+      "inputUuid": "UUID of the input"
+    },
+    "MediaInputActionTriggered": {
+      "inputName": "Name of the input",
+      "inputUuid": "UUID of the input",
+      "mediaAction": "Action performed on the input. See ObsMediaInputAction enum"
+    },
+    "StudioModeStateChanged": {
+      "studioModeEnabled": "True == Enabled, False == Disabled"
+    },
+    "ScreenshotSaved": {
+      "savedScreenshotPath": "Path of the saved image file"
     }
   },
   "Actions": {

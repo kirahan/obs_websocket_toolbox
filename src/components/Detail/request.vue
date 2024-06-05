@@ -18,15 +18,10 @@
             <EventViewer></EventViewer>
         </div>
 
-
-        <div class="queryPanel flex_column">
+        <!-- 只有requests的时候才会显示query -->
+        <div v-if="elementInfo.type=='request'" class="queryPanel flex_column">
             <h3>{{ $t('Titles.Detail.Query') }}</h3>
-            <!-- 只有requests的时候才会显示发送按钮 -->
-            <a-button v-if="elementInfo.type=='request'" size="small" type="primary" @click="sendRequest">{{$t('Actions.Send')}}</a-button>
-            <!-- <a-input v-for="item in requestParams" v-model:value="useStorage(item.name,'').value" type="text" /> -->
-            <!-- <input v-for="item in requestParams" v-model="modelStorage[item.name]" type="text" /> -->
-            <!-- <a-input v-for="item in requestParams" v-model:value="modelStorage[item.name]" type="text" /> -->
-
+            <a-button size="small" type="primary" @click="sendRequest">{{$t('Actions.Send')}}</a-button>
             <a-table
                 :columns="QueryColumns"
                 :data-source="requestParams"
@@ -108,6 +103,7 @@ const props = defineProps({
     }
 })
 
+
 // const modelRefs = ref({} as {[index:string]:any})
 const modelStorage = useStorage('modelStorage',{} as {[index:string]:any})
 
@@ -187,6 +183,9 @@ const responseParams = computed(() => {
     if(props.name in obsRequestDetailData){
         // @ts-ignore
         return obsRequestDetailData[props.name].responseParams
+    }else if(props.name in obsEventDetailData){
+        // @ts-ignore
+        return obsEventDetailData[props.name].responseParams
     }
     return []
 });
