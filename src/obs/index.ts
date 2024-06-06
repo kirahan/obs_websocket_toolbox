@@ -2,6 +2,7 @@
 import OBSWebSocket, { RequestBatchExecutionType, RequestBatchRequest, ResponseBatchMessage, ResponseMessage } from 'obs-websocket-js'
 import { OBSConnectionConfig, OBSGeneralConfig, OBSVideoConfig, OBSstatus, WSEventAndRequestHistory, WSconnected, WSplatform, WSstats, WSversions } from '../state';
 import { OBSEventTypes, OBSRequestTypes, OBSResponseTypes } from 'obs-websocket-js'
+import { obsEventDetailData } from '../data/events';
 
 class OBS {
     static instance: OBS;
@@ -128,36 +129,21 @@ class OBS {
     // }
 
     registOBSEvent(){
-        this.ws.on('CurrentPreviewSceneChanged', async (data) => {
-            console.log('[obs]CurrentPreviewSceneChanged', data)
-            WSEventAndRequestHistory.value.push({
-                uuid: Math.random().toString(),
-                type: 'event',
-                name: 'CurrentPreviewSceneChanged',
-                timestamp: new Date().toLocaleTimeString(),
-                params: data,
+        for(let item in obsEventDetailData){
+            const eventName = obsEventDetailData[item].key
+            console.log('registOBSEvent:',eventName)
+            // @ts-ignore
+            this.ws.on(eventName,async(data)=>{
+                console.log(`[obs event]${eventName}:`, data)
+                WSEventAndRequestHistory.value.push({
+                    uuid: Math.random().toString(),
+                    type: 'event',
+                    name: eventName,
+                    timestamp: new Date().toLocaleTimeString(),
+                    params: data,
+                })
             })
-        });
-        this.ws.on('SceneItemEnableStateChanged', async (data) => {
-            console.log('[obs]SceneItemEnableStateChanged', data)
-            WSEventAndRequestHistory.value.push({
-                uuid: Math.random().toString(),
-                type: 'event',
-                name: 'SceneItemEnableStateChanged',
-                timestamp: new Date().toLocaleTimeString(),
-                params: data,
-            })
-        });
-        this.ws.on('CurrentProgramSceneChanged', async (data) => {
-            console.log('[obs]CurrentProgramSceneChanged', data)
-            WSEventAndRequestHistory.value.push({
-                uuid: Math.random().toString(),
-                type: 'event',
-                name: 'CurrentPreviewSceneChanged',
-                timestamp: new Date().toLocaleTimeString(),
-                params: data,
-            })
-        });
+        }
     }
 
 }
