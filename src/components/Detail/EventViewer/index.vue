@@ -1,7 +1,8 @@
 <template>
     <div class="no_p_m_body flex_column">
-        <h3>{{ $t('Titles.Detail.EventViewer') }}</h3>
-        <a-button v-if="WSEventAndRequestHistory.length" size="small" type="primary" @click="clearAll">{{$t('Actions.Clear')}}</a-button>
+        <h3>{{ $t('Titles.Detail.EventViewer') }}
+            <a-button v-if="WSEventAndRequestHistory.length" size="small" type="primary" @click="clearAll">{{$t('Actions.Clear')}}</a-button>
+        </h3>
         <a-collapse v-model:activeKey="activeKey">
             <a-collapse-panel key="1" :header='$t("Actions.ClickToExpand")'>
                 <div class="content">
@@ -83,7 +84,7 @@ import { CopyOutlined,CloseOutlined } from "@ant-design/icons-vue";
 import { I_Event_item, WSEventAndRequestHistory, detailName, expandedKeys, getParentListFromKey, selectedKeys } from "../../../state";
 import {ref} from 'vue'
 
-const activeKey = ref([''])
+const activeKey = ref(['1'])
 
 const headerStyle = {
     height:'5px!',

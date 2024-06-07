@@ -20,63 +20,74 @@
 
         <!-- 只有requests的时候才会显示query -->
         <div v-if="elementInfo.type=='request'" class="queryPanel flex_column">
-            <h3>{{ $t('Titles.Detail.Query') }}</h3>
-            <a-button size="small" type="primary" @click="sendRequest">{{$t('Actions.Send')}}</a-button>
-            <a-table
-                :columns="QueryColumns"
-                :data-source="requestParams"
-                bordered
-                size="small"
-                :pagination="false"
-                @resizeColumn="handleResizeColumn"
-            >
-                <template #bodyCell="{column,text,record}">
-                    <!-- 如果require 给name前面增加一个* -->
-                    <template v-if="column.dataIndex=='name'">
-                        <span v-if="record.require" class="require">*</span>
-                        <CaretRightOutlined v-if="record.type=='Object'" />
-                        <span :class="!!record.parentNode ? 'ObjectChildNode' :''">{{text}}</span>
-                    </template>
+            <h3>{{ $t('Titles.Detail.Query') }} 
+                <a-button size="small" type="primary" @click="sendRequest">{{$t('Actions.Send')}}</a-button>
+            </h3>
+            <a-collapse v-model:activeKey="activeReq">
+                <a-collapse-panel key="1" :header='$t("Actions.ClickToExpand")'>
+                    <a-table
+                        :columns="QueryColumns"
+                        :data-source="requestParams"
+                        bordered
+                        size="small"
+                        :pagination="false"
+                        @resizeColumn="handleResizeColumn"
+                    >
+                        <template #bodyCell="{column,text,record}">
+                            <!-- 如果require 给name前面增加一个* -->
+                            <template v-if="column.dataIndex=='name'">
+                                <span v-if="record.require" class="require">*</span>
+                                <CaretRightOutlined v-if="record.type=='Object'" />
+                                <span :class="!!record.parentNode ? 'ObjectChildNode' :''">{{text}}</span>
+                            </template>
 
-                    <template v-else-if="column.dataIndex=='model'">
-                        <a-input 
-                        v-if="record.type != 'Object'"
-                        v-model:value="modelStorage[record.name]" 
-                        :status="record.require && !modelStorage[record.name] ? 'error' : ''"
-                        @blur="()=>inputBlur(record)"
-                        type="text" />
+                            <template v-else-if="column.dataIndex=='model'">
+                                <a-input 
+                                v-if="record.type != 'Object'"
+                                v-model:value="modelStorage[record.name]" 
+                                :status="record.require && !modelStorage[record.name] ? 'error' : ''"
+                                @blur="()=>inputBlur(record)"
+                                type="text" />
 
-                        <!-- 当type为Object时候需要创建子节点 -->
-                        <a-textarea v-else
-                        :disabled="!record.isCustomerObject"
-                        :rows="4" 
-                        v-model:value="modelStorage[record.name]" 
-                        :status="record.require && !modelStorage[record.name] ? 'error' : ''"
-                        ></a-textarea>
+                                <!-- 当type为Object时候需要创建子节点 -->
+                                <a-textarea v-else
+                                :disabled="!record.isCustomerObject"
+                                :rows="4" 
+                                v-model:value="modelStorage[record.name]" 
+                                :status="record.require && !modelStorage[record.name] ? 'error' : ''"
+                                ></a-textarea>
 
 
-                        <!-- <a-input v-else type="text" :disabled="true" 
-                        v-model:value="modelStorage[record.name]" 
-                        ></a-input> -->
-                    </template>
-                    <template v-else>
-                        {{text}}
-                    </template>
-                </template>
-            </a-table>
+                                <!-- <a-input v-else type="text" :disabled="true" 
+                                v-model:value="modelStorage[record.name]" 
+                                ></a-input> -->
+                            </template>
+                            <template v-else>
+                                {{text}}
+                            </template>
+                        </template>
+                    </a-table>
+                </a-collapse-panel>
+            </a-collapse>
+            
         </div>
 
 
         <div class="responsePanel flex_column">
             <h3>{{ $t('Titles.Detail.Response') }}</h3>
-            <a-table
-                :columns="ResponseColumns"
-                :data-source="responseParams"
-                bordered
-                size="small"
-                :pagination="false"
-            >
-            </a-table>
+            <a-collapse v-model:activeKey="activeRes">
+                <a-collapse-panel key="1" :header='$t("Actions.ClickToExpand")'>
+                    <a-table
+                        :columns="ResponseColumns"
+                        :data-source="responseParams"
+                        bordered
+                        size="small"
+                        :pagination="false"
+                    >
+                    </a-table>
+                </a-collapse-panel>
+            </a-collapse>
+            
         </div>
     </div>
 </template>
@@ -93,6 +104,7 @@ import { CaretRightOutlined } from "@ant-design/icons-vue";
 
 import { useStorage } from "@vueuse/core";
 import { obsEventDetailData } from "../../data/events";
+import { OBSRequestTypes } from "obs-websocket-js";
 const obs = OBS.getInstance()
 
 const props = defineProps({
@@ -102,6 +114,9 @@ const props = defineProps({
         default: ''
     }
 })
+
+const activeReq = ref(['1'])
+const activeRes = ref(['1'])
 
 
 // const modelRefs = ref({} as {[index:string]:any})
@@ -255,31 +270,7 @@ const sendRequest = () => {
             params: query,
             timestamp: new Date().toLocaleTimeString()
         });
-    // @ts-ignore
-    obs.ws.call(props.name,query).then((res)=>{
-        // @ts-ignore
-        res && WSEventAndRequestHistory.value.push({
-            type: "response",
-            name: props.name,
-            params: res as any,
-            timestamp: new Date().toLocaleTimeString()
-        });
-        console.log('===========ws====',res);
-        message.success('Send Request Success');
-    }).catch((err)=>{
-        // 插入错误信息
-        WSEventAndRequestHistory.value.push({
-            uuid: Math.random().toString(),
-            type: "error",
-            name: props.name,
-            params: err.message as any,
-            timestamp: new Date().toLocaleTimeString()
-        });
-        console.error('===========ws===err=',err.message)
-        message.error('Send Request Error:'+err.message);
-    });
-
-
+    obs.sendRequest(props.name as keyof OBSRequestTypes,query);
 };
 
 </script>

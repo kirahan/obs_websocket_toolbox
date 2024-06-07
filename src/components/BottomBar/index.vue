@@ -1,99 +1,126 @@
 <template>
     <div class="statusBar">
         <div class="leftItem container">
-            <div class="websocket item">
-                <div class="iconBtn" :class="WSconnected?'':'red'">
-                    <LinkOutlined v-if="WSconnected" @click="disConnectOBS"/>
-                    <DisconnectOutlined v-else @click="connectOBS" />
-                </div>
-
-                <div class="flexdiv">
-                    <BranchesOutlined />
-                </div>
-                
-
-                <a-popover trigger="click" v-model:open="isConnectionConfigPopVisible">
-                    <template #content>
-                        <a-form layout="vertical" 
-                        :model="connectParms"
-                        @finish="setConnectParmsFinish"
-                        @finishFailed="setConnectParmsFailed"
-                        >
-                        <!-- name跟字段名字要对应上否则匹配无法识别 -->
-                            <a-form-item
-                                label="Host"
-                                name="host"
-                                :rules="[{ required: true, message: 'Please input Host!' }]"
-                            >
-                                <a-input placeholder="Host" v-model:value="connectParms.host"/>
-                            </a-form-item>
-
-                            <a-form-item
-                                label="Port"
-                                name="port"
-                                :rules="[{ required: true, message: 'Please input Port!' }]"
-                            >
-                                <a-input placeholder="Port" v-model:value="connectParms.port"/>
-                            </a-form-item>
-
-                            <a-form-item
-                                label="Password"
-                                name="password"
-                            >
-                                <a-input placeholder="Password" v-model:value="connectParms.password"/>
-                            </a-form-item>
-
-                            <a-form-item >
-                                <a-button type="primary" html-type="submit">Set</a-button>
-                            </a-form-item>
-                        </a-form>
-                    </template>
-                    <div class="flexdiv clickAble">
-                        <span>{{ OBSConnectionConfig.host.value }}:{{ OBSConnectionConfig.port.value }}</span>
-                        <span>{{ OBSConnectionConfig.password.value }}</span>
+            <a-tooltip
+            key="connectOBS"
+            :title="$t('Tooltops.connectOBS')"
+            >
+                    <div class="iconBtn" :class="WSconnected?'':'red'">
+                        <LinkOutlined v-if="WSconnected" @click="disConnectOBS"/>
+                        <DisconnectOutlined v-else @click="connectOBS" />
                     </div>
-                </a-popover>
+            </a-tooltip>
+            
+            <a-tooltip
+            key="configOBS"
+            :title="$t('Tooltops.configOBS')"
+            >
+                <div class="websocket item">
+                        <div class="flexdiv">
+                            <BranchesOutlined />
+                        </div>
 
-                
-                
-                <div class="flexdiv" v-if="WSconnected">
+                        <a-popover trigger="click" v-model:open="isConnectionConfigPopVisible">
+                            <template #content>
+                                <a-form layout="vertical" 
+                                :model="connectParms"
+                                @finish="setConnectParmsFinish"
+                                @finishFailed="setConnectParmsFailed"
+                                >
+                                <!-- name跟字段名字要对应上否则匹配无法识别 -->
+                                    <a-form-item
+                                        label="Host"
+                                        name="host"
+                                        :rules="[{ required: true, message: 'Please input Host!' }]"
+                                    >
+                                        <a-input placeholder="Host" v-model:value="connectParms.host"/>
+                                    </a-form-item>
+
+                                    <a-form-item
+                                        label="Port"
+                                        name="port"
+                                        :rules="[{ required: true, message: 'Please input Port!' }]"
+                                    >
+                                        <a-input placeholder="Port" v-model:value="connectParms.port"/>
+                                    </a-form-item>
+
+                                    <a-form-item
+                                        label="Password"
+                                        name="password"
+                                    >
+                                        <a-input placeholder="Password" v-model:value="connectParms.password"/>
+                                    </a-form-item>
+
+                                    <a-form-item >
+                                        <a-button type="primary" html-type="submit">Set</a-button>
+                                    </a-form-item>
+                                </a-form>
+                            </template>
+                            <div class="flexdiv clickAble">
+                                <span>{{ OBSConnectionConfig.host.value }}:{{ OBSConnectionConfig.port.value }}</span>
+                                <span>{{ OBSConnectionConfig.password.value }}</span>
+                            </div>
+                        </a-popover>
+
+                        
+                        
+                        <div class="flexdiv" v-if="WSconnected">
+                            <a-divider class="bottomDivider" type="vertical" />
+                            <AppleOutlined v-if="WSplatform == 'macos'" />
+                            <WindowsOutlined v-else />
+                            <a-divider class="bottomDivider" type="vertical" />
+                            <span>WebSocket:{{ WSversions.obsWebSocketVersion }}</span>
+                            <a-divider class="bottomDivider" type="vertical" />
+                            <span>OBS:{{ WSversions.obsVersion }}</span>
+                        </div>
+                    </div>
+            </a-tooltip>
+
+        </div>
+
+        <div v-if="WSconnected" class="rightItem container">
+            <a-tooltip
+            key="loopGetStat"
+            :title="$t('Tooltops.LoopGetStat')"
+            >
+                <div class="iconBtn">
+                    <ReloadOutlined v-if="!looptimer" @click="loopGetStat"/>
+                    <PauseOutlined v-else @click="pauseOBSstat"/>
+                </div>
+            </a-tooltip>
+            
+            <div class="websocket item">
+                <div class="flexdiv">
                     <a-divider class="bottomDivider" type="vertical" />
-                    <AppleOutlined v-if="WSplatform == 'macos'" />
-                    <WindowsOutlined v-else />
+                    <span>CPU:{{ CPU }}</span>
                     <a-divider class="bottomDivider" type="vertical" />
-                    <span>WebSocket:{{ WSversions.obsWebSocketVersion }}</span>
+                    <span>Memory:{{ Memory }}</span>
                     <a-divider class="bottomDivider" type="vertical" />
-                    <span>OBS:{{ WSversions.obsVersion }}</span>
+                    <span>DISK:{{ Disk }}</span>
                 </div>
             </div>
         </div>
-        <div class="rightItem container">
-            <span>未连接</span>
-            <span>未连接</span>
-            <span>未连接</span>
-            <span>未连接</span>
-        </div>
 
+    <a-tooltip></a-tooltip>
 
     </div>
 </template>
 
 <script setup lang="ts">
-import { ref,reactive } from 'vue'
+import { ref,computed } from 'vue'
 import { NotificationPlacement, notification } from 'ant-design-vue';
-import { WindowsOutlined,BranchesOutlined,LinkOutlined,DisconnectOutlined,AppleOutlined } from '@ant-design/icons-vue';
-import { OBSConnectionConfig,WSconnected,WSversions,WSplatform } from '../../state';
+import { WindowsOutlined,BranchesOutlined,LinkOutlined,DisconnectOutlined,AppleOutlined,ReloadOutlined,PauseOutlined } from '@ant-design/icons-vue';
+import { OBSConnectionConfig,WSconnected,WSversions,WSplatform,WSstats } from '../../state';
 import OBS from '../../obs';
 import { watch } from 'vue';
 const obs = OBS.getInstance()
 
+const CPU = computed(() => WSstats.value.cpuUsage?.toFixed(1) + '%');
+const Memory = computed(() => WSstats.value.memoryUsage?.toFixed(1) + 'MB' );
+const Disk = computed(() => (WSstats.value.availableDiskSpace/1024)?.toFixed(1) + 'GB');
 
+const looptimer = ref(0)
 
-// const connectParms = reactive({
-//     host:'',
-//     port:'',
-//     password:''
-// })
 
 const isConnectionConfigPopVisible = ref(false)
 
@@ -139,29 +166,44 @@ const setConnectParmsFailed = (err:any)=>{
 
 const connectOBS = async()=>{
     await obs.connect()
+    loopGetStat()
 }
 
 const disConnectOBS = async()=>{
+    
     try{
         await obs.disconnect()
     }catch(e){
         console.log(e)
     }
 }
-    
+
+const loopGetStat = ()=>{
+    looptimer.value = setInterval(
+        ()=>{
+        obs.getStats()
+    },3000
+    )
+}
+const pauseOBSstat = ()=>{
+    clearInterval(looptimer.value)
+    looptimer.value = 0
+}
+
 </script>
 
 <style scoped lang="scss">
 .statusBar{
     display: flex;
     color: rgb(147,161,161);
-    font-size: 12px;
+    font-size: 14px;
+    font-weight: 500;
     overflow: hidden;
     height:100%;
     width:100%;
     .container{
         .item:hover{
-            background-color: rgba(147,161,161,0.4);
+            background-color: rgba(147,161,161,0.1);
         }
         .item:hover .flexdiv{
             background-color: rgba(147,161,161,0.2);
@@ -202,17 +244,7 @@ const disConnectOBS = async()=>{
     cursor: pointer;
 }
 
-.iconBtn{
-    height: 100%;
-    padding: 0 5px;
-    display: flex;
-    align-items: center;
-    background-color: rgba(42, 161, 152, 0.6);
-    cursor: pointer;
-    &.red{
-    background-color: rgba(255, 0, 0, 0.6);
-}
-}
+
 
 .bottomDivider{
     margin: 0 2px;

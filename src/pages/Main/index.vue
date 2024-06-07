@@ -20,6 +20,7 @@
                         style="width: 100%"
                         :options="searchOptions"
                         :filter-option="filterOption"
+                        @search="handleSearch"
                         placeholder="input here"
                     />
                     <a-button @click="handleSearch">search</a-button>
@@ -70,7 +71,7 @@ import { t } from "../../locales";
 import {obsTreeData} from "../../data";
 import { onBeforeRouteUpdate } from "vue-router";
 import { DataNode } from "ant-design-vue/es/tree";
-import { detailName, selectedKeys, expandedKeys } from "../../state";
+import { detailName, selectedKeys, expandedKeys, getParentListFromKey } from "../../state";
 
 
 const searchValue = ref("");
@@ -79,11 +80,21 @@ const summarySelected = ref(false);
 const searchOptions = ref([])
 
 
-
 const handleSearch = ()=>{
   if(searchValue.value){
     summarySelected.value = false;
     detailName.value = searchValue.value
+    selectedKeys.value = [searchValue.value]
+    const expandedList = getParentListFromKey(searchValue.value)
+    // 如果父节点不再expandedKeys中，添加进去，展开父节点
+    if(expandedList.length){
+        expandedList.forEach(key=>{
+            if(!expandedKeys.value.includes(key)){
+                expandedKeys.value.push(key)
+            }
+        })
+    }
+    // console.log('====expandedList',expandedList)
   }
 }
 
@@ -108,7 +119,6 @@ const expendData = (lists:DataNode[])=>{
 
 onMounted(()=>{
   expendData(obsTreeData)
-  console.log('searchOptions',searchOptions.value)
 })
 
 
@@ -137,14 +147,14 @@ const handleClick = (e: Event,data:any) => {
   width: 100vw;
 
   .header {
-    background-color: rgb(0, 33, 43);
+    // background-color: rgb(0, 33, 43);
     padding: 0;
-    height: 30px;
+    height: 40px;
   }
   .middle {
     // background-color: rgb(0, 33, 43);
     padding: 0;
-    height: calc(100vh - 60px);
+    height: calc(100vh - 80px);
     .listContainer{
         overflow: auto;
         // background-color: aqua;
@@ -181,7 +191,7 @@ const handleClick = (e: Event,data:any) => {
   .footer {
     background-color: rgb(0, 33, 43);
     padding: 0;
-    height: 30px;
+    height: 40px;
   }
 }
 

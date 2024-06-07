@@ -1,37 +1,41 @@
 <template>
     <div class="statusBar">
-        <div v-if="WSconnected" class="leftItem container">
+        <div class="item">OBS Websocket Debug Tools</div>
+        <div v-if="WSconnected" class="leftItem container"> </div>
+
+        <div v-if="WSconnected" class="rightItem container">
             <div class="websocket item">
-                <div   class="flexdiv">
+                <div class="flexdiv">
                     <a-divider class="bottomDivider" type="vertical" />
-                    <span>CPU:{{ CPU }}</span>
-                    <span>memory:{{ Memory }}</span>
-                    <span>DISK:{{ Disk }}</span>
+                    <span>Profile:{{ Profile }}</span>
                     <a-divider class="bottomDivider" type="vertical" />
-                    <span>WebSocket:{{ WSversions.obsWebSocketVersion }}</span>
+                    <span>SC:{{ SceneCollection }}</span>
+                </div>
+            </div>
+            <div class="websocket item">
+                <div class="flexdiv">
                     <a-divider class="bottomDivider" type="vertical" />
-                    <span>OBS:{{ WSversions.obsVersion }}</span>
+                    <span>Base:{{ baseSize }}</span>
+                    <a-divider class="bottomDivider" type="vertical" />
+                    <span>Out:{{ outputSize }}</span>
                 </div>
             </div>
         </div>
-        <div v-if="WSconnected" class="rightItem container">
-            <span>未连接</span>
-            <span>未连接</span>
-            <span>未连接</span>
-            <span>未连接</span>
-        </div>
-        <div v-else class="item">OBS Websocket Debug Tools</div>
     </div>
 </template>
 
 <script setup lang="ts">
 import { ref,reactive, computed } from 'vue'
 import { WindowsOutlined,BranchesOutlined,LinkOutlined,DisconnectOutlined,AppleOutlined } from '@ant-design/icons-vue';
-import { WSstats,WSconnected,WSversions,WSplatform } from '../../state';
+import { WSconnected,OBSVideoConfig,OBSGeneralConfig } from '../../state';
 
-const CPU = computed(() => WSstats.value.cpuUsage?.toFixed(1) + '%');
-const Memory = computed(() => WSstats.value.memoryUsage?.toFixed(1));
-const Disk = computed(() => (WSstats.value.availableDiskSpace/1024)?.toFixed(1) + 'GB');
+
+const baseSize = computed(()=> OBSVideoConfig.baseWidth.value + 'x' + OBSVideoConfig.baseHeight.value)
+const outputSize = computed(()=> OBSVideoConfig.outputWidth.value + 'x' + OBSVideoConfig.outputHeight.value)
+
+const Profile = computed(() => OBSGeneralConfig.currentProfile.value );
+const SceneCollection = computed(() => OBSGeneralConfig.currentSCname.value );
+
 
 
 </script>
@@ -40,7 +44,8 @@ const Disk = computed(() => (WSstats.value.availableDiskSpace/1024)?.toFixed(1) 
 .statusBar{
     display: flex;
     color: rgb(147,161,161);
-    font-size: 12px;
+    font-size: 14px;
+    font-weight: bold;
     overflow: hidden;
     height:100%;
     width:100%;

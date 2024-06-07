@@ -3,7 +3,7 @@ import OBSWebSocket, { RequestBatchExecutionType, RequestBatchRequest, ResponseB
 import { OBSConnectionConfig, OBSGeneralConfig, OBSVideoConfig, OBSstatus, WSEventAndRequestHistory, WSconnected, WSplatform, WSstats, WSversions } from '../state';
 import { OBSEventTypes, OBSRequestTypes, OBSResponseTypes } from 'obs-websocket-js'
 import { obsEventDetailData } from '../data/events';
-
+import { message } from 'ant-design-vue';
 class OBS {
     static instance: OBS;
     static getInstance(): OBS {
@@ -42,6 +42,7 @@ class OBS {
             this.registOBSEvent();
         } catch (error) {
             console.error("[obs]连接失败", error);
+            message.error("[obs]连接失败"+JSON.stringify(error));
             this.connected.value = false;
         }
     };
@@ -124,27 +125,55 @@ class OBS {
         await this.getProfileList();
     }
 
-    // async sendRequest(request: RequestBatchRequest): Promise<ResponseBatchMessage> {
-    //     return await this.ws.send(request);
-    // }
+    async sendRequest(request: keyof OBSRequestTypes,query?:any) {
+        this.ws.call(request,query).then((res)=>{
+            // @ts-ignore
+            res && WSEventAndRequestHistory.value.push({
+                type: "response",
+                name: request,
+                params: res as any,
+                timestamp: new Date().toLocaleTimeString()
+            });
+            console.log('===========ws====',res);
+            message.success('Send Request Success');
+        }).catch((err)=>{
+            // 插入错误信息
+            WSEventAndRequestHistory.value.push({
+                uuid: Math.random().toString(),
+                type: "error",
+                name: request,
+                params: err.message as any,
+                timestamp: new Date().toLocaleTimeString()
+            });
+            console.error('===========ws===err=',err.message)
+            message.error('Send Request Error:'+err.message);
+        });
+    }
 
     registOBSEvent(){
         for(let item in obsEventDetailData){
             const eventName = obsEventDetailData[item].key
-            console.log('registOBSEvent:',eventName)
             // @ts-ignore
             this.ws.on(eventName,async(data)=>{
                 console.log(`[obs event]${eventName}:`, data)
                 WSEventAndRequestHistory.value.push({
                     uuid: Math.random().toString(),
-                    type: 'event',
+                    type: 'response',
                     name: eventName,
                     timestamp: new Date().toLocaleTimeString(),
                     params: data,
                 })
             })
         }
+        this.ws.on('ConnectionClosed',()=>{
+            this.connected.value = false
+        })
+        this.ws.on('ConnectionError',(err)=>{
+            console.error('ConnectionError',err)
+        })
     }
+
+
 
 }
 

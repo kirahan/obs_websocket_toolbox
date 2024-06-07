@@ -1111,5 +1111,10 @@
     "Send": "Send",
     "Clear": "Clear",
     "ClickToExpand": "Click to expand"
+  },
+  "Tooltops": {
+    "LoopGetStat": "loop or pause update system status",
+    "connectOBS": "connect or disconnect OBS Websocket",
+    "configOBS": "click to config connect params like password "
   }
 }
