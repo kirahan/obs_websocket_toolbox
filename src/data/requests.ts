@@ -974,37 +974,37 @@ export const obsRequestDetailData:{[index:string]:I_Request_Detail} = {
             {
                 name: 'obsVersion',
                 type: "String",
-                des: t('ResParamsDes.obsVersion'),
+                des: t('ResParamsDes.GetVersion.obsVersion'),
             },
             {
                 name: 'obsWebSocketVersion',
                 type: "String",
-                des: t('ResParamsDes.obsWebSocketVersion'),
+                des: t('ResParamsDes.GetVersion.obsWebSocketVersion'),
             },
             {
                 name: 'rpcVersion',
                 type: "Number",
-                des: t('ResParamsDes.rpcVersion'),
+                des: t('ResParamsDes.GetVersion.rpcVersion'),
             },
             {
                 name: 'availableRequests',
                 type: "Array<String>",
-                des: t('ResParamsDes.availableRequests'),
+                des: t('ResParamsDes.GetVersion.availableRequests'),
             },
             {
                 name: 'supportedImageFormats',
                 type: 'Array<String>',
-                des: t('ResParamsDes.supportedImageFormats'),
+                des: t('ResParamsDes.GetVersion.supportedImageFormats'),
             },
             {
                 name: 'platform',
                 type: 'String',
-                des: t('ResParamsDes.platform'),
+                des: t('ResParamsDes.GetVersion.platform'),
             },
             {
                 name: 'platformDescription',
                 type: 'String',
-                des: t('ResParamsDes.platformDescription'),
+                des: t('ResParamsDes.GetVersion.platformDescription'),
             }
         ]
     },
@@ -1018,57 +1018,57 @@ export const obsRequestDetailData:{[index:string]:I_Request_Detail} = {
             {
                 name: 'cpuUsage',
                 type: "Number",
-                des: t('ResParamsDes.cpuUsage'),
+                des: t('ResParamsDes.GetStats.cpuUsage'),
             },
             {
                 name: 'memoryUsage',
                 type: "Number",
-                des: t('ResParamsDes.memoryUsage'),
+                des: t('ResParamsDes.GetStats.memoryUsage'),
             },
             {
                 name: 'availableDiskSpace',
                 type: "Number",
-                des: t('ResParamsDes.availableDiskSpace'),
+                des: t('ResParamsDes.GetStats.availableDiskSpace'),
             },
             {
                 name: 'activeFps',
                 type: "Number",
-                des: t('ResParamsDes.activeFps'),
+                des: t('ResParamsDes.GetStats.activeFps'),
             },
             {
                 name: 'averageFrameRenderTime',
                 type: 'Number',
-                des: t('ResParamsDes.averageFrameRenderTime'),
+                des: t('ResParamsDes.GetStats.averageFrameRenderTime'),
             },
             {
                 name: 'renderSkippedFrames',
                 type: 'Number',
-                des: t('ResParamsDes.renderSkippedFrames'),
+                des: t('ResParamsDes.GetStats.renderSkippedFrames'),
             },
             {
                 name: 'renderTotalFrames',
                 type: 'Number',
-                des: t('ResParamsDes.renderTotalFrames'),
+                des: t('ResParamsDes.GetStats.renderTotalFrames'),
             },
             {
                 name: 'outputSkippedFrames',
                 type: 'Number',
-                des: t('ResParamsDes.outputSkippedFrames'),
+                des: t('ResParamsDes.GetStats.outputSkippedFrames'),
             },
             {
                 name: 'outputTotalFrames',
                 type: 'Number',
-                des: t('ResParamsDes.outputTotalFrames'),
+                des: t('ResParamsDes.GetStats.outputTotalFrames'),
             },
             {
                 name: 'webSocketSessionIncomingMessages',
                 type: 'Number',
-                des: t('ResParamsDes.webSocketSessionIncomingMessages'),
+                des: t('ResParamsDes.GetStats.webSocketSessionIncomingMessages'),
             },
             {
                 name: 'webSocketSessionOutgoingMessages',
                 type: 'Number',
-                des: t('ResParamsDes.webSocketSessionOutgoingMessages'),
+                des: t('ResParamsDes.GetStats.webSocketSessionOutgoingMessages'),
             }
         ]
     },
@@ -1081,7 +1081,7 @@ export const obsRequestDetailData:{[index:string]:I_Request_Detail} = {
             {
                 name: 'eventData',
                 type: "Object",
-                des: t('ReqParamsDes.eventData'),
+                des: t('ReqParamsDes.BroadcastCustomEvent.eventData'),
                 default: '{}',
                 require: true,
                 valueRestrictions: 'None',
@@ -1101,7 +1101,7 @@ export const obsRequestDetailData:{[index:string]:I_Request_Detail} = {
             {
                 name: 'vendorName',
                 type: "String",
-                des: t('ReqParamsDes.vendorName'),
+                des: t('ReqParamsDes.CallVendorRequest.vendorName'),
                 default: '',
                 require: true,
                 valueRestrictions: 'None',
@@ -1110,7 +1110,7 @@ export const obsRequestDetailData:{[index:string]:I_Request_Detail} = {
             {
                 name: 'requestType',
                 type: "String",
-                des: t('ReqParamsDes.requestType'),
+                des: t('ReqParamsDes.CallVendorRequest.requestType'),
                 default: '',
                 require: true,
                 valueRestrictions: 'None',
@@ -1119,7 +1119,7 @@ export const obsRequestDetailData:{[index:string]:I_Request_Detail} = {
             {
                 name: 'requestData',
                 type: "Object",
-                des: t('ReqParamsDes.requestData'),
+                des: t('ReqParamsDes.CallVendorRequest.requestData'),
                 default: '',
                 require: false,
                 valueRestrictions: 'None',
@@ -1131,17 +1131,17 @@ export const obsRequestDetailData:{[index:string]:I_Request_Detail} = {
             {
                 name: 'vendorName',
                 type: "String",
-                des: t('ResParamsDes.vendorName'),
+                des: t('ResParamsDes.CallVendorRequest.vendorName'),
             },
             {
                 name: 'requestType',
                 type: "String",
-                des: t('ResParamsDes.requestType'),
+                des: t('ResParamsDes.CallVendorRequest.requestType'),
             },
             {
                 name: 'responseData',
                 type: "Object",
-                des: t('ResParamsDes.responseData'),
+                des: t('ResParamsDes.CallVendorRequest.responseData'),
             },
         ]
     },
@@ -1156,7 +1156,7 @@ export const obsRequestDetailData:{[index:string]:I_Request_Detail} = {
             {
                 name: 'hotkeys',
                 type: "Array<String>",
-                des: t('ResParamsDes.hotkeys'),
+                des: t('ResParamsDes.GetHotkeyList.hotkeys'),
             },
         ]
     },
@@ -1169,7 +1169,7 @@ export const obsRequestDetailData:{[index:string]:I_Request_Detail} = {
             {
                 name: 'hotkeyName',
                 type: "String",
-                des: t('ReqParamsDes.hotkeyName'),
+                des: t('ReqParamsDes.TriggerHotkeyByName.hotkeyName'),
                 default: '',
                 require: true,
                 valueRestrictions: 'None',
@@ -1178,7 +1178,7 @@ export const obsRequestDetailData:{[index:string]:I_Request_Detail} = {
             {
                 name: 'contextName',
                 type: "String",
-                des: t('ReqParamsDes.contextName'),
+                des: t('ReqParamsDes.TriggerHotkeyByName.contextName'),
                 default: '',
                 require: false,
                 valueRestrictions: 'None',
@@ -1197,7 +1197,7 @@ export const obsRequestDetailData:{[index:string]:I_Request_Detail} = {
             {
                 name: 'keyId',
                 type: "String",
-                des: t('ReqParamsDes.keyId'),
+                des: t('ReqParamsDes.TriggerHotkeyByKeySequence.keyId'),
                 default: '',
                 require: false,
                 valueRestrictions: 'None',
@@ -1206,7 +1206,7 @@ export const obsRequestDetailData:{[index:string]:I_Request_Detail} = {
             {
                 name: 'keyModifiers',
                 type: "Object",
-                des: t('ReqParamsDes.keyModifiers.title'),
+                des: t('ReqParamsDes.TriggerHotkeyByKeySequence.keyModifiers'),
                 default: '{}',
                 require: false,
                 valueRestrictions: 'None',
@@ -1265,7 +1265,7 @@ export const obsRequestDetailData:{[index:string]:I_Request_Detail} = {
             {
                 name: 'sleepMillis',
                 type: "Number",
-                des: t('ReqParamsDes.sleepMillis'),
+                des: t('ReqParamsDes.Sleep.sleepMillis'),
                 default: '',
                 require: false,
                 valueRestrictions: '>= 0, <= 50000',
@@ -1274,7 +1274,7 @@ export const obsRequestDetailData:{[index:string]:I_Request_Detail} = {
             {
                 name: 'sleepFrames',
                 type: "Number",
-                des: t('ReqParamsDes.sleepFrames'),
+                des: t('ReqParamsDes.Sleep.sleepFrames'),
                 default: '',
                 require: false,
                 valueRestrictions: '>= 0, <= 10000',
@@ -1294,7 +1294,7 @@ export const obsRequestDetailData:{[index:string]:I_Request_Detail} = {
             {
                 name: 'realm',
                 type: "String",
-                des: t('ReqParamsDes.realm'),
+                des: t('ReqParamsDes.GetPersistentData.realm'),
                 default: '',
                 require: true,
                 valueRestrictions: 'None',
@@ -1303,7 +1303,7 @@ export const obsRequestDetailData:{[index:string]:I_Request_Detail} = {
             {
                 name: 'slotName',
                 type: "String",
-                des: t('ReqParamsDes.slotName'),
+                des: t('ReqParamsDes.GetPersistentData.slotName'),
                 default: '',
                 require: true,
                 valueRestrictions: 'None',
@@ -1314,7 +1314,7 @@ export const obsRequestDetailData:{[index:string]:I_Request_Detail} = {
             {
                 name: 'slotValue',
                 type: "Any",
-                des: t('ResParamsDes.slotValue'),
+                des: t('ResParamsDes.GetPersistentData.slotValue'),
             },
         ]
     },
@@ -1327,7 +1327,7 @@ export const obsRequestDetailData:{[index:string]:I_Request_Detail} = {
             {
                 name: 'realm',
                 type: "String",
-                des: t('ReqParamsDes.realm'),
+                des: t('ReqParamsDes.SetPersistentData.realm'),
                 default: '',
                 require: true,
                 valueRestrictions: 'None',
@@ -1336,7 +1336,7 @@ export const obsRequestDetailData:{[index:string]:I_Request_Detail} = {
             {
                 name: 'slotName',
                 type: "String",
-                des: t('ReqParamsDes.slotName'),
+                des: t('ReqParamsDes.SetPersistentData.slotName'),
                 default: '',
                 require: true,
                 valueRestrictions: 'None',
@@ -1345,7 +1345,7 @@ export const obsRequestDetailData:{[index:string]:I_Request_Detail} = {
             {
                 name: 'slotValue',
                 type: "Any",
-                des: t('ReqParamsDes.slotValue'),
+                des: t('ReqParamsDes.SetPersistentData.slotValue'),
                 default: '',
                 require: true,
                 valueRestrictions: 'None',
@@ -1366,12 +1366,12 @@ export const obsRequestDetailData:{[index:string]:I_Request_Detail} = {
             {
                 name: 'currentSceneCollectionName',
                 type: "String",
-                des: t('ResParamsDes.currentSceneCollectionName'),
+                des: t('ResParamsDes.GetSceneCollectionList.currentSceneCollectionName'),
             },
             {
                 name: 'sceneCollections',
                 type: "String",
-                des: t('ResParamsDes.sceneCollections'),
+                des: t('ResParamsDes.GetSceneCollectionList.sceneCollections'),
             },
         ]
     },
@@ -1384,7 +1384,7 @@ export const obsRequestDetailData:{[index:string]:I_Request_Detail} = {
             {
                 name: 'sceneCollectionName',
                 type: "String",
-                des: t('ReqParamsDes.sceneCollectionName'),
+                des: t('ReqParamsDes.SetCurrentSceneCollection.sceneCollectionName'),
                 default: '',
                 require: true,
                 valueRestrictions: 'None',
@@ -1403,7 +1403,7 @@ export const obsRequestDetailData:{[index:string]:I_Request_Detail} = {
             {
                 name: 'sceneCollectionName',
                 type: "String",
-                des: t('ReqParamsDes.sceneCollectionName'),
+                des: t('ReqParamsDes.CreateSceneCollection.sceneCollectionName'),
                 default: '',
                 require: true,
                 valueRestrictions: 'None',
@@ -1424,12 +1424,12 @@ export const obsRequestDetailData:{[index:string]:I_Request_Detail} = {
             {
                 name: 'sceneCollectionName',
                 type: "String",
-                des: t('ResParamsDes.sceneCollectionName'),
+                des: t('ResParamsDes.GetProfileList.sceneCollectionName'),
             },
             {
                 name: 'profiles',
                 type: "Array<String>",
-                des: t('ResParamsDes.profiles'),
+                des: t('ResParamsDes.GetProfileList.profiles'),
             },
         ]
     },
@@ -1442,7 +1442,7 @@ export const obsRequestDetailData:{[index:string]:I_Request_Detail} = {
             {
                 name: 'profileName',
                 type: "String",
-                des: t('ReqParamsDes.profileName'),
+                des: t('ReqParamsDes.SetCurrentProfile.profileName'),
                 default: '',
                 require: true,
                 valueRestrictions: 'None',
@@ -1461,7 +1461,7 @@ export const obsRequestDetailData:{[index:string]:I_Request_Detail} = {
             {
                 name: 'profileName',
                 type: "String",
-                des: t('ReqParamsDes.profileName'),
+                des: t('ReqParamsDes.CreateProfile.profileName'),
                 default: '',
                 require: true,
                 valueRestrictions: 'None',
@@ -1480,7 +1480,7 @@ export const obsRequestDetailData:{[index:string]:I_Request_Detail} = {
             {
                 name: 'profileName',
                 type: "String",
-                des: t('ReqParamsDes.profileName'),
+                des: t('ReqParamsDes.RemoveProfile.profileName'),
                 default: '',
                 require: true,
                 valueRestrictions: 'None',
@@ -1499,7 +1499,7 @@ export const obsRequestDetailData:{[index:string]:I_Request_Detail} = {
             {
                 name: 'parameterCategory',
                 type: "String",
-                des: t('ReqParamsDes.parameterCategory'),
+                des: t('ReqParamsDes.GetProfileParameter.parameterCategory'),
                 default: '',
                 require: true,
                 valueRestrictions: 'None',
@@ -1508,7 +1508,7 @@ export const obsRequestDetailData:{[index:string]:I_Request_Detail} = {
             {
                 name: 'parameterName',
                 type: "String",
-                des: t('ReqParamsDes.parameterName'),
+                des: t('ReqParamsDes.GetProfileParameter.parameterName'),
                 default: '',
                 require: true,
                 valueRestrictions: 'None',
@@ -1519,12 +1519,12 @@ export const obsRequestDetailData:{[index:string]:I_Request_Detail} = {
             {
                 name: 'parameterValue',
                 type: "String",
-                des: t('ResParamsDes.parameterValue'),
+                des: t('ResParamsDes.GetProfileParameter.parameterValue'),
             },
             {
                 name: 'defaultParameterValue',
                 type: "String",
-                des: t('ResParamsDes.defaultParameterValue'),
+                des: t('ResParamsDes.GetProfileParameter.defaultParameterValue'),
             },
         ]
     },
@@ -1537,7 +1537,7 @@ export const obsRequestDetailData:{[index:string]:I_Request_Detail} = {
             {
                 name: 'parameterCategory',
                 type: "String",
-                des: t('ReqParamsDes.parameterCategory'),
+                des: t('ReqParamsDes.SetProfileParameter.parameterCategory'),
                 default: '',
                 require: true,
                 valueRestrictions: 'None',
@@ -1546,7 +1546,7 @@ export const obsRequestDetailData:{[index:string]:I_Request_Detail} = {
             {
                 name: 'parameterName',
                 type: "String",
-                des: t('ReqParamsDes.parameterName'),
+                des: t('ReqParamsDes.SetProfileParameter.parameterName'),
                 default: '',
                 require: true,
                 valueRestrictions: 'None',
@@ -1555,7 +1555,7 @@ export const obsRequestDetailData:{[index:string]:I_Request_Detail} = {
             {
                 name: 'parameterValue',
                 type: "String",
-                des: t('ReqParamsDes.parameterValue'),
+                des: t('ReqParamsDes.SetProfileParameter.parameterValue'),
                 default: '',
                 require: true,
                 valueRestrictions: 'None',
@@ -1576,32 +1576,32 @@ export const obsRequestDetailData:{[index:string]:I_Request_Detail} = {
             {
                 name: 'fpsNumerator',
                 type: "Number",
-                des: t('ResParamsDes.fpsNumerator'),
+                des: t('ResParamsDes.GetVideoSettings.fpsNumerator'),
             },
             {
                 name: 'fpsDenominator',
                 type: "Number",
-                des: t('ResParamsDes.fpsDenominator'),
+                des: t('ResParamsDes.GetVideoSettings.fpsDenominator'),
             },
             {
                 name: 'baseWidth',
                 type: "Number",
-                des: t('ResParamsDes.baseWidth'),
+                des: t('ResParamsDes.GetVideoSettings.baseWidth'),
             },
             {
                 name: 'baseHeight',
                 type: "Number",
-                des: t('ResParamsDes.baseHeight'),
+                des: t('ResParamsDes.GetVideoSettings.baseHeight'),
             },
             {
                 name: 'outputWidth',
                 type: "Number",
-                des: t('ResParamsDes.outputWidth'),
+                des: t('ResParamsDes.GetVideoSettings.outputWidth'),
             },
             {
                 name: 'outputHeight',
                 type: "Number",
-                des: t('ResParamsDes.outputHeight'),
+                des: t('ResParamsDes.GetVideoSettings.outputHeight'),
             },
         ]
     },
@@ -1614,7 +1614,7 @@ export const obsRequestDetailData:{[index:string]:I_Request_Detail} = {
             {
                 name: 'fpsNumerator',
                 type: "Number",
-                des: t('ReqParamsDes.fpsNumerator'),
+                des: t('ReqParamsDes.SetVideoSettings.fpsNumerator'),
                 default: '',
                 require: false,
                 valueRestrictions: '>= 1',
@@ -1623,7 +1623,7 @@ export const obsRequestDetailData:{[index:string]:I_Request_Detail} = {
             {
                 name: 'fpsDenominator',
                 type: "Number",
-                des: t('ReqParamsDes.fpsDenominator'),
+                des: t('ReqParamsDes.SetVideoSettings.fpsDenominator'),
                 default: '',
                 require: false,
                 valueRestrictions: '>= 1',
@@ -1632,7 +1632,7 @@ export const obsRequestDetailData:{[index:string]:I_Request_Detail} = {
             {
                 name: 'baseWidth',
                 type: "Number",
-                des: t('ReqParamsDes.baseWidth'),
+                des: t('ReqParamsDes.SetVideoSettings.baseWidth'),
                 default: '',
                 require: false,
                 valueRestrictions: '>= 1, <= 4096',
@@ -1641,7 +1641,7 @@ export const obsRequestDetailData:{[index:string]:I_Request_Detail} = {
             {
                 name: 'baseHeight',
                 type: "Number",
-                des: t('ReqParamsDes.baseHeight'),
+                des: t('ReqParamsDes.SetVideoSettings.baseHeight'),
                 default: '',
                 require: false,
                 valueRestrictions: '>= 1, <= 4096',
@@ -1650,7 +1650,7 @@ export const obsRequestDetailData:{[index:string]:I_Request_Detail} = {
             {
                 name: 'outputWidth',
                 type: "Number",
-                des: t('ReqParamsDes.outputWidth'),
+                des: t('ReqParamsDes.SetVideoSettings.outputWidth'),
                 default: '',
                 require: false,
                 valueRestrictions: '>= 1, <= 4096',
@@ -1659,7 +1659,7 @@ export const obsRequestDetailData:{[index:string]:I_Request_Detail} = {
             {
                 name: 'outputHeight',
                 type: "Number",
-                des: t('ReqParamsDes.outputHeight'),
+                des: t('ReqParamsDes.SetVideoSettings.outputHeight'),
                 default: '',
                 require: false,
                 valueRestrictions: '>= 1, <= 4096',
@@ -1680,12 +1680,12 @@ export const obsRequestDetailData:{[index:string]:I_Request_Detail} = {
             {
                 name: 'streamServiceType',
                 type: "String",
-                des: t('ResParamsDes.streamServiceType'),
+                des: t('ResParamsDes.GetStreamServiceSettings.streamServiceType'),
             },
             {
                 name: 'streamServiceSettings',
                 type: "Object",
-                des: t('ResParamsDes.streamServiceSettings'),
+                des: t('ResParamsDes.GetStreamServiceSettings.streamServiceSettings'),
             },
         ]
     },
@@ -1698,7 +1698,7 @@ export const obsRequestDetailData:{[index:string]:I_Request_Detail} = {
             {
                 name: 'streamServiceType',
                 type: "String",
-                des: t('ReqParamsDes.streamServiceType'),
+                des: t('ReqParamsDes.SetStreamServiceSettings.streamServiceType'),
                 default: '',
                 require: true,
                 valueRestrictions: 'None',
@@ -1707,7 +1707,7 @@ export const obsRequestDetailData:{[index:string]:I_Request_Detail} = {
             {
                 name: 'streamServiceSettings',
                 type: "Object",
-                des: t('ReqParamsDes.streamServiceSettings'),
+                des: t('ReqParamsDes.SetStreamServiceSettings.streamServiceSettings'),
                 default: '{}',
                 require: true,
                 valueRestrictions: 'None',
@@ -1729,7 +1729,7 @@ export const obsRequestDetailData:{[index:string]:I_Request_Detail} = {
             {
                 name: 'recordDirectory',
                 type: "String",
-                des: t('ResParamsDes.recordDirectory'),
+                des: t('ResParamsDes.GetRecordDirectory.recordDirectory'),
             },
         ]
     },
@@ -1742,7 +1742,7 @@ export const obsRequestDetailData:{[index:string]:I_Request_Detail} = {
             {
                 name: 'recordDirectory',
                 type: "String",
-                des: t('ReqParamsDes.recordDirectory'),
+                des: t('ReqParamsDes.SetRecordDirectory.recordDirectory'),
                 default: '',
                 require: true,
                 valueRestrictions: 'None',
@@ -1762,7 +1762,7 @@ export const obsRequestDetailData:{[index:string]:I_Request_Detail} = {
             {
                 name: 'sourceName',
                 type: "String",
-                des: t('ReqParamsDes.sourceName'),
+                des: t('ReqParamsDes.GetSourceActive.sourceName'),
                 default: '',
                 require: false,
                 valueRestrictions: 'None',
@@ -1771,7 +1771,7 @@ export const obsRequestDetailData:{[index:string]:I_Request_Detail} = {
             {
                 name: 'sourceUuid',
                 type: "String",
-                des: t('ReqParamsDes.sourceUuid'),
+                des: t('ReqParamsDes.GetSourceActive.sourceUuid'),
                 default: '',
                 require: false,
                 valueRestrictions: 'None',
@@ -1782,12 +1782,12 @@ export const obsRequestDetailData:{[index:string]:I_Request_Detail} = {
             {
                 name: 'videoActive',
                 type: "String",
-                des: t('ResParamsDes.videoActive'),
+                des: t('ResParamsDes.GetSourceActive.videoActive'),
             },
             {
                 name: 'videoShowing',
                 type: "String",
-                des: t('ResParamsDes.videoShowing'),
+                des: t('ResParamsDes.GetSourceActive.videoShowing'),
             },
         ]
     },
@@ -1800,7 +1800,7 @@ export const obsRequestDetailData:{[index:string]:I_Request_Detail} = {
             {
                 name: 'sourceName',
                 type: "String",
-                des: t('ReqParamsDes.sourceName'),
+                des: t('ReqParamsDes.GetSourceScreenshot.sourceName'),
                 default: '',
                 require: false,
                 valueRestrictions: 'None',
@@ -1809,7 +1809,7 @@ export const obsRequestDetailData:{[index:string]:I_Request_Detail} = {
             {
                 name: 'sourceUuid',
                 type: "String",
-                des: t('ReqParamsDes.sourceUuid'),
+                des: t('ReqParamsDes.GetSourceScreenshot.sourceUuid'),
                 default: '',
                 require: false,
                 valueRestrictions: 'None',
@@ -1818,7 +1818,7 @@ export const obsRequestDetailData:{[index:string]:I_Request_Detail} = {
             {
                 name: 'imageFormat',
                 type: "String",
-                des: t('ReqParamsDes.imageFormat'),
+                des: t('ReqParamsDes.GetSourceScreenshot.imageFormat'),
                 default: '',
                 require: true,
                 valueRestrictions: 'None',
@@ -1827,7 +1827,7 @@ export const obsRequestDetailData:{[index:string]:I_Request_Detail} = {
             {
                 name: 'imageWidth',
                 type: "Number",
-                des: t('ReqParamsDes.imageWidth'),
+                des: t('ReqParamsDes.GetSourceScreenshot.imageWidth'),
                 default: '',
                 require: false,
                 valueRestrictions: '>= 8, <= 4096',
@@ -1836,7 +1836,7 @@ export const obsRequestDetailData:{[index:string]:I_Request_Detail} = {
             {
                 name: 'imageHeight',
                 type: "Number",
-                des: t('ReqParamsDes.imageHeight'),
+                des: t('ReqParamsDes.GetSourceScreenshot.imageHeight'),
                 default: '',
                 require: false,
                 valueRestrictions: '>= 8, <= 4096',
@@ -1845,7 +1845,7 @@ export const obsRequestDetailData:{[index:string]:I_Request_Detail} = {
             {
                 name: 'imageCompressionQuality',
                 type: "Number",
-                des: t('ReqParamsDes.imageCompressionQuality'),
+                des: t('ReqParamsDes.GetSourceScreenshot.imageCompressionQuality'),
                 default: '-1',
                 require: false,
                 valueRestrictions: '>= -1, <= 100',
@@ -1856,7 +1856,7 @@ export const obsRequestDetailData:{[index:string]:I_Request_Detail} = {
             {
                 name: 'imageData',
                 type: "String",
-                des: t('ResParamsDes.imageData'),
+                des: t('ResParamsDes.GetSourceScreenshot.imageData'),
             },
         ]
     },
@@ -1869,7 +1869,7 @@ export const obsRequestDetailData:{[index:string]:I_Request_Detail} = {
             {
                 name: 'sourceName',
                 type: "String",
-                des: t('ReqParamsDes.sourceName'),
+                des: t('ReqParamsDes.SaveSourceScreenshot.sourceName'),
                 default: '',
                 require: false,
                 valueRestrictions: 'None',
@@ -1878,7 +1878,7 @@ export const obsRequestDetailData:{[index:string]:I_Request_Detail} = {
             {
                 name: 'sourceUuid',
                 type: "String",
-                des: t('ReqParamsDes.sourceUuid'),
+                des: t('ReqParamsDes.SaveSourceScreenshot.sourceUuid'),
                 default: '',
                 require: false,
                 valueRestrictions: 'None',
@@ -1887,7 +1887,7 @@ export const obsRequestDetailData:{[index:string]:I_Request_Detail} = {
             {
                 name: 'imageFormat',
                 type: "String",
-                des: t('ReqParamsDes.imageFormat'),
+                des: t('ReqParamsDes.SaveSourceScreenshot.imageFormat'),
                 default: '',
                 require: true,
                 valueRestrictions: 'None',
@@ -1896,7 +1896,7 @@ export const obsRequestDetailData:{[index:string]:I_Request_Detail} = {
             {
                 name: 'imageFilePath',
                 type: "String",
-                des: t('ReqParamsDes.imageFilePath'),
+                des: t('ReqParamsDes.SaveSourceScreenshot.imageFilePath'),
                 default: '',
                 require: true,
                 valueRestrictions: 'None',
@@ -1905,7 +1905,7 @@ export const obsRequestDetailData:{[index:string]:I_Request_Detail} = {
             {
                 name: 'imageWidth',
                 type: "Number",
-                des: t('ReqParamsDes.imageWidth'),
+                des: t('ReqParamsDes.SaveSourceScreenshot.imageWidth'),
                 default: '',
                 require: false,
                 valueRestrictions: '>= 8, <= 4096',
@@ -1914,7 +1914,7 @@ export const obsRequestDetailData:{[index:string]:I_Request_Detail} = {
             {
                 name: 'imageHeight',
                 type: "Number",
-                des: t('ReqParamsDes.imageHeight'),
+                des: t('ReqParamsDes.SaveSourceScreenshot.imageHeight'),
                 default: '',
                 require: false,
                 valueRestrictions: '>= 8, <= 4096',
@@ -1923,7 +1923,7 @@ export const obsRequestDetailData:{[index:string]:I_Request_Detail} = {
             {
                 name: 'imageCompressionQuality',
                 type: "Number",
-                des: t('ReqParamsDes.imageCompressionQuality'),
+                des: t('ReqParamsDes.SaveSourceScreenshot.imageCompressionQuality'),
                 default: '-1',
                 require: false,
                 valueRestrictions: '>= -1, <= 100',
@@ -1934,7 +1934,7 @@ export const obsRequestDetailData:{[index:string]:I_Request_Detail} = {
             {
                 name: 'imageData',
                 type: "String",
-                des: t('ResParamsDes.imageData'),
+                des: t('ResParamsDes.SaveSourceScreenshot.imageData'),
             },
         ]
     },
@@ -1950,27 +1950,27 @@ export const obsRequestDetailData:{[index:string]:I_Request_Detail} = {
             {
                 name: 'currentProgramSceneName',
                 type: "String",
-                des: t('ResParamsDes.currentProgramSceneName'),
+                des: t('ResParamsDes.GetSceneList.currentProgramSceneName'),
             },
             {
                 name: 'currentProgramSceneUuid',
                 type: "String",
-                des: t('ResParamsDes.currentProgramSceneUuid'),
+                des: t('ResParamsDes.GetSceneList.currentProgramSceneUuid'),
             },
             {
                 name: 'currentPreviewSceneName',
                 type: "String",
-                des: t('ResParamsDes.currentPreviewSceneName'),
+                des: t('ResParamsDes.GetSceneList.currentPreviewSceneName'),
             },
             {
                 name: 'currentPreviewSceneUuid',
                 type: "String",
-                des: t('ResParamsDes.currentPreviewSceneUuid'),
+                des: t('ResParamsDes.GetSceneList.currentPreviewSceneUuid'),
             },
             {
                 name: 'scenes',
                 type: "Array<Object>",
-                des: t('ResParamsDes.scenes'),
+                des: t('ResParamsDes.GetSceneList.scenes'),
             },
         ]
     },
@@ -1985,7 +1985,7 @@ export const obsRequestDetailData:{[index:string]:I_Request_Detail} = {
             {
                 name: 'groups',
                 type: "Array<String>",
-                des: t('ResParamsDes.groups'),
+                des: t('ResParamsDes.GetGroupList.groups'),
             },
         ]
     },
@@ -2000,22 +2000,22 @@ export const obsRequestDetailData:{[index:string]:I_Request_Detail} = {
             {
                 name: 'sceneName',
                 type: "String",
-                des: t('ResParamsDes.sceneName'),
+                des: t('ResParamsDes.GetCurrentProgramScene.sceneName'),
             },
             {
                 name: 'sceneUuid',
                 type: "String",
-                des: t('ResParamsDes.sceneUuid'),
+                des: t('ResParamsDes.GetCurrentProgramScene.sceneUuid'),
             },
             {
                 name: 'currentProgramSceneName',
                 type: "String",
-                des: t('ResParamsDes.currentProgramSceneName'),
+                des: t('ResParamsDes.GetCurrentProgramScene.currentProgramSceneName'),
             },
             {
                 name: 'currentProgramSceneUuid',
                 type: "String",
-                des: t('ResParamsDes.currentProgramSceneUuid'),
+                des: t('ResParamsDes.GetCurrentProgramScene.currentProgramSceneUuid'),
             },
         ]
     },
@@ -2028,7 +2028,7 @@ export const obsRequestDetailData:{[index:string]:I_Request_Detail} = {
             {
                 name: 'sceneName',
                 type: "String",
-                des: t('ReqParamsDes.sceneName'),
+                des: t('ReqParamsDes.SetCurrentProgramScene.sceneName'),
                 default: '',
                 require: false,
                 valueRestrictions: 'None',
@@ -2038,7 +2038,7 @@ export const obsRequestDetailData:{[index:string]:I_Request_Detail} = {
                 name: 'sceneUuid',
                 type: "String",
                 default: '',
-                des: t('ReqParamsDes.itemName'),
+                des: t('ReqParamsDes.SetCurrentProgramScene.sceneUuid'),
                 require: false,
                 valueRestrictions: 'None',
                 defaultBehavior: 'Unkown'
@@ -2057,22 +2057,22 @@ export const obsRequestDetailData:{[index:string]:I_Request_Detail} = {
             {
                 name: 'sceneName',
                 type: "String",
-                des: t('ResParamsDes.sceneName'),
+                des: t('ResParamsDes.GetCurrentPreviewScene.sceneName'),
             },
             {
                 name: 'sceneUuid',
                 type: "String",
-                des: t('ResParamsDes.sceneUuid'),
+                des: t('ResParamsDes.GetCurrentPreviewScene.sceneUuid'),
             },
             {
                 name: 'currentPreviewSceneName',
                 type: "String",
-                des: t('ResParamsDes.currentPreviewSceneName'),
+                des: t('ResParamsDes.GetCurrentPreviewScene.currentPreviewSceneName'),
             },
             {
                 name: 'currentPreviewSceneUuid',
                 type: "String",
-                des: t('ResParamsDes.currentPreviewSceneUuid'),
+                des: t('ResParamsDes.GetCurrentPreviewScene.currentPreviewSceneUuid'),
             },
         ]
     },
@@ -2085,7 +2085,7 @@ export const obsRequestDetailData:{[index:string]:I_Request_Detail} = {
             {
                 name: 'sceneName',
                 type: "String",
-                des: t('ReqParamsDes.sceneName'),
+                des: t('ReqParamsDes.SetCurrentPreviewScene.sceneName'),
                 default: '',
                 require: false,
                 valueRestrictions: 'None',
@@ -2095,7 +2095,7 @@ export const obsRequestDetailData:{[index:string]:I_Request_Detail} = {
                 name: 'sceneUuid',
                 type: "String",
                 default: '',
-                des: t('ReqParamsDes.itemName'),
+                des: t('ReqParamsDes.SetCurrentPreviewScene.sceneUuid'),
                 require: false,
                 valueRestrictions: 'None',
                 defaultBehavior: 'Unkown'
@@ -2112,7 +2112,7 @@ export const obsRequestDetailData:{[index:string]:I_Request_Detail} = {
             {
                 name: 'sceneName',
                 type: "String",
-                des: t('ReqParamsDes.sceneName'),
+                des: t('ReqParamsDes.CreateScene.sceneName'),
                 default: '',
                 require: true,
                 valueRestrictions: 'None',
@@ -2123,7 +2123,7 @@ export const obsRequestDetailData:{[index:string]:I_Request_Detail} = {
             {
                 name: 'sceneUuid',
                 type: "String",
-                des: t('ResParamsDes.sceneUuid'),
+                des: t('ResParamsDes.CreateScene.sceneUuid'),
             },
         ]
     },
@@ -2136,7 +2136,7 @@ export const obsRequestDetailData:{[index:string]:I_Request_Detail} = {
             {
                 name: 'sceneName',
                 type: "String",
-                des: t('ReqParamsDes.sceneName'),
+                des: t('ReqParamsDes.RemoveScene.sceneName'),
                 default: '',
                 require: false,
                 valueRestrictions: 'None',
@@ -2145,7 +2145,7 @@ export const obsRequestDetailData:{[index:string]:I_Request_Detail} = {
             {
                 name: 'sceneUuid',
                 type: "String",
-                des: t('ReqParamsDes.sceneUuid'),
+                des: t('ReqParamsDes.RemoveScene.sceneUuid'),
                 default: '',
                 require: false,
                 valueRestrictions: 'None',
@@ -2164,7 +2164,7 @@ export const obsRequestDetailData:{[index:string]:I_Request_Detail} = {
             {
                 name: 'sceneName',
                 type: "String",
-                des: t('ReqParamsDes.sceneName'),
+                des: t('ReqParamsDes.SetSceneName.sceneName'),
                 default: '',
                 require: false,
                 valueRestrictions: 'None',
@@ -2173,7 +2173,7 @@ export const obsRequestDetailData:{[index:string]:I_Request_Detail} = {
             {
                 name: 'sceneUuid',
                 type: "String",
-                des: t('ReqParamsDes.sceneUuid'),
+                des: t('ReqParamsDes.SetSceneName.sceneUuid'),
                 default: '',
                 require: false,
                 valueRestrictions: 'None',
@@ -2182,7 +2182,7 @@ export const obsRequestDetailData:{[index:string]:I_Request_Detail} = {
             {
                 name: 'newSceneName',
                 type: "String",
-                des: t('ReqParamsDes.newSceneName'),
+                des: t('ReqParamsDes.SetSceneName.newSceneName'),
                 default: '',
                 require: true,
                 valueRestrictions: 'None',
@@ -2201,7 +2201,7 @@ export const obsRequestDetailData:{[index:string]:I_Request_Detail} = {
             {
                 name: 'sceneName',
                 type: "String",
-                des: t('ReqParamsDes.sceneName'),
+                des: t('ReqParamsDes.GetSceneSceneTransitionOverride.sceneName'),
                 default: '',
                 require: false,
                 valueRestrictions: 'None',
@@ -2210,7 +2210,7 @@ export const obsRequestDetailData:{[index:string]:I_Request_Detail} = {
             {
                 name: 'sceneUuid',
                 type: "String",
-                des: t('ReqParamsDes.sceneUuid'),
+                des: t('ReqParamsDes.GetSceneSceneTransitionOverride.sceneUuid'),
                 default: '',
                 require: false,
                 valueRestrictions: 'None',
@@ -2221,12 +2221,12 @@ export const obsRequestDetailData:{[index:string]:I_Request_Detail} = {
             {
                 name: 'transitionName',
                 type: "String",
-                des: t('ResParamsDes.transitionName'),
+                des: t('ResParamsDes.GetSceneSceneTransitionOverride.transitionName'),
             },
             {
                 name: 'transitionDuration',
                 type: "Number",
-                des: t('ResParamsDes.transitionDuration'),
+                des: t('ResParamsDes.GetSceneSceneTransitionOverride.transitionDuration'),
             },
         ]
     },
@@ -2239,7 +2239,7 @@ export const obsRequestDetailData:{[index:string]:I_Request_Detail} = {
             {
                 name: 'sceneName',
                 type: "String",
-                des: t('ReqParamsDes.sceneName'),
+                des: t('ReqParamsDes.SetSceneSceneTransitionOverride.sceneName'),
                 default: '',
                 require: false,
                 valueRestrictions: 'None',
@@ -2248,7 +2248,7 @@ export const obsRequestDetailData:{[index:string]:I_Request_Detail} = {
             {
                 name: 'sceneUuid',
                 type: "String",
-                des: t('ReqParamsDes.sceneUuid'),
+                des: t('ReqParamsDes.SetSceneSceneTransitionOverride.sceneUuid'),
                 default: '',
                 require: false,
                 valueRestrictions: 'None',
@@ -2257,7 +2257,7 @@ export const obsRequestDetailData:{[index:string]:I_Request_Detail} = {
             {
                 name: 'transitionName',
                 type: "String",
-                des: t('ReqParamsDes.transitionName'),
+                des: t('ReqParamsDes.SetSceneSceneTransitionOverride.transitionName'),
                 default: '',
                 require: false,
                 valueRestrictions: 'None',
@@ -2266,7 +2266,7 @@ export const obsRequestDetailData:{[index:string]:I_Request_Detail} = {
             {
                 name: 'transitionDuration',
                 type: "Number",
-                des: t('ReqParamsDes.transitionDuration'),
+                des: t('ReqParamsDes.SetSceneSceneTransitionOverride.transitionDuration'),
                 default: '',
                 require: false,
                 valueRestrictions: '>= 50, <= 20000',
@@ -2288,7 +2288,7 @@ export const obsRequestDetailData:{[index:string]:I_Request_Detail} = {
             {
                 name: 'inputKind',
                 type: "String",
-                des: t('ReqParamsDes.inputKind'),
+                des: t('ReqParamsDes.GetInputList.inputKind'),
                 default: '',
                 require: false,
                 valueRestrictions: 'None',
@@ -2299,7 +2299,7 @@ export const obsRequestDetailData:{[index:string]:I_Request_Detail} = {
             {
                 name: 'inputs',
                 type: "Array<Object>",
-                des: t('ResParamsDes.inputs'),
+                des: t('ResParamsDes.GetInputList.inputs'),
             },
         ]
     },
@@ -2312,7 +2312,7 @@ export const obsRequestDetailData:{[index:string]:I_Request_Detail} = {
             {
                 name: 'unversioned',
                 type: "Boolean",
-                des: t('ReqParamsDes.unversioned'),
+                des: t('ReqParamsDes.GetInputKindList.unversioned'),
                 default: 'false',
                 require: false,
                 valueRestrictions: 'None',
@@ -2323,7 +2323,7 @@ export const obsRequestDetailData:{[index:string]:I_Request_Detail} = {
             {
                 name: 'inputKinds',
                 type: "Array<String>",
-                des: t('ResParamsDes.inputKinds'),
+                des: t('ResParamsDes.GetInputKindList.inputKinds'),
             },
         ]
     },
@@ -2338,32 +2338,32 @@ export const obsRequestDetailData:{[index:string]:I_Request_Detail} = {
             {
                 name: 'desktop1',
                 type: "String",
-                des: t('ResParamsDes.desktop1'),
+                des: t('ResParamsDes.GetSpecialInputs.desktop1'),
             },
             {
                 name: 'desktop2',
                 type: "String",
-                des: t('ResParamsDes.desktop2'),
+                des: t('ResParamsDes.GetSpecialInputs.desktop2'),
             },
             {
                 name: 'mic1',
                 type: "String",
-                des: t('ResParamsDes.mic1'),
+                des: t('ResParamsDes.GetSpecialInputs.mic1'),
             },
             {
                 name: 'mic2',
                 type: "String",
-                des: t('ResParamsDes.mic2'),
+                des: t('ResParamsDes.GetSpecialInputs.mic2'),
             },
             {
                 name: 'mic3',
                 type: "String",
-                des: t('ResParamsDes.mic3'),
+                des: t('ResParamsDes.GetSpecialInputs.mic3'),
             },
             {
                 name: 'mic4',
                 type: "String",
-                des: t('ResParamsDes.mic4'),
+                des: t('ResParamsDes.GetSpecialInputs.mic4'),
             },
         ]
     },
@@ -2376,7 +2376,7 @@ export const obsRequestDetailData:{[index:string]:I_Request_Detail} = {
             {
                 name: 'sceneName',
                 type: "String",
-                des: t('ReqParamsDes.sceneName'),
+                des: t('ReqParamsDes.CreateInput.sceneName'),
                 default: '',
                 require: false,
                 valueRestrictions: 'None',
@@ -2385,7 +2385,7 @@ export const obsRequestDetailData:{[index:string]:I_Request_Detail} = {
             {
                 name: 'sceneUuid',
                 type: "String",
-                des: t('ReqParamsDes.sceneUuid'),
+                des: t('ReqParamsDes.CreateInput.sceneUuid'),
                 default: '',
                 require: false,
                 valueRestrictions: 'None',
@@ -2394,7 +2394,7 @@ export const obsRequestDetailData:{[index:string]:I_Request_Detail} = {
             {
                 name: 'inputName',
                 type: "String",
-                des: t('ReqParamsDes.inputName'),
+                des: t('ReqParamsDes.CreateInput.inputName'),
                 default: '',
                 require: true,
                 valueRestrictions: 'None',
@@ -2403,7 +2403,7 @@ export const obsRequestDetailData:{[index:string]:I_Request_Detail} = {
             {
                 name: 'inputKind',
                 type: "String",
-                des: t('ReqParamsDes.inputKind'),
+                des: t('ReqParamsDes.CreateInput.inputKind'),
                 default: '',
                 require: true,
                 valueRestrictions: 'None',
@@ -2412,7 +2412,7 @@ export const obsRequestDetailData:{[index:string]:I_Request_Detail} = {
             {
                 name: 'inputSettings',
                 type: "Object",
-                des: t('ReqParamsDes.inputSettings'),
+                des: t('ReqParamsDes.CreateInput.inputSettings'),
                 default: '{}',
                 require: false,
                 valueRestrictions: 'None',
@@ -2422,7 +2422,7 @@ export const obsRequestDetailData:{[index:string]:I_Request_Detail} = {
             {
                 name: 'sceneItemEnabled',
                 type: "Boolean",
-                des: t('ReqParamsDes.sceneItemEnabled'),
+                des: t('ReqParamsDes.CreateInput.sceneItemEnabled'),
                 default: 'true',
                 require: false,
                 valueRestrictions: 'None',

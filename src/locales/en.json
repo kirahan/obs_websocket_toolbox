@@ -219,78 +219,145 @@
     "ScreenshotSaved": "A screenshot has been saved.  Note: Triggered for the screenshot feature available in Settings -> Hotkeys -> Screenshot Output ONLY. Applications using Get/SaveSourceScreenshot should implement a CustomEvent if this kind of inter-client communication is desired."
   },
   "ReqParamsDes": {
-    "obsVersion": "Current OBS Studio version",
-    "obsWebSocketVersion": "Current OBS WebSocket version",
-    "rpcVersion": "Current latest obs-websocket RPC version        ",
-    "availableRequests": "Array of available RPC requests for the currently negotiated RPC version        ",
-    "supportedImageFormats": "Image formats available in GetSourceScreenshot and SaveSourceScreenshot requests.",
-    "platform": "Name of the platform. Usually windows, macos, or ubuntu (linux flavor). Not guaranteed to be any of those",
-    "platformDescription": "Description of the platform, like Windows 10 (10.0)",
-    "sceneName": "Name of the scene the item",
-    "itemName": "UUID of the scene the item is in\t",
-    "sceneItemId": "Numeric ID of the scene item\t",
-    "sceneItemEnabled": "New enable state of the scene item\t",
-    "cpuUsage": "Current CPU usage in percent",
-    "memoryUsage": "Amount of memory in MB currently being used by OBS",
-    "availableDiskSpace": "Available disk space on the device being used for recording storage",
-    "averageFrameRenderTime": "Average time in milliseconds that OBS is taking to render a frame",
-    "activeFps": "Current FPS being rendered",
-    "renderSkippedFrames": "Number of frames skipped by OBS in the render thread",
-    "renderTotalFrames": "Total number of frames outputted by the render thread",
-    "outputSkippedFrames": "Number of frames skipped by OBS in the output thread",
-    "outputTotalFrames": "Total number of frames outputted by the output thread",
-    "webSocketSessionIncomingMessages": "Total number of messages received by obs-websocket from the client",
-    "webSocketSessionOutgoingMessages": "Total number of messages sent by obs-websocket to the client",
-    "eventData": "Data payload to emit to all receivers\t",
-    "vendorName": "Name of the vendor to use\t",
-    "requestType": "The request type to call\t",
-    "requestData": "Object containing appropriate request data\t",
-    "responseData": "Object containing appropriate response data. {} if request does not provide any response data",
-    "hotkeys": "Array of hotkey names",
-    "hotkeyName": "Name of the hotkey to trigger\t",
-    "contextName": "Name of context of the hotkey to trigger\t",
-    "keyId": "The OBS key ID to use. See https://github.com/obsproject/obs-studio/blob/master/libobs/obs-hotkeys.h\t",
+    "BroadcastCustomEvent":{
+      "eventData": "Data payload to emit to all receivers\t"
+    },
+    "CallVendorRequest":{
+      "vendorName": "Name of the vendor to use\t",
+      "requestType": "The request type to call\t",
+      "requestData": "Object containing appropriate request data\t"
+    },
+    "TriggerHotkeyByName":{
+      "hotkeyName": "Name of the hotkey to trigger\t",
+      "contextName": "Name of context of the hotkey to trigger\t"
+    },
+    "TriggerHotkeyByKeySequence":{
+      "keyModifiers": "Object containing key modifiers to apply",
+      "keyId": "The OBS key ID to use. See https://github.com/obsproject/obs-studio/blob/master/libobs/obs-hotkeys.h\t"
+    },
     "keyModifiers": {
-      "title": "Object containing key modifiers to apply",
       "shift": "Press Shift\t",
       "control": "Press CTRL\t",
       "alt": "Press ALT\t",
       "command": "Press CMD (Mac)\t"
     },
-    "sleepMillis": "Number of milliseconds to sleep for (if SERIAL_REALTIME mode)\t",
-    "sleepFrames": "Number of frames to sleep for (if SERIAL_FRAME mode)\t",
-    "realm": "The data realm to select. OBS_WEBSOCKET_DATA_REALM_GLOBAL or OBS_WEBSOCKET_DATA_REALM_PROFILE\t",
-    "slotName": "The name of the slot to retrieve data from\t",
-    "slotValue": "The value to apply to the slot\t",
-    "currentSceneCollectionName": "The name of the current scene collection",
-    "sceneCollectionName": "Name of the scene collection to switch to\t",
-    "profiles": "Array of all available profiles",
-    "profileName": "Name of the profile to switch to\t",
-    "parameterCategory": "Category of the parameter to get\t",
-    "parameterName": "Name of the parameter to get\t",
-    "parameterValue": "Value of the parameter to set. Use null to delete\t",
-    "fpsNumerator": "Numerator of the fractional FPS value\t",
-    "fpsDenominator": "Denominator of the fractional FPS value\t",
-    "baseWidth": "Width of the base (canvas) resolution in pixels\t",
-    "baseHeight": "Height of the base (canvas) resolution in pixels\t",
-    "outputWidth": "Width of the output resolution in pixels\t",
-    "outputHeight": "Height of the output resolution in pixels\t",
-    "streamServiceType": "Type of stream service to apply. Example: rtmp_common or rtmp_custom\t",
-    "streamServiceSettings": "Settings to apply to the service\t",
-    "recordDirectory": "Output directory\t",
-    "sourceName": "Name of the source to get the active state of\t",
-    "sourceUuid": "UUID of the source to get the active state of\t",
-    "imageFormat": "Image compression format to use. Use GetVersion to get compatible image formats\t",
-    "imageWidth": "Width to scale the screenshot to\t",
-    "imageHeight": "Height to scale the screenshot to\t",
-    "imageCompressionQuality": "Compression quality to use. 0 for high compression, 100 for uncompressed. -1 to use \"default\" (whatever that means, idk)\t",
-    "imageFilePath": "Path to save the screenshot file to. Eg. C:\\Users\\user\\Desktop\\screenshot.png\t",
-    "sceneUuid": "UUID of the scene",
-    "newSceneName": "New name for the scene\t",
-    "transitionDuration": "Duration to use for any overridden transition. Specify null to remove\t",
-    "transitionName": "Name of the scene transition to use as override. Specify null to remove\t",
-    "inputKind": "The kind of input",
-    "unversioned": "True == Return all kinds as unversioned, False == Return with version suffixes (if available)",
+    "Sleep":{
+      "sleepMillis": "Number of milliseconds to sleep for (if SERIAL_REALTIME mode)\t",
+      "sleepFrames": "Number of frames to sleep for (if SERIAL_FRAME mode)\t"
+    },
+    "GetPersistentData":{
+      "realm": "The data realm to select. OBS_WEBSOCKET_DATA_REALM_GLOBAL or OBS_WEBSOCKET_DATA_REALM_PROFILE\t",
+      "slotName": "The name of the slot to retrieve data from\t"
+    },
+    "SetPersistentData":{
+      "realm": "The data realm to select. OBS_WEBSOCKET_DATA_REALM_GLOBAL or OBS_WEBSOCKET_DATA_REALM_PROFILE\t",
+      "slotName": "The name of the slot to set data to\t",
+      "slotValue": "The value to set to the slot\t"
+    },
+    "SetCurrentSceneCollection":{
+      "sceneCollectionName": "The name of the current scene collection"
+    },
+    "CreateSceneCollection":{
+      "sceneCollectionName": "The name of the new scene collection"
+    },
+    "SetCurrentProfile":{
+      "profileName": "The name of the profile to switch to"
+    },
+    "CreateProfile":{
+      "profileName": "The name of the new profile"
+    },
+    "RemoveProfile":{
+      "profileName": "The name of the profile to remove"
+    },
+    "GetProfileParameter":{
+      "parameterCategory": "Category of the parameter to get\t",
+      "parameterName": "Name of the parameter to get\t"  
+    },
+    "SetProfileParameter":{
+      "parameterCategory": "Category of the parameter to set\t",
+      "parameterName": "Name of the parameter to set\t",
+      "parameterValue": "Value to set the parameter to\t"
+    },
+    "SetVideoSettings":{
+      "fpsNumerator": "Numerator of the fractional FPS value\t",
+      "fpsDenominator": "Denominator of the fractional FPS value\t",
+      "baseWidth": "Width of the base (canvas) resolution in pixels\t",
+      "baseHeight": "Height of the base (canvas) resolution in pixels\t",
+      "outputWidth": "Width of the output resolution in pixels\t",
+      "outputHeight": "Height of the output resolution in pixels\t"
+    },
+    "SetStreamServiceSettings":{ 
+      "streamServiceType": "Type of stream service to apply. Example: rtmp_common or rtmp_custom\t",
+      "streamServiceSettings": "Settings to apply to the service\t"
+    },
+    "SetRecordDirectory": {
+      "recordDirectory": "Path to save the record files to\t"
+    },
+    "GetSourceActive": {
+      "sourceName": "Name of the source to get the active state of\t",
+      "sourceUuid": "UUID of the source to get the active state of\t"
+    },
+    "GetSourceScreenshot": {
+      "sourceName": "Name of the source to get the screenshot of\t",
+      "sourceUuid": "UUID of the source to get the screenshot of\t",
+      "imageFormat": "Image compression format to use. Use GetVersion to get compatible image formats\t",
+      "imageWidth": "Width to scale the screenshot to\t",
+      "imageHeight": "Height to scale the screenshot to\t",
+      "imageCompressionQuality": "Compression quality to use. 0 for high compression, 100 for uncompressed. -1 to use \"default\" (whatever that means, idk)\t"
+    },
+    "SaveSourceScreenshot":{
+      "sourceName": "Name of the source to save the screenshot of\t",
+      "sourceUuid": "UUID of the source to save the screenshot of\t",
+      "imageFormat": "Image compression format to use. Use GetVersion to get compatible image formats\t",
+      "imageWidth": "Width to scale the screenshot to\t",
+      "imageHeight": "Height to scale the screenshot to\t",
+      "imageCompressionQuality": "Compression quality to use. 0 for high compression, 100 for uncompressed. -1 to use \"default\" (whatever that means, idk)\t",
+      "imageFilePath": "Path to save the screenshot file to. Eg. C:\\Users\\user\\Desktop\\screenshot.png\t"
+    },
+    "SetCurrentProgramScene":{
+      "sceneName": "Name of the scene to set as the program scene\t",
+      "sceneUuid": "UUID of the scene to set as the program scene\t"
+    },
+    "SetCurrentPreviewScene":{
+      "sceneName": "Name of the scene to set as the preview scene\t",
+      "sceneUuid": "UUID of the scene to set as the preview scene\t"
+    },
+    "CreateScene":{
+      "sceneName": "Name of the new scene\t"
+    },
+    "RemoveScene":{
+      "sceneName": "Name of the scene to remove\t",
+      "sceneUuid": "UUID of the scene to remove\t"
+    },
+    "SetSceneName":{
+      "sceneName": "Current scene name\t",
+      "sceneUuid": "Current scene UUID\t",
+      "newSceneName": "New name for the scene\t"
+    },
+    "GetSceneSceneTransitionOverride":{
+      "sceneName": "Name of the scene to get the scene transition override of\t",
+      "sceneUuid": "UUID of the scene to get the scene transition override of\t"
+    },
+    "SetSceneSceneTransitionOverride":{
+      "sceneName": "Name of the scene to set the scene transition override of\t",
+      "sceneUuid": "UUID of the scene to set the scene transition override of\t",
+      "transitionName": "Name of the scene transition to use as override. Specify null to remove\t",
+      "transitionDuration": "Duration to use for any overridden transition. Specify null to remove\t"
+    },
+    "GetInputList":{
+      "inputKind": "The kind of input"
+    },
+    "GetInputKindList":{
+      "unversioned": "True == Return all kinds as unversioned, False == Return with version suffixes (if available)"
+    },
+    "CreateInput":{
+      "sceneName": "Name of the scene to add the input to\t",
+      "sceneUuid": "UUID of the scene to add the input to\t",
+      "inputName": "Name of the new input to created\t",
+      "inputKind": "The kind of the input",
+      "inputSettings": "Settings object of input",
+      "sceneItemEnabled":"Enable state to apply to the scene item on creation\t"
+    },
     "inputName": "Name of the new input to created\t",
     "inputSettings": "Settings object of input",
     "RemoveInput": {
@@ -617,84 +684,119 @@
     }
   },
   "ResParamsDes": {
-    "obsVersion": "Current OBS Studio version",
-    "obsWebSocketVersion": "Current OBS WebSocket version",
-    "rpcVersion": "Current latest obs-websocket RPC version        ",
-    "availableRequests": "Array of available RPC requests for the currently negotiated RPC version        ",
-    "supportedImageFormats": "Image formats available in GetSourceScreenshot and SaveSourceScreenshot requests.",
-    "platform": "Name of the platform. Usually windows, macos, or ubuntu (linux flavor). Not guaranteed to be any of those",
-    "platformDescription": "Description of the platform, like Windows 10 (10.0)",
-    "sceneName": "Name of the scene the item is in",
-    "itemName": "UUID of the scene the item is in\t",
-    "sceneItemId": "Numeric ID of the scene item\t",
-    "sceneItemEnabled": "New enable state of the scene item\t",
-    "cpuUsage": "Current CPU usage in percent",
-    "memoryUsage": "Amount of memory in MB currently being used by OBS",
-    "availableDiskSpace": "Available disk space on the device being used for recording storage",
-    "averageFrameRenderTime": "Average time in milliseconds that OBS is taking to render a frame",
-    "activeFps": "Current FPS being rendered",
-    "renderSkippedFrames": "Number of frames skipped by OBS in the render thread",
-    "renderTotalFrames": "Total number of frames outputted by the render thread",
-    "outputSkippedFrames": "Number of frames skipped by OBS in the output thread",
-    "outputTotalFrames": "Total number of frames outputted by the output thread",
-    "webSocketSessionIncomingMessages": "Total number of messages received by obs-websocket from the client",
-    "webSocketSessionOutgoingMessages": "Total number of messages sent by obs-websocket to the client",
-    "eventData": "Data payload to emit to all receivers\t",
-    "vendorName": "Name of the vendor to use\t",
-    "requestType": "The request type to call\t",
-    "requestData": "Object containing appropriate request data\t",
-    "responseData": "Object containing appropriate response data. {} if request does not provide any response data",
-    "hotkeys": "Array of hotkey names",
-    "hotkeyName": "Name of the hotkey to trigger\t",
-    "contextName": "Name of context of the hotkey to trigger\t",
-    "keyId": "The OBS key ID to use. See https://github.com/obsproject/obs-studio/blob/master/libobs/obs-hotkeys.h\t",
-    "keyModifiers": {
-      "title": "Object containing key modifiers to apply",
-      "shift": "Press Shift\t",
-      "control": "Press CTRL\t",
-      "alt": "Press ALT\t",
-      "command": "Press CMD (Mac)\t"
+    "GetVersion":{
+      "obsVersion": "Current OBS Studio version",
+      "obsWebSocketVersion": "Current OBS WebSocket version",
+      "rpcVersion": "Current latest obs-websocket RPC version        ",
+      "availableRequests": "Array of available RPC requests for the currently negotiated RPC version        ",
+      "supportedImageFormats": "Image formats available in GetSourceScreenshot and SaveSourceScreenshot requests.",
+      "platform": "Name of the platform. Usually windows, macos, or ubuntu (linux flavor). Not guaranteed to be any of those",
+      "platformDescription": "Description of the platform, like Windows 10 (10.0)"
     },
-    "sleepMillis": "Number of milliseconds to sleep for (if SERIAL_REALTIME mode)\t",
-    "sleepFrames": "Number of frames to sleep for (if SERIAL_FRAME mode)\t",
-    "realm": "The data realm to select. OBS_WEBSOCKET_DATA_REALM_GLOBAL or OBS_WEBSOCKET_DATA_REALM_PROFILE\t",
-    "slotName": "The name of the slot to retrieve data from\t",
-    "slotValue": "Value associated with the slot. null if not set",
-    "currentSceneCollectionName": "The name of the current scene collection",
-    "sceneCollections": "Array of all available scene collections",
-    "profiles": "Array of all available profiles",
-    "sceneCollectionName": "The name of the current profile",
-    "parameterValue": "Value associated with the parameter. null if not set and no default",
-    "defaultParameterValue": "defaultParameterValue",
-    "fpsNumerator": "Numerator of the fractional FPS value",
-    "fpsDenominator": "Denominator of the fractional FPS value",
-    "outputHeight": "Height of the output resolution in pixels",
-    "outputWidth": "Width of the output resolution in pixels",
-    "baseHeight": "Height of the base (canvas) resolution in pixels",
-    "baseWidth": "Width of the base (canvas) resolution in pixels",
-    "streamServiceType": "Stream service type, like rtmp_custom or rtmp_common",
-    "streamServiceSettings": "Stream service settings",
-    "recordDirectory": "Output directory",
-    "videoActive": "Whether the source is showing in Program",
-    "videoShowing": "Whether the source is showing in the UI (Preview, Projector, Properties)",
-    "imageData": "Base64-encoded screenshot",
-    "currentProgramSceneName": "Current program scene name. Can be null if internal state desync",
-    "currentProgramSceneUuid": "Current program scene UUID. Can be null if internal state desync",
-    "scenes": "Array of scenes",
-    "currentPreviewSceneUuid": "Current preview scene UUID. null if not in studio mode",
-    "currentPreviewSceneName": "Current preview scene name. null if not in studio mode",
-    "groups": "Array of group names",
-    "sceneUuid": "scene UUID",
-    "transitionName": "Name of the overridden scene transition, else null",
-    "transitionDuration": "Duration of the overridden scene transition, else null",
-    "inputs": "Array of inputs",
-    "inputKinds": "Array of input kinds",
-    "desktop1": "Name of the Desktop Audio input",
-    "desktop2": "Name of the Desktop Audio 2 input",
-    "mic1": "Name of the Mic/Auxiliary Audio input",
-    "mic2": "Name of the Mic/Auxiliary Audio 2 input",
-    "mic3": "Name of the Mic/Auxiliary Audio 3 input",
-    "mic4": "Name of the Mic/Auxiliary Audio 4 input",
+    "GetStats": {
+      "cpuUsage": "Current CPU usage in percent",
+      "memoryUsage": "Amount of memory in MB currently being used by OBS",
+      "availableDiskSpace": "Available disk space on the device being used for recording storage",
+      "averageFrameRenderTime": "Average time in milliseconds that OBS is taking to render a frame",
+      "activeFps": "Current FPS being rendered",
+      "renderSkippedFrames": "Number of frames skipped by OBS in the render thread",
+      "renderTotalFrames": "Total number of frames outputted by the render thread",
+      "outputSkippedFrames": "Number of frames skipped by OBS in the output thread",
+      "outputTotalFrames": "Total number of frames outputted by the output thread",
+      "webSocketSessionIncomingMessages": "Total number of messages received by obs-websocket from the client",
+      "webSocketSessionOutgoingMessages": "Total number of messages sent by obs-websocket to the client"
+    },
+    "CallVendorRequest":{
+      "vendorName": "Name of the vendor to use\t",
+      "requestType": "The request type to call\t",
+      "responseData": "Object containing appropriate response data. {} if request does not provide any response data"
+    },
+    "GetHotkeyList":{
+      "hotkeys": "Array of hotkey names"
+    },
+    "GetPersistentData":{
+      "slotValue": "Value associated with the slot. null if not set"
+    },
+    "GetSceneCollectionList":{
+      "currentSceneCollectionName": "The name of the current scene collection",
+      "sceneCollections": "Array of all available scene collections"
+    },
+    "GetProfileList":{
+      "profiles": "Array of all available profiles",
+      "sceneCollectionName": "The name of the current profile"
+    },
+    "GetProfileParameter":{
+      "parameterValue": "Value associated with the parameter. null if not set and no default",
+      "defaultParameterValue": "defaultParameterValue"
+    },
+    "GetVideoSettings":{
+      "fpsNumerator": "Numerator of the fractional FPS value",
+      "fpsDenominator": "Denominator of the fractional FPS value",
+      "outputHeight": "Height of the output resolution in pixels",
+      "outputWidth": "Width of the output resolution in pixels",
+      "baseHeight": "Height of the base (canvas) resolution in pixels",
+      "baseWidth": "Width of the base (canvas) resolution in pixels"
+    },
+    "GetStreamServiceSettings":{
+      "streamServiceType": "Stream service type, like rtmp_custom or rtmp_common",
+      "streamServiceSettings": "Stream service settings"
+    },
+    "GetRecordDirectory":{
+      "recordDirectory": "Path to save the record files to"
+    },
+    "GetSourceActive": {
+      "videoActive": "Whether the source is showing in Program",
+      "videoShowing": "Whether the source is showing in the UI (Preview, Projector, Properties)"
+    },
+    "GetSourceScreenshot":{
+      "imageData": "Base64-encoded screenshot"
+    },
+    "SaveSourceScreenshot":{
+      "imageData": "Base64-encoded screenshot"
+    },
+    "GetSceneList":{
+      "currentProgramSceneName": "Current program scene name. Can be null if internal state desync",
+      "currentProgramSceneUuid": "Current program scene UUID. Can be null if internal state desync",
+      "scenes": "Array of scenes",
+      "currentPreviewSceneUuid": "Current preview scene UUID. null if not in studio mode",
+      "currentPreviewSceneName": "Current preview scene name. null if not in studio mode"  
+    },
+    "GetGroupList":{
+      "groups": "Array of group names"
+    },
+    "GetCurrentProgramScene":{
+      "sceneName": "Name of the current program scene",
+      "sceneUuid": "UUID of the current program scene",
+      "currentProgramSceneName":"Current program scene name. Can be null if internal state desync",
+      "currentProgramSceneUuid":"Current program scene UUID. Can be null if internal state desync"
+    },
+    "GetCurrentPreviewScene":{
+      "sceneName": "Name of the scene to set as the preview scene\t",
+      "sceneUuid": "UUID of the scene to set as the preview scene\t",
+      "currentPreviewSceneName":"Current preview scene name. null if not in studio mode",
+      "currentPreviewSceneUuid":"Current preview scene UUID. null if not in studio mode"
+    },
+    "CreateScene":{
+      "sceneUuid":"UUID of the new scene"
+    },
+    "GetSceneSceneTransitionOverride":{
+      "transitionName": "Name of the overridden scene transition, else null",
+      "transitionDuration": "Duration of the overridden scene transition, else null"
+    },
+    "GetInputList":{
+      "inputs": "Array of inputs"
+    },
+    "GetInputKindList":{
+      "inputKinds": "Array of input kinds"
+    },
+    "GetSpecialInputs":{
+      "desktop1": "Name of the Desktop Audio input",
+      "desktop2": "Name of the Desktop Audio 2 input",
+      "mic1": "Name of the Mic/Auxiliary Audio input",
+      "mic2": "Name of the Mic/Auxiliary Audio 2 input",
+      "mic3": "Name of the Mic/Auxiliary Audio 3 input",
+      "mic4": "Name of the Mic/Auxiliary Audio 4 input"  
+    },
     "CreateInput": {
       "inputUuid": "UUID of the newly created input",
       "sceneItemId": "ID of the newly created scene item"
