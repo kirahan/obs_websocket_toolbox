@@ -1,30 +1,1222 @@
 {
-    "name": "obs",
-    "Titles": {
-      "TreeList": {
-        "summary": "Introduction"
-      }
+  "name": "obs",
+  "Titles": {
+    "TreeList": {
+      "summary": "介绍"
     },
-    "QueryHeaders": {
-      "Params": "Params",
-      "Value": "Value",
-      "Type": "Type",
-      "Des": "Description",
-      "ValueRestrictions": "Value Restrictions",
-      "DefaultBehavior": "Default Behavior"
-    },
-    "ParamsDes": {
-      "obsVersion": "Current OBS Studio version",
-      "obsWebSocketVersion": "Current OBS WebSocket version",
-      "rpcVersion": "Current latest obs-websocket RPC version        ",
-      "availableRequests": "Array of available RPC requests for the currently negotiated RPC version        ",
-      "supportedImageFormats": "Image formats available in GetSourceScreenshot and SaveSourceScreenshot requests.",
-      "platform": "Name of the platform. Usually windows, macos, or ubuntu (linux flavor). Not guaranteed to be any of those",
-      "platformDescription": "Description of the platform, like Windows 10 (10.0)",
-      "sceneName": "Name of the scene the item is in",
-      "itemName": "UUID of the scene the item is in\t",
-      "sceneItemId": "Numeric ID of the scene item\t",
-      "sceneItemEnabled": "New enable state of the scene item\t"
+    "Detail": {
+      "Query": "查询",
+      "Request": "请求",
+      "EventViewer": "事件查看器",
+      "Params": "参数",
+      "Response": "响应"
     }
+  },
+  "QueryHeaders": {
+    "Params": "参数",
+    "Value": "值",
+    "Type": "类型",
+    "Des": "描述",
+    "ValueRestrictions": "值限制",
+    "DefaultBehavior": "默认行为"
+  },
+  "RequestDes": {
+    "GetVersion": "获取当前插件和RPC版本的数据。",
+    "GetStats": "获取OBS、obs-websocket和当前会话的统计信息。",
+    "BroadcastCustomEvent": "向所有WebSocket客户端广播CustomEvent。接收者是已识别并订阅的客户端。",
+    "CallVendorRequest": "调用注册到供应商的请求。<br><br>供应商是由第三方插件或脚本注册的唯一名称，允许将自定义请求和事件添加到obs-websocket。如果插件或脚本实现了供应商请求或事件，预期会随附提供文档。",
+    "GetHotkeyList": "获取OBS中所有热键名称的数组。<br><br>注意：obs-websocket中的热键功能按原样提供，如果出现问题，我们不保证提供支持。在9/10次热键请求的使用中，通过其他请求存在更好、更可靠的方法。",
+    "TriggerHotkeyByName": "使用其名称触发热键。请参阅GetHotkeyList。<br><br>注意：obs-websocket中的热键功能按原样提供，如果出现问题，我们不保证提供支持。在9/10次热键请求的使用中，通过其他请求存在更好、更可靠的方法。",
+    "TriggerHotkeyByKeySequence": "使用一系列键触发热键。<br><br>注意：obs-websocket中的热键功能按原样提供，如果出现问题，我们不保证提供支持。在9/10次热键请求的使用中，通过其他请求存在更好、更可靠的方法。",
+    "Sleep": "休眠一段时间或帧数。仅在SERIAL_REALTIME或SERIAL_FRAME类型的请求批次中可用。",
+    "GetPersistentData": "从选定的持久数据领域获取“插槽”的值。",
+    "SetPersistentData": "设置选定的持久数据领域中“插槽”的值。",
+    "GetSceneCollectionList": "获取所有场景集合的数组",
+    "SetCurrentSceneCollection": "切换到场景集合。<br><br>注意：这将阻塞，直到集合完成更改。",
+    "CreateSceneCollection": "创建一个新的场景集合，并在此过程中切换到它。<br><br>注意：这将阻塞，直到集合完成更改。",
+    "GetProfileList": "获取所有配置文件的数组",
+    "SetCurrentProfile": "切换到配置文件。",
+    "CreateProfile": "创建一个新的配置文件，并在此过程中切换到它",
+    "RemoveProfile": "删除配置文件。如果选择了当前配置文件，它将首先更改为不同的配置文件。",
+    "GetProfileParameter": "从当前配置文件的配置中获取参数。",
+    "SetProfileParameter": "设置当前配置文件配置中的参数值。",
+    "GetVideoSettings": "获取当前视频设置。<br><br>注意：要获取真实的FPS值，请将FPS分子除以FPS分母。示例：60000/1001",
+    "SetVideoSettings": "设置当前视频设置。<br><br>注意：字段必须成对指定。例如，您不能只设置baseWidth而不需要指定baseHeight。",
+    "GetStreamServiceSettings": "获取当前流服务设置（流目的地）。",
+    "SetStreamServiceSettings": "设置当前流服务设置（流目的地）。<br><br>注意：可以使用类型rtmp_custom和设置字段服务器和密钥来设置简单的RTMP设置。",
+    "GetRecordDirectory": "获取当前记录输出设置的目录。",
+    "SetRecordDirectory": "设置记录输出写入文件的当前目录。",
+    "GetSourceActive": "获取源的激活和显示状态。<br><br>与输入和场景兼容。",
+    "GetSourceScreenshot": "获取源的Base64编码截图。<br><br>imageWidth和imageHeight参数被视为“按内缩放”，意味着将使用最小的比例并保持原始分辨率的纵横比。如果未指定imageWidth和imageHeight，则压缩后的图像将使用源的全分辨率。<br><br>与输入和场景兼容。",
+    "SaveSourceScreenshot": "将源的截图保存到文件系统。<br><br>imageWidth和imageHeight参数被视为“按内缩放”，意味着将使用最小的比例并保持原始分辨率的纵横比。如果未指定imageWidth和imageHeight，则压缩后的图像将使用源的全分辨率。<br><br>与输入和场景兼容。",
+    "GetSceneList": "获取OBS中所有场景的数组。",
+    "GetGroupList": "获取OBS中所有组的数组。<br><br>OBS中的组实际上是场景，但已重命名和修改。在obs-websocket中，我们尽可能将它们视为我们可以的场景。",
+    "GetCurrentProgramScene": "获取当前节目场景。<br><br>注意：这个请求计划在即将到来的RPC版本中删除当前Program前缀的字段。",
+    "SetCurrentProgramScene": "设置当前节目场景。",
+    "GetCurrentPreviewScene": "获取当前预览场景。<br><br>仅在启用了工作室模式时可用。<br><br>注意：这个请求计划在即将到来的RPC版本中删除当前Preview前缀的字段。",
+    "SetCurrentPreviewScene": "设置当前预览场景。<br><br>仅在启用了工作室模式时可用。",
+    "CreateScene": "在OBS中创建一个新场景。",
+    "RemoveScene": "从OBS中删除场景。",
+    "SetSceneName": "设置场景的名称（重命名）。",
+    "GetSceneSceneTransitionOverride": "获取场景的过渡覆盖。<br><br>注意：截至2024-1-18，无法实现过渡UUID响应字段。",
+    "SetSceneSceneTransitionOverride": "设置场景的过渡覆盖。",
+    "GetInputList": "获取OBS中所有输入的数组。",
+    "GetInputKindList": "获取OBS中所有可用输入类型的数组。",
+    "GetSpecialInputs": "获取所有特殊输入的名称。",
+    "CreateInput": "创建一个新的输入，将其作为场景项添加到指定场景中。",
+    "RemoveInput": "删除现有输入。<br><br>注意：将立即删除所有关联的场景项。",
+    "SetInputName": "设置输入的名称（重命名）。",
+    "GetInputDefaultSettings": "获取输入类型的默认设置。",
+    "GetInputSettings": "获取输入的设置。<br><br>注意：不包括默认值。要创建整个设置对象，请将inputSettings覆盖GetInputDefaultSettings提供的defaultInputSettings。",
+    "SetInputSettings": "设置输入的设置",
+    "GetInputMute": "获取输入的音频静音状态。",
+    "SetInputMute": "设置输入的音频静音状态。",
+    "ToggleInputMute": "切换输入的音频静音状态。",
+    "GetInputVolume": "获取输入的当前音量设置。",
+    "SetInputVolume": "设置输入的音量设置。",
+    "GetInputAudioBalance": "获取输入的音频平衡。",
+    "SetInputAudioBalance": "设置输入的音频平衡。",
+    "GetInputAudioSyncOffset": "获取输入的音频同步偏移。<br><br>注意：音频同步偏移也可以是负数！",
+    "SetInputAudioSyncOffset": "设置输入的音频同步偏移。",
+    "GetInputAudioMonitorType": "获取输入的音频监控类型。<br><br>可用的音频监控类型有：<br>OBS_MONITORING_TYPE_NONE<br>OBS_MONITORING_TYPE_MONITOR_ONLY<br>OBS_MONITORING_TYPE_MONITOR_AND_OUTPUT",
+    "SetInputAudioMonitorType": "设置输入的音频监控类型。",
+    "GetInputAudioTracks": "获取输入的所有音频轨道的启用状态。",
+    "SetInputAudioTracks": "设置输入的音频轨道的启用状态。",
+    "GetInputPropertiesListPropertyItems": "从输入的属性中获取列表属性的项目。<br><br>注意：在输入提供动态、可选择的项目列表的情况下使用。例如，显示捕获，它提供了可用显示的列表。",
+    "PressInputPropertiesButton": "按下输入属性中的按钮。<br><br>一些已知的propertyName值有：<br>refreshnocache - 浏览器源重新加载按钮",
+    "GetTransitionKindList": "获取所有可用转场类型的数组。",
+    "GetSceneTransitionList": "获取OBS中所有场景转场的数组。",
+    "GetCurrentSceneTransition": "获取当前场景转场的信息。",
+    "SetCurrentSceneTransition": "设置当前场景转场。注意：虽然场景转场的命名空间通常是唯一的，但这种唯一性并不像其他资源（如输入）那样有保证。",
+    "SetCurrentSceneTransitionDuration": "设置当前场景转场的持续时间，如果它不是固定的。",
+    "SetCurrentSceneTransitionSettings": "设置当前场景转场的设置。",
+    "GetCurrentSceneTransitionCursor": "获取当前场景转场的光标位置。注意：transitionCursor在转场非激活状态时将返回1.0。",
+    "TriggerStudioModeTransition": "触发当前场景转场。与工作室模式中的转场按钮具有相同功能。",
+    "SetTBarPosition": "设置TBar的位置。非常重要的注意事项：这将在obs-websocket的未来版本中被弃用和替换。",
+    "GetSourceFilterKindList": "获取所有可用源滤镜类型的数组。",
+    "GetSourceFilterList": "获取一个源的所有滤镜的数组。",
+    "GetSourceFilterDefaultSettings": "获取滤镜类型的默认设置。",
+    "CreateSourceFilter": "创建一个新的滤镜，并将其添加到指定的源。",
+    "RemoveSourceFilter": "从源中删除一个滤镜。",
+    "SetSourceFilterName": "设置源滤镜的名称（重命名）。",
+    "GetSourceFilter": "获取特定源滤镜的信息。",
+    "SetSourceFilterIndex": "设置源上滤镜的索引位置。",
+    "SetSourceFilterSettings": "设置源滤镜的设置。",
+    "SetSourceFilterEnabled": "设置源滤镜的启用状态。",
+    "GetSceneItemList": "获取场景中所有场景项的列表。场景专用",
+    "GetGroupSceneItemList": "基本上是GetSceneItemList，但是用于组。使用OBS中的组是不被鼓励的，因为它们在内部结构上非常不稳定。请改用嵌套场景。组专用",
+    "GetSceneItemId": "在场景中搜索源，并返回其ID。场景和组",
+    "GetSceneItemSource": "获取与场景项相关联的源。",
+    "CreateSceneItem": "使用源创建一个新的场景项。场景专用",
+    "RemoveSceneItem": "从场景中删除一个场景项。场景专用",
+    "DuplicateSceneItem": "复制一个场景项，复制所有变换和裁剪信息。场景专用",
+    "GetSceneItemTransform": "获取场景项的变换和裁剪信息。场景和组",
+    "SetSceneItemTransform": "设置场景项的变换和裁剪信息。",
+    "GetSceneItemEnabled": "获取场景项的启用状态。场景和组",
+    "SetSceneItemEnabled": "设置场景项的启用状态。场景和组",
+    "GetSceneItemLocked": "获取场景项的锁定状态。场景和组",
+    "SetSceneItemLocked": "设置场景项的锁定状态。场景和组",
+    "GetSceneItemIndex": "获取场景项在场景中的索引位置。0索引位于UI中的源列表底部。场景和组",
+    "SetSceneItemIndex": "设置场景项在场景中的索引位置。场景和组",
+    "GetSceneItemBlendMode": "获取场景项的混合模式。混合模式：OBS_BLEND_NORMAL、OBS_BLEND_ADDITIVE、OBS_BLEND_SUBTRACT、OBS_BLEND_SCREEN、OBS_BLEND_MULTIPLY、OBS_BLEND_LIGHTEN、OBS_BLEND_DARKEN。场景和组",
+    "SetSceneItemBlendMode": "设置场景项的混合模式。场景和组",
+    "GetVirtualCamStatus": "获取virtualcam输出的状态。",
+    "ToggleVirtualCam": "切换virtualcam输出的状态。",
+    "StartVirtualCam": "启动virtualcam输出。",
+    "StopVirtualCam": "停止virtualcam输出。",
+    "GetReplayBufferStatus": "获取replay buffer输出的状态。",
+    "ToggleReplayBuffer": "切换replay buffer输出的状态。",
+    "StartReplayBuffer": "启动replay buffer输出。",
+    "StopReplayBuffer": "停止replay buffer输出。",
+    "SaveReplayBuffer": "保存replay buffer输出的内容。",
+    "GetLastReplayBufferReplay": "获取上次replay buffer保存文件的文件名。",
+    "GetOutputList": "获取可用输出的列表。",
+    "GetOutputStatus": "获取输出的状态。",
+    "ToggleOutput": "切换输出的状态。",
+    "StartOutput": "启动输出。",
+    "StopOutput": "停止输出。",
+    "GetOutputSettings": "获取输出的设置。",
+    "SetOutputSettings": "设置输出的设置。",
+    "GetStreamStatus": "获取流输出的状态。",
+    "ToggleStream": "切换流输出的状态。",
+    "StartStream": "启动流输出。",
+    "StopStream": "停止流输出。",
+    "SendStreamCaption": "通过流输出发送CEA-608字幕文本。",
+    "GetRecordStatus": "获取记录输出的状态。",
+    "ToggleRecord": "切换记录输出的状态。",
+    "StartRecord": "启动记录输出。",
+    "StopRecord": "停止记录输出。",
+    "ToggleRecordPause": "切换记录输出的暂停。",
+    "PauseRecord": "暂停记录输出。",
+    "ResumeRecord": "恢复记录输出。",
+    "GetMediaInputStatus": "获取媒体输入的状态。媒体状态：OBS_MEDIA_STATE_NONE、OBS_MEDIA_STATE_PLAYING、OBS_MEDIA_STATE_OPENING、OBS_MEDIA_STATE_BUFFERING、OBS_MEDIA_STATE_PAUSED、OBS_MEDIA_STATE_STOPPED、OBS_MEDIA_STATE_ENDED、OBS_MEDIA_STATE_ERROR",
+    "SetMediaInputCursor": "设置媒体输入的光标位置。这个请求不执行光标位置的范围检查。",
+    "OffsetMediaInputCursor": "通过指定的值偏移媒体输入的当前光标位置。这个请求不执行光标位置的范围检查。",
+    "TriggerMediaInputAction": "触发媒体输入上的操作。",
+    "GetStudioModeEnabled": "获取是否启用了工作室模式。",
+    "SetStudioModeEnabled": "启用或禁用工作室模式",
+    "OpenInputPropertiesDialog": "打开输入的属性对话框。",
+    "OpenInputFiltersDialog": "打开输入的滤镜对话框。",
+    "OpenInputInteractDialog": "打开输入的交互对话框。",
+    "GetMonitorList": "获取连接的监视器列表及有关它们的信息。",
+    "OpenVideoMixProjector": "为特定输出视频混合打开投影仪。混合类型：OBS_WEBSOCKET_VIDEO_MIX_TYPE_PREVIEW、OBS_WEBSOCKET_VIDEO_MIX_TYPE_PROGRAM、OBS_WEBSOCKET_VIDEO_MIX_TYPE_MULTIVIEW。注意：这个请求是为了提供与4.x版本的功能一致性。它很可能会在未来的版本中更改/弃用。",
+    "OpenSourceProjector": "为源打开投影仪。注意：这个请求是为了提供与4.x版本的功能一致性。它很可能会在未来的版本中更改/弃用。"
+  },
+  "EventDes": {
+    "ExitStarted": "OBS已开始关闭流程。",
+    "VendorEvent": "已从供应商发出事件。供应商是由第三方插件或脚本注册的唯一名称，允许将自定义请求和事件添加到obs-websocket。如果插件或脚本实现了供应商请求或事件，预期会随附提供文档。",
+    "CustomEvent": "由BroadcastCustomEvent发出的自定义事件。",
+    "CurrentSceneCollectionChanging": "当前场景集合已开始更改。注意：我们建议使用此事件触发所有轮询请求的暂停，因为在场景集合更改期间执行任何请求被认为是未定义的行为，可能会导致崩溃！",
+    "CurrentSceneCollectionChanged": "当前场景集合已更改。注意：如果在CurrentSceneCollectionChanging期间已暂停轮询，这是重新启动轮询的提示。",
+    "SceneCollectionListChanged": "场景集合列表已更改。",
+    "CurrentProfileChanging": "当前配置文件已开始更改。",
+    "CurrentProfileChanged": "当前配置文件已更改。",
+    "ProfileListChanged": "配置文件列表已更改。",
+    "SceneCreated": "已创建新场景。",
+    "SceneRemoved": "已删除场景。",
+    "SceneNameChanged": "场景名称已更改。",
+    "CurrentProgramSceneChanged": "当前节目场景已更改。",
+    "CurrentPreviewSceneChanged": "当前预览场景已更改。",
+    "SceneListChanged": "场景列表已更改。注意：请让OBS在场景重新排序时触发此事件。",
+    "InputCreated": "已创建输入。",
+    "InputRemoved": "已删除输入。",
+    "InputNameChanged": "输入的名称已更改。",
+    "InputSettingsChanged": "输入的设置已更改（已更新）。注意：在某些输入中，更改属性对话框中的值将立即更新。按“取消”按钮将还原设置，导致触发另一个事件。",
+    "InputActiveStateChanged": "输入的激活状态已更改。当输入处于激活状态时，意味着它正在通过节目源显示。",
+    "InputShowStateChanged": "输入的显示状态已更改。当输入处于显示状态时，意味着它正在通过预览或对话框显示。",
+    "InputMuteStateChanged": "输入的静音状态已更改。",
+    "InputVolumeChanged": "输入的音量级别已更改。",
+    "InputAudioBalanceChanged": "输入的音频平衡值已更改。",
+    "InputAudioSyncOffsetChanged": "输入的同步偏移已更改。",
+    "InputAudioTracksChanged": "输入的音频轨道已更改。",
+    "InputAudioMonitorTypeChanged": "输入的监控类型已更改。可用类型有：OBS_MONITORING_TYPE_NONE、OBS_MONITORING_TYPE_MONITOR_ONLY、OBS_MONITORING_TYPE_MONITOR_AND_OUTPUT",
+    "InputVolumeMeters": "一个高音量事件，每50毫秒提供所有激活输入的音量级别。",
+    "CurrentSceneTransitionChanged": "当前场景转换已更改。",
+    "CurrentSceneTransitionDurationChanged": "当前场景转换的持续时间已更改。",
+    "SceneTransitionStarted": "场景转换已开始。",
+    "SceneTransitionEnded": "场景转换已完全结束。注意：当用户中断转换时，似乎不会触发。",
+    "SceneTransitionVideoEnded": "场景转换的视频已完全结束。对于stinger转换来说，这很有用，可以知道视频何时实际结束。SceneTransitionEnded仅表示切换点，而不是转换播放的完成。注意：似乎每个转换都会调用，无论是否相关。",
+    "SourceFilterListReindexed": "源的滤镜列表已被重新索引。",
+    "SourceFilterCreated": "已向源添加了滤镜。",
+    "SourceFilterSettingsChanged": "源滤镜的设置已更改（已更新）。",
+    "SourceFilterEnableStateChanged": "源滤镜的启用状态已更改。",
+    "SceneItemCreated": "已创建场景项。",
+    "SceneItemRemoved": "已删除场景项。当场景项所在的场景被删除时，不会触发此事件。",
+    "SceneItemListReindexed": "场景项列表已被重新索引。",
+    "SceneItemEnableStateChanged": "场景项的启用状态已更改。",
+    "SceneItemLockStateChanged": "场景项的锁定状态已更改。",
+    "SceneItemSelected": "场景项已在UI中被选中。",
+    "SceneItemTransformChanged": "场景项的变换/裁剪已更改。",
+    "StreamStateChanged": "流输出的状态已更改。",
+    "RecordStateChanged": "记录输出的状态已更改。",
+    "ReplayBufferStateChanged": "回放缓冲区输出的状态已更改。",
+    "VirtualcamStateChanged": "虚拟摄像头输出的状态已更改。",
+    "ReplayBufferSaved": "回放缓冲区已被保存。",
+    "MediaInputPlaybackStarted": "媒体输入已开始播放。",
+    "MediaInputPlaybackEnded": "媒体输入已播放结束。",
+    "MediaInputActionTriggered": "已在输入上执行操作。",
+    "StudioModeStateChanged": "工作室模式已启用或禁用。",
+    "ScreenshotSaved": "截图已被保存。注意：仅在设置 -> 热键 -> 截图输出中可用的截图功能触发。使用Get/SaveSourceScreenshot的应用程序应实现CustomEvent，如果需要这种客户端间通信。"
+  },
+  "ReqParamsDes": {
+    "BroadcastCustomEvent": {
+      "eventData": "要向所有接收者发出的数据负载"
+    },
+    "CallVendorRequest": {
+      "vendorName": "要使用的供应商名称",
+      "requestType": "要调用的请求类型",
+      "requestData": "包含适当请求数据的对象"
+    },
+    "TriggerHotkeyByName": {
+      "hotkeyName": "要触发的热键名称",
+      "contextName": "要触发的热键的上下文名称"
+    },
+    "TriggerHotkeyByKeySequence": {
+      "keyModifiers": "包含要应用的键修饰符的对象",
+      "keyId": "要使用的OBS键ID。见 https://github.com/obsproject/obs-studio/blob/master/libobs/obs-hotkeys.h"
+    },
+    "keyModifiers": {
+      "shift": "按下Shift",
+      "control": "按下CTRL",
+      "alt": "按下ALT",
+      "command": "按下CMD（Mac）"
+    },
+    "Sleep": {
+      "sleepMillis": "要休眠的毫秒数（如果SERIAL_REALTIME模式）",
+      "sleepFrames": "要休眠的帧数（如果SERIAL_FRAME模式）"
+    },
+    "GetPersistentData": {
+      "realm": "要选择的数据领域。OBS_WEBSOCKET_DATA_REALM_GLOBAL或OBS_WEBSOCKET_DATA_REALM_PROFILE",
+      "slotName": "要检索数据的插槽名称"
+    },
+    "SetPersistentData": {
+      "realm": "要选择的数据领域。OBS_WEBSOCKET_DATA_REALM_GLOBAL或OBS_WEBSOCKET_DATA_REALM_PROFILE",
+      "slotName": "要设置数据的插槽名称",
+      "slotValue": "要设置到插槽的值"
+    },
+    "SetCurrentSceneCollection": {
+      "sceneCollectionName": "当前场景集合的名称"
+    },
+    "CreateSceneCollection": {
+      "sceneCollectionName": "新场景集合的名称"
+    },
+    "SetCurrentProfile": {
+      "profileName": "要切换到的配置文件名称"
+    },
+    "CreateProfile": {
+      "profileName": "新配置文件的名称"
+    },
+    "RemoveProfile": {
+      "profileName": "要删除的配置文件名称"
+    },
+    "GetProfileParameter": {
+      "parameterCategory": "要获取的参数类别",
+      "parameterName": "要获取的参数名称"
+    },
+    "SetProfileParameter": {
+      "parameterCategory": "要设置的参数类别",
+      "parameterName": "要设置的参数名称",
+      "parameterValue": "要设置的参数值"
+    },
+    "SetVideoSettings": {
+      "fpsNumerator": "FPS值的分子",
+      "fpsDenominator": "FPS值的分母",
+      "baseWidth": "基础（画布）分辨率的宽度，以像素为单位",
+      "baseHeight": "基础（画布）分辨率的高度，以像素为单位",
+      "outputWidth": "输出分辨率的宽度，以像素为单位",
+      "outputHeight": "输出分辨率的高度，以像素为单位"
+    },
+    "SetStreamServiceSettings": {
+      "streamServiceType": "要应用的流服务类型。例如：rtmp_common或rtmp_custom",
+      "streamServiceSettings": "要应用到服务的设置"
+    },
+    "SetRecordDirectory": {
+      "recordDirectory": "保存记录文件的路径"
+    },
+    "GetSourceActive": {
+      "sourceName": "要获取激活状态的源的名称",
+      "sourceUuid": "要获取激活状态的源的UUID"
+    },
+    "GetSourceScreenshot": {
+      "sourceName": "要获取截图的源的名称",
+      "sourceUuid": "要获取截图的源的UUID",
+      "imageFormat": "要使用的图像压缩格式。使用GetVersion获取兼容的图像格式",
+      "imageWidth": "要缩放到的宽度",
+      "imageHeight": "要缩放到的高度",
+      "imageCompressionQuality": "要使用的压缩质量。0表示高压缩，100表示未压缩。-1表示使用“默认”（具体含义不明）"
+    },
+    "SaveSourceScreenshot": {
+      "sourceName": "要保存截图的源的名称",
+      "sourceUuid": "要保存截图的源的UUID",
+      "imageFormat": "要使用的图像压缩格式。使用GetVersion获取兼容的图像格式",
+      "imageWidth": "要缩放到的宽度",
+      "imageHeight": "要缩放到的高度",
+      "imageCompressionQuality": "要使用的压缩质量。0表示高压缩，100表示未压缩。-1表示使用“默认”（具体含义不明）",
+      "imageFilePath": "保存截图文件的路径。例如：C:\\Users\\user\\Desktop\\screenshot.png"
+    },
+    "SetCurrentProgramScene": {
+      "sceneName": "要设置为节目场景的名称",
+      "sceneUuid": "要设置为节目场景的UUID"
+    },
+    "SetCurrentPreviewScene": {
+      "sceneName": "要设置为预览场景的名称",
+      "sceneUuid": "要设置为预览场景的UUID"
+    },
+    "CreateScene": {
+      "sceneName": "新场景的名称"
+    },
+    "RemoveScene": {
+      "sceneName": "要删除的场景的名称",
+      "sceneUuid": "要删除的场景的UUID"
+    },
+    "SetSceneName": {
+      "sceneName": "当前场景名称",
+      "sceneUuid": "当前场景UUID",
+      "newSceneName": "场景的新名称"
+    },
+    "GetSceneSceneTransitionOverride": {
+      "sceneName": "要获取场景转换覆盖的场景名称",
+      "sceneUuid": "要获取场景转换覆盖的场景UUID"
+    },
+    "SetSceneSceneTransitionOverride": {
+      "sceneName": "要设置场景转换覆盖的场景名称",
+      "sceneUuid": "要设置场景转换覆盖的场景UUID",
+      "transitionName": "用作覆盖的场景转换名称。指定null以移除",
+      "transitionDuration": "用于任何覆盖转换的持续时间。指定null以移除"
+    },
+    "GetInputList": {
+      "inputKind": "输入的类型"
+    },
+    "GetInputKindList": {
+      "unversioned": "True == 以未版本化的返回所有类型，False == 以版本后缀形式返回（如果可用）"
+    },
+    "CreateInput": {
+      "sceneName": "要添加输入的场景名称",
+      "sceneUuid": "要添加输入的场景UUID",
+      "inputName": "新创建的输入名称",
+      "inputKind": "输入的类型",
+      "inputSettings": "输入的设置对象",
+      "sceneItemEnabled": "在创建时应用到场景项的启用状态"
+    },
+    "inputName": "新创建的输入名称",
+    "inputSettings": "输入的设置对象",
+    "RemoveInput": {
+      "inputName": "要删除的输入名称",
+      "inputUuid": "要删除的输入UUID"
+    },
+    "SetInputName": {
+      "inputName": "当前输入名称",
+      "inputUuid": "当前输入UUID",
+      "newInputName": "输入的新名称"
+    },
+    "GetInputDefaultSettings": {
+      "inputName": "要获取默认设置的输入类型",
+      "defaultInputSettings": "输入类型的默认设置对象"
+    },
+    "GetInputSettings": {
+      "inputName": "要获取设置的输入名称",
+      "inputUuid": "要获取设置的输入UUID",
+      "inputSettings": "输入的设置对象",
+      "inputKind": "输入的类型"
+    },
+    "SetInputSettings": {
+      "inputName": "要设置设置的输入名称",
+      "inputUuid": "要设置设置的输入UUID",
+      "inputSettings": "要应用的设置对象",
+      "overlay": "True == 在现有设置上应用设置，False == 将输入重置为其默认值，然后应用设置."
+    },
+    "GetInputMute": {
+      "inputMuted": "输入是否静音",
+      "inputName": "要获取静音状态的输入名称",
+      "inputUuid": "要获取静音状态的输入UUID"
+    },
+    "SetInputMute": {
+      "inputMuted": "是否要静音输入",
+      "inputUuid": "要设置静音状态的输入UUID",
+      "inputName": "要设置静音状态的输入名称"
+    },
+    "ToggleInputMute": {
+      "inputName": "要切换静音状态的输入名称",
+      "inputUuid": "要切换静音状态的输入UUID"
+    },
+    "GetInputVolume": {
+      "inputUuid": "要获取音量的输入UUID",
+      "inputName": "要获取音量的输入名称"
+    },
+    "SetInputVolume": {
+      "inputVolumeMul": "mul中的音量设置",
+      "inputVolumeDb": "dB中的音量设置",
+      "inputName": "要设置音量的输入名称",
+      "inputUuid": "要设置音量的输入UUID"
+    },
+    "GetInputAudioBalance": {
+      "inputUuid": "要获取音频平衡的输入UUID",
+      "inputName": "要获取音频平衡的输入名称"
+    },
+    "SetInputAudioBalance": {
+      "inputAudioBalance": "新的音频平衡值",
+      "inputUuid": "要设置音频平衡的输入UUID",
+      "inputName": "要设置音频平衡的输入名称"
+    },
+    "GetInputAudioSyncOffset": {
+      "inputUuid": "要获取音频同步偏移的输入UUID",
+      "inputName": "要获取音频同步偏移的输入名称"
+    },
+    "SetInputAudioSyncOffset": {
+      "inputAudioSyncOffset": "新的音频同步偏移，以毫秒为单位",
+      "inputUuid": "要设置音频同步偏移的输入UUID",
+      "inputName": "要设置音频同步偏移的输入名称"
+    },
+    "GetInputAudioMonitorType": {
+      "inputUuid": "要获取音频监控类型的输入UUID",
+      "inputName": "要获取音频监控类型的输入名称"
+    },
+    "SetInputAudioMonitorType": {
+      "monitorType": "音频监控类型",
+      "inputUuid": "要设置音频监控类型的输入UUID",
+      "inputName": "要设置音频监控类型的输入名称"
+    },
+    "GetInputAudioTracks": {
+      "inputUuid": "输入的UUID",
+      "inputName": "输入的名称"
+    },
+    "SetInputAudioTracks": {
+      "inputName": "输入的名称",
+      "inputUuid": "输入的UUID",
+      "inputAudioTracks": "要应用的音轨设置"
+    },
+    "GetInputPropertiesListPropertyItems": {
+      "propertyName": "要获取项目列表的属性名称",
+      "inputUuid": "输入的UUID",
+      "inputName": "输入的名称"
+    },
+    "PressInputPropertiesButton": {
+      "propertyName": "要按下的按钮属性名称",
+      "inputUuid": "输入的UUID",
+      "inputName": "输入的名称"
+    },
+    "SetCurrentSceneTransition": {
+      "transitionName": "要激活的转换名称"
+    },
+    "SetCurrentSceneTransitionDuration": {
+      "transitionDuration": "以毫秒为单位的转换持续时间"
+    },
+    "SetCurrentSceneTransitionSettings": {
+      "transitionSettings": "要应用到转换的设置对象。可以是{}",
+      "overlay": "是否要在当前设置上覆盖"
+    },
+    "SetTBarPosition": {
+      "position": "新位置",
+      "release": "是否要释放TBar。只有在你知道你将发送另一个位置更新时才设置为false"
+    },
+    "GetSourceFilterList": {
+      "sourceName": "源的名称",
+      "sourceUuid": "源的UUID"
+    },
+    "GetSourceFilterDefaultSettings": {
+      "filterKind": "要获取默认设置的过滤器类型"
+    },
+    "CreateSourceFilter": {
+      "sourceName": "要添加过滤器的源的名称",
+      "sourceUuid": "要添加过滤器的源的UUID",
+      "filterName": "要创建的新过滤器的名称",
+      "filterKind": "要创建的过滤器类型",
+      "filterSettings": "用于初始化过滤器的设置对象"
+    },
+    "RemoveSourceFilter": {
+      "sourceName": "过滤器所在的源的名称",
+      "sourceUuid": "过滤器所在的源的UUID",
+      "filterName": "要删除的过滤器的名称"
+    },
+    "SetSourceFilterName": {
+      "sourceName": "过滤器所在的源的名称",
+      "sourceUuid": "过滤器所在的源的UUID",
+      "newFilterName": "过滤器的新名称",
+      "filterName": "过滤器当前的名称"
+    },
+    "GetSourceFilter": {
+      "filterName": "过滤器的名称",
+      "sourceUuid": "源的UUID",
+      "sourceName": "源的名称"
+    },
+    "SetSourceFilterIndex": {
+      "sourceName": "过滤器所在的源的名称",
+      "sourceUuid": "过滤器所在的源的UUID",
+      "filterName": "过滤器的名称",
+      "filterIndex": "过滤器的新索引位置"
+    },
+    "SetSourceFilterSettings": {
+      "sourceName": "过滤器所在的源的名称",
+      "sourceUuid": "过滤器所在的源的UUID",
+      "filterName": "要设置设置的过滤器的名称",
+      "filterIndex": "要应用的设置对象",
+      "overlay": "True == 在现有设置上应用设置，False == 将过滤器重置为其默认值，然后应用设置."
+    },
+    "SetSourceFilterEnabled": {
+      "filterEnabled": "过滤器的新启用状态",
+      "filterName": "过滤器的名称",
+      "sourceUuid": "过滤器所在的源的UUID",
+      "sourceName": "过滤器所在的源的名称"
+    },
+    "GetSceneItemList": {
+      "sceneName": "要获取项目列表的场景名称",
+      "sceneUuid": "要获取项目列表的场景UUID",
+      "sourceName": "场景的源名称",
+      "sourceUuid": "场景的源UUID"
+    },
+    "GetGroupSceneItemList": {
+      "sourceName": "要获取项目列表的组名称",
+      "sourceUuid": "要获取项目列表的组UUID",
+      "sceneUuid": "要获取项目列表的组的场景UUID",
+      "sceneName": "要获取项目列表的组的场景名称"
+    },
+    "GetSceneItemId": {
+      "sourceName": "要查找的源的名称",
+      "sourceUuid": "要搜索的场景或组的UUID",
+      "searchOffset": "搜索期间要跳过的匹配数。>= 0 表示第一个向前。-1 表示最后一个（顶部）项目"
+    },
+    "GetSceneItemSource": {
+      "sourceName": "场景项所在的场景名称",
+      "sourceUuid": "场景项所在的场景UUID",
+      "sceneItemId": "场景项的数字ID"
+    },
+    "CreateSceneItem": {
+      "sourceName": "要创建新项的场景名称",
+      "sourceUuid": "要创建新项的场景UUID",
+      "sceneItemEnabled": "在创建时应用到场景项的启用状态"
+    },
+    "RemoveSceneItem": {
+      "sourceName": "场景项所在的场景名称",
+      "sourceUuid": "场景项所在的场景UUID",
+      "sceneItemId": "场景项的数字ID",
+      "sceneName": "场景项所在的场景名称",
+      "sceneUuid": "场景项所在的场景UUID"
+    },
+    "DuplicateSceneItem": {
+      "sourceName": "场景项所在的场景名称",
+      "sourceUuid": "场景项所在的场景UUID",
+      "sceneUuid": "场景项所在的场景UUID",
+      "sceneName": "场景项所在的场景名称",
+      "sceneItemId": "场景项的数字ID",
+      "destinationSceneName": "要创建复制项的场景名称",
+      "destinationSceneUuid": "要创建复制项的场景UUID"
+    },
+    "GetSceneItemTransform": {
+      "sceneName": "场景项所在的场景名称",
+      "sceneUuid": "场景项所在的场景UUID",
+      "sceneItemId": "场景项的数字ID"
+    },
+    "SetSceneItemTransform": {
+      "sceneName": "场景项所在的场景名称",
+      "sceneUuid": "场景项所在的场景UUID",
+      "sceneItemId": "场景项的数字ID",
+      "sceneItemTransform": "要更新的场景项变换信息对象"
+    },
+    "GetSceneItemEnabled": {
+      "sceneName": "场景项所在的场景名称",
+      "sceneUuid": "场景项所在的场景UUID",
+      "sceneItemId": "场景项的数字ID"
+    },
+    "SetSceneItemEnabled": {
+      "sceneName": "场景项所在的场景名称",
+      "sceneUuid": "场景项所在的场景UUID",
+      "sceneItemId": "场景项的数字ID",
+      "sceneItemEnabled": "场景项的新启用状态"
+    },
+    "GetSceneItemLocked": {
+      "sceneName": "场景项所在的场景名称",
+      "sceneUuid": "场景项所在的场景UUID",
+      "sceneItemId": "场景项的数字ID"
+    },
+    "SetSceneItemLocked": {
+      "sceneName": "场景项所在的场景名称",
+      "sceneUuid": "场景项所在的场景UUID",
+      "sceneItemId": "场景项的数字ID",
+      "sceneItemLocked": "场景项的新锁定状态"
+    },
+    "GetSceneItemIndex": {
+      "sceneName": "场景项所在的场景名称",
+      "sceneUuid": "场景项所在的场景UUID",
+      "sceneItemId": "场景项的数字ID"
+    },
+    "SetSceneItemIndex": {
+      "sceneName": "场景项所在的场景名称",
+      "sceneUuid": "场景项所在的场景UUID",
+      "sceneItemId": "场景项的数字ID",
+      "sceneItemIndex": "场景项的新索引位置"
+    },
+    "GetSceneItemBlendMode": {
+      "sceneItemId": "场景项的数字ID",
+      "sceneUuid": "场景项所在的场景UUID",
+      "sceneName": "场景项所在的场景名称"
+    },
+    "SetSceneItemBlendMode": {
+      "sceneName": "场景项所在的场景名称",
+      "sceneUuid": "场景项所在的场景UUID",
+      "sceneItemId": "场景项的数字ID"
+    },
+    "GetOutputStatus": {
+      "outputName": "输出名称"
+    },
+    "ToggleOutput": {
+      "outputName": "输出名称"
+    },
+    "StartOutput": {
+      "outputName": "输出名称"
+    },
+    "StopOutput": {
+      "outputName": "输出名称"
+    },
+    "GetOutputSettings": {
+      "outputName": "输出名称"
+    },
+    "SetOutputSettings": {
+      "outputSettings": "输出设置",
+      "outputName": "输出名称"
+    },
+    "SendStreamCaption": {
+      "captionText": "要发送的字幕文本"
+    },
+    "GetMediaInputStatus": {
+      "inputUuid": "媒体输入的UUID",
+      "inputName": "媒体输入的名称"
+    },
+    "SetMediaInputCursor": {
+      "inputName": "媒体输入的名称",
+      "inputUuid": "媒体输入的UUID",
+      "mediaCursor": "要设置的新光标位置"
+    },
+    "OffsetMediaInputCursor": {
+      "inputName": "媒体输入的名称",
+      "inputUuid": "媒体输入的UUID",
+      "mediaCursorOffset": "要通过指定值偏移的当前光标位置"
+    },
+    "TriggerMediaInputAction": {
+      "inputName": "媒体输入的名称",
+      "inputUuid": "媒体输入的UUID",
+      "mediaAction": "要执行的ObsMediaInputAction枚举标识符"
+    },
+    "SetStudioModeEnabled": {
+      "inputName": "是否启用工作室模式，True 启用，False 禁用"
+    },
+    "OpenInputPropertiesDialog": {
+      "inputUuid": "要打开属性对话框的输入的UUID",
+      "inputName": "要打开属性对话框的输入的名称"
+    },
+    "OpenInputFiltersDialog": {
+      "inputName": "要打开滤镜对话框的输入的名称",
+      "inputUuid": "要打开滤镜对话框的输入的UUID"
+    },
+    "OpenInputInteractDialog": {
+      "inputName": "要打开交互对话框的输入的名称",
+      "inputUuid": "要打开交互对话框的输入的UUID"
+    },
+    "OpenVideoMixProjector": {
+      "videoMixType": "要打开的混合类型",
+      "monitorIndex": "监视器索引，使用GetMonitorList获取索引",
+      "projectorGeometry": "窗口化投影仪的尺寸/位置数据，以Qt Base64编码格式。与monitorIndex互斥"
+    },
+    "OpenSourceProjector": {
+      "projectorGeometry": "窗口化投影仪的尺寸/位置数据，以Qt Base64编码格式。与monitorIndex互斥",
+      "monitorIndex": "监视器索引，使用GetMonitorList获取索引",
+      "sourceUuid": "要为其打开投影仪的源的UUID",
+      "sourceName": "要为其打开投影仪的源的名称"
+    }
+  },
+  "ResParamsDes": {
+    "GetVersion": {
+      "obsVersion": "当前OBS Studio版本",
+      "obsWebSocketVersion": "当前OBS WebSocket版本",
+      "rpcVersion": "当前最新的obs-websocket RPC版本",
+      "availableRequests": "当前协商的RPC版本可用的RPC请求数组",
+      "supportedImageFormats": "GetSourceScreenshot和SaveSourceScreenshot请求中可用的图像格式。",
+      "platform": "平台名称。通常是windows、macos或ubuntu（linux风味）。不保证是其中任何一个",
+      "platformDescription": "平台描述，如Windows 10 (10.0)"
+    },
+    "GetStats": {
+      "cpuUsage": "当前CPU使用率，百分比",
+      "memoryUsage": "OBS当前使用的内存量，单位MB",
+      "availableDiskSpace": "用于录制存储的设备上的可用磁盘空间",
+      "averageFrameRenderTime": "OBS渲染一帧平均所需的时间，单位毫秒",
+      "activeFps": "当前渲染的FPS",
+      "renderSkippedFrames": "OBS在渲染线程中跳过的帧数",
+      "renderTotalFrames": "渲染线程输出的总帧数",
+      "outputSkippedFrames": "OBS在输出线程中跳过的帧数",
+      "outputTotalFrames": "输出线程输出的总帧数",
+      "webSocketSessionIncomingMessages": "obs-websocket从客户端接收的总消息数",
+      "webSocketSessionOutgoingMessages": "obs-websocket发送给客户端的总消息数"
+    },
+    "CallVendorRequest": {
+      "vendorName": "使用的供应商名称",
+      "requestType": "要调用的请求类型",
+      "responseData": "包含适当响应数据的对象。如果没有请求提供任何响应数据则为{}"
+    },
+    "GetHotkeyList": {
+      "hotkeys": "热键名称数组"
+    },
+    "GetPersistentData": {
+      "slotValue": "与插槽关联的值。如果没有设置则为null"
+    },
+    "GetSceneCollectionList": {
+      "currentSceneCollectionName": "当前场景集合的名称",
+      "sceneCollections": "所有可用场景集合的数组"
+    },
+    "GetProfileList": {
+      "profiles": "所有可用配置文件的数组",
+      "sceneCollectionName": "当前配置文件的名称"
+    },
+    "GetProfileParameter": {
+      "parameterValue": "与参数关联的值。如果没有设置且没有默认值则为null",
+      "defaultParameterValue": "默认参数值"
+    },
+    "GetVideoSettings": {
+      "fpsNumerator": "FPS值的分子",
+      "fpsDenominator": "FPS值的分母",
+      "outputHeight": "输出分辨率的高度，单位像素",
+      "outputWidth": "输出分辨率的宽度，单位像素",
+      "baseHeight": "基础（画布）分辨率的高度，单位像素",
+      "baseWidth": "基础（画布）分辨率的宽度，单位像素"
+    },
+    "GetStreamServiceSettings": {
+      "streamServiceType": "流服务类型，如rtmp_custom或rtmp_common",
+      "streamServiceSettings": "流服务设置"
+    },
+    "GetRecordDirectory": {
+      "recordDirectory": "保存记录文件的路径"
+    },
+    "GetSourceActive": {
+      "videoActive": "源是否在节目源中显示",
+      "videoShowing": "源是否在UI（预览、投影仪、属性）中显示"
+    },
+    "GetSourceScreenshot": {
+      "imageData": "Base64编码的截图"
+    },
+    "SaveSourceScreenshot": {
+      "imageData": "Base64编码的截图"
+    },
+    "GetSceneList": {
+      "currentProgramSceneName": "当前节目场景名称。如果内部状态不同步，可能为null",
+      "currentProgramSceneUuid": "当前节目场景UUID。如果内部状态不同步，可能为null",
+      "scenes": "场景数组",
+      "currentPreviewSceneUuid": "当前预览场景UUID。如果不在工作室模式下，可能为null",
+      "currentPreviewSceneName": "当前预览场景名称。如果不在工作室模式下，可能为null"
+    },
+    "GetGroupList": {
+      "groups": "组名称数组"
+    },
+    "GetCurrentProgramScene": {
+      "sceneName": "当前节目场景的名称",
+      "sceneUuid": "当前节目场景的UUID",
+      "currentProgramSceneName": "当前节目场景名称。如果内部状态不同步，可能为null",
+      "currentProgramSceneUuid": "当前节目场景UUID。如果内部状态不同步，可能为null"
+    },
+    "GetCurrentPreviewScene": {
+      "sceneName": "要设置为预览场景的名称",
+      "sceneUuid": "要设置为预览场景的UUID",
+      "currentPreviewSceneName": "当前预览场景名称。如果不在工作室模式下，可能为null",
+      "currentPreviewSceneUuid": "当前预览场景UUID。如果不在工作室模式下，可能为null"
+    },
+    "CreateScene": {
+      "sceneUuid": "新场景的UUID"
+    },
+    "GetSceneSceneTransitionOverride": {
+      "transitionName": "被覆盖的场景转换名称，如果没有则为null",
+      "transitionDuration": "被覆盖的场景转换持续时间，如果没有则为null"
+    },
+    "GetInputList": {
+      "inputs": "输入数组"
+    },
+    "GetInputKindList": {
+      "inputKinds": "输入种类数组"
+    },
+    "GetSpecialInputs": {
+      "desktop1": "桌面音频输入的名称",
+      "desktop2": "桌面音频2输入的名称",
+      "mic1": "麦克风/辅助音频输入的名称",
+      "mic2": "麦克风/辅助音频2输入的名称",
+      "mic3": "麦克风/辅助音频3输入的名称",
+      "mic4": "麦克风/辅助音频4输入的名称"
+    },
+    "CreateInput": {
+      "inputUuid": "新创建输入的UUID",
+      "sceneItemId": "新创建场景项的ID"
+    },
+    "ToggleInputMute": {
+      "inputMuted": "输入是否已被静音或取消静音"
+    },
+    "GetInputVolume": {
+      "inputVolumeMul": "mul中的音量设置",
+      "inputVolumeDb": "dB中的音量设置"
+    },
+    "GetInputAudioBalance": {
+      "inputAudioBalance": "音频平衡值，范围0.0-1.0"
+    },
+    "GetInputAudioSyncOffset": {
+      "inputAudioSyncOffset": "音频同步偏移，单位毫秒"
+    },
+    "GetInputAudioMonitorType": {
+      "inputAudioSyncOffset": "音频监控类型"
+    },
+    "GetInputAudioTracks": {
+      "inputAudioTracks": "音频轨道及其关联的启用状态的对象",
+      "propertyItems": "列表属性中的项目数组"
+    },
+    "GetTransitionKindList": {
+      "transitionKinds": "转种类数组"
+    },
+    "GetSceneTransitionList": {
+      "currentSceneTransitionName": "当前场景转换的名称。可能是null",
+      "currentSceneTransitionUuid": "当前场景转换的UUID。可能是null",
+      "currentSceneTransitionKind": "当前场景转换的类型。可能是null",
+      "transitions": "转换数组"
+    },
+    "GetCurrentSceneTransition": {
+      "transitionName": "转换名称",
+      "transitionUuid": "转换UUID",
+      "transitionKind": "转换类型",
+      "transitionFixed": "转换是否使用固定（不可配置）的持续时间",
+      "transitionDuration": "配置的转换持续时间，单位毫秒。如果转换是固定的则为null",
+      "transitionConfigurable": "转换是否支持配置",
+      "transitionSettings": "转换的设置对象。如果转换不可配置则为null"
+    },
+    "GetCurrentSceneTransitionCursor": {
+      "transitionCursor": "光标位置，范围0.0到1.0"
+    },
+    "GetSourceFilterKindList": {
+      "sourceFilterKinds": "源滤镜种类数组"
+    },
+    "GetSourceFilterList": {
+      "filters": "滤镜数组"
+    },
+    "GetSourceFilter": {
+      "filterEnabled": "滤镜是否启用",
+      "filterIndex": "滤镜在列表中的索引，从0开始",
+      "filterKind": "滤镜类型",
+      "filters": "与滤镜关联的设置对象"
+    },
+    "GetSceneItemList": {
+      "sceneItems": "场景中的场景项数组"
+    },
+    "GetGroupSceneItemList": {
+      "sceneItems": "组中的场景项数组"
+    },
+    "GetSceneItemId": {
+      "sceneItemId": "场景项的数字ID"
+    },
+    "GetSceneItemSource": {
+      "sourceName": "与场景项关联的源的名称",
+      "sourceUuid": "与场景项关联的源的UUID"
+    },
+    "CreateSceneItem": {
+      "sceneItemId": "场景项的数字ID"
+    },
+    "DuplicateSceneItem": {
+      "sceneItemId": "复制场景项的数字ID"
+    },
+    "GetSceneItemTransform": {
+      "sceneItemTransform": "场景项变换信息对象"
+    },
+    "GetSceneItemEnabled": {
+      "sceneItemEnabled": "场景项是否启用。true为启用，false为禁用"
+    },
+    "GetSceneItemLocked": {
+      "sceneItemLocked": "场景项是否被锁定。true为锁定，false为未锁定"
+    },
+    "GetSceneItemIndex": {
+      "sceneItemIndex": "场景项的索引位置"
+    },
+    "GetSceneItemBlendMode": {
+      "sceneItemBlendMode": "当前混合模式"
+    },
+    "GetVirtualCamStatus": {
+      "outputActive": "输出是否激活"
+    },
+    "ToggleVirtualCam": {
+      "outputActive": "输出是否激活"
+    },
+    "GetReplayBufferStatus": {
+      "outputActive": "输出是否激活"
+    },
+    "ToggleReplayBuffer": {
+      "outputActive": "输出是否激活"
+    },
+    "GetLastReplayBufferReplay": {
+      "savedReplayPath": "保存的回放文件路径"
+    },
+    "GetOutputList": {
+      "outputs": "输出数组"
+    },
+    "GetOutputStatus": {
+      "outputDuration": "输出的当前持续时间，单位毫秒",
+      "outputSkippedFrames": "输出过程中跳过的帧数",
+      "outputBytes": "输出发送的字节数",
+      "outputCongestion": "输出的拥塞情况",
+      "outputTimecode": "输出的当前格式化时间码字符串",
+      "outputReconnecting": "输出是否正在重新连接",
+      "outputActive": "输出是否激活",
+      "outputTotalFrames": "输出过程中交付的总帧数"
+    },
+    "ToggleOutput": {
+      "outputActive": "输出是否激活"
+    },
+    "GetOutputSettings": {
+      "outputSettings": "输出设置"
+    },
+    "GetStreamStatus": {
+      "outputActive": "输出是否激活",
+      "outputReconnecting": "输出是否正在重新连接",
+      "outputTimecode": "输出的当前格式化时间码字符串",
+      "outputDuration": "输出的当前持续时间，单位毫秒",
+      "outputCongestion": "输出的拥塞情况",
+      "outputBytes": "输出发送的字节数",
+      "outputSkippedFrames": "输出过程中跳过的帧数",
+      "outputTotalFrames": "输出过程中交付的总帧数"
+    },
+    "ToggleStream": {
+      "outputActive": "流输出的新状态"
+    },
+    "GetRecordStatus": {
+      "outputActive": "输出是否激活",
+      "outputPaused": "输出是否暂停",
+      "outputTimecode": "输出的当前格式化时间码字符串",
+      "outputDuration": "输出的当前持续时间，单位毫秒",
+      "outputBytes": "输出发送的字节数"
+    },
+    "ToggleRecord": {
+      "outputActive": "输出的新激活状态"
+    },
+    "StopRecord": {
+      "outputPath": "保存的录像文件名"
+    },
+    "GetMediaInputStatus": {
+      "mediaCursor": "光标位置，单位毫秒。如果没有播放，则为null",
+      "mediaDuration": "播放媒体的总持续时间，单位毫秒。如果没有播放，则为null",
+      "mediaState": "媒体输入的状态"
+    },
+    "GetStudioModeEnabled": {
+      "studioModeEnabled": "是否启用了工作室模式"
+    },
+    "GetMonitorList": {
+      "monitors": "已检测到的监视器列表及其一些信息"
+    },
+    "VendorEvent": {
+      "vendorName": "发出事件的供应商名称",
+      "eventData": "供应商提供的事件数据。如果没有事件提供任何数据则为{}",
+      "eventType": "供应商提供的事件类型定义"
+    },
+    "CustomEvent": {
+      "eventData": "自定义事件数据"
+    },
+    "CurrentSceneCollectionChanging": {
+      "sceneCollectionName": "当前场景集合的名称"
+    },
+    "CurrentSceneCollectionChanged": {
+      "sceneCollectionName": "新场景集合的名称"
+    },
+    "SceneCollectionListChanged": {
+      "sceneCollections": "更新后的场景集合列表"
+    },
+    "CurrentProfileChanging": {
+      "profileName": "当前配置文件的名称"
+    },
+    "CurrentProfileChanged": {
+      "profileName": "新配置文件的名称"
+    },
+    "ProfileListChanged": {
+      "profiles": "更新后的配置文件列表"
+    },
+    "SceneCreated": {
+      "sceneName": "新场景的名称",
+      "sceneUuid": "新场景的UUID",
+      "isGroup": "新场景是否为组"
+    },
+    "SceneRemoved": {
+      "sceneName": "已删除场景的名称",
+      "sceneUuid": "已删除场景的UUID",
+      "isGroup": "被删除的场景是否为组"
+    },
+    "SceneNameChanged": {
+      "sceneUuid": "场景的UUID",
+      "sceneName": "场景的新名称",
+      "oldSceneName": "场景的旧名称"
+    },
+    "CurrentProgramSceneChanged": {
+      "sceneName": "已切换到的场景名称",
+      "sceneUuid": "已切换到的场景UUID"
+    },
+    "CurrentPreviewSceneChanged": {
+      "sceneName": "已切换到的场景名称",
+      "sceneUuid": "已切换到的场景UUID"
+    },
+    "SceneListChanged": {
+      "scenes": "更新后的场景数组"
+    },
+    "InputCreated": {
+      "inputName": "输入的名称",
+      "inputUuid": "输入的UUID",
+      "inputKind": "输入的类型",
+      "inputSettings": "配置到输入的设置",
+      "unversionedInputKind": "输入的未版本化类型（即没有_v2之类的）",
+      "defaultInputSettings": "输入的默认设置"
+    },
+    "InputRemoved": {
+      "inputName": "输入的名称",
+      "inputUuid": "输入的UUID"
+    },
+    "InputNameChanged": {
+      "inputUuid": "输入的UUID",
+      "oldInputName": "输入的旧名称",
+      "inputName": "输入的新名称"
+    },
+    "InputSettingsChanged": {
+      "inputName": "输入的名称",
+      "settings": "输入的新设置对象",
+      "inputSettings": "输入的新设置对象",
+      "inputUuid": "输入的UUID"
+    },
+    "InputActiveStateChanged": {
+      "inputName": "输入的名称",
+      "inputUuid": "输入的UUID",
+      "videoActive": "输入是否激活"
+    },
+    "InputShowStateChanged": {
+      "inputName": "输入的名称",
+      "inputUuid": "输入的UUID",
+      "videoShowing": "输入是否显示"
+    },
+    "InputMuteStateChanged": {
+      "inputName": "输入的名称",
+      "inputUuid": "输入的UUID",
+      "inputMuted": "输入是否被静音"
+    },
+    "InputVolumeChanged": {
+      "inputName": "输入的名称",
+      "inputUuid": "输入的UUID",
+      "inputVolumeMul": "新的音量级别乘数",
+      "inputVolumeDb": "新的音量级别，单位分贝"
+    },
+    "InputAudioBalanceChanged": {
+      "inputName": "输入的名称",
+      "inputUuid": "输入的UUID",
+      "inputAudioBalance": "输入的新音频平衡值"
+    },
+    "InputAudioSyncOffsetChanged": {
+      "inputName": "输入的名称",
+      "inputUuid": "输入的UUID",
+      "inputAudioSyncOffset": "输入的新同步偏移，单位毫秒"
+    },
+    "InputAudioTracksChanged": {
+      "inputName": "输入的名称",
+      "inputUuid": "输入的UUID",
+      "inputAudioTracks": "音频轨道及其关联的启用状态的对象"
+    },
+    "InputAudioMonitorTypeChanged": {
+      "inputName": "输入的名称",
+      "inputUuid": "输入的UUID",
+      "monitorType": "输入的新监控类型"
+    },
+    "InputVolumeMeters": {
+      "inputs": "具有相关音量级别的活动输入数组"
+    },
+    "CurrentSceneTransitionChanged": {
+      "transitionName": "新转换的名称",
+      "transitionUuid": "新转换的UUID"
+    },
+    "CurrentSceneTransitionDurationChanged": {
+      "transitionDuration": "转换持续时间，单位毫秒"
+    },
+    "SceneTransitionStarted": {
+      "transitionName": "场景转换名称",
+      "transitionUuid": "场景转换UUID"
+    },
+    "SceneTransitionEnded": {
+      "transitionName": "场景转换名称",
+      "transitionUuid": "场景转换UUID"
+    },
+    "SceneTransitionVideoEnded": {
+      "transitionName": "场景转换名称",
+      "transitionUuid": "场景转换UUID"
+    },
+    "SourceFilterListReindexed": {
+      "sourceName": "源的名称",
+      "filters": "滤镜对象数组"
+    },
+    "SourceFilterCreated": {
+      "sourceName": "添加滤镜的源的名称",
+      "filterName": "滤镜的名称",
+      "defaultFilterSettings": "滤镜的默认设置",
+      "filterSettings": "创建时配置给滤镜的设置",
+      "filterIndex": "滤镜的索引位置",
+      "filterKind": "滤镜的类型"
+    },
+    "SourceFilterRemoved": {
+      "sourceName": "滤镜所在的源的名称",
+      "filterName": "滤镜的名称"
+    },
+    "SourceFilterNameChanged": {
+      "sourceName": "滤镜所在的源",
+      "filterName": "滤镜的新名称",
+      "oldFilterName": "滤镜的旧名称"
+    },
+    "SourceFilterSettingsChanged": {
+      "sourceName": "滤镜所在的源的名称",
+      "filterName": "滤镜的名称",
+      "filterSettings": "滤镜的新设置对象"
+    },
+    "SourceFilterEnableStateChanged": {
+      "sourceName": "滤镜所在的源的名称",
+      "filterName": "滤镜的名称",
+      "filterEnabled": "滤镜是否启用"
+    },
+    "SceneItemCreated": {
+      "sceneName": "项目添加到的场景名称",
+      "sceneUuid": "项目添加到的场景UUID",
+      "sourceName": "底层源（输入/场景）的名称",
+      "sourceUuid": "底层源（输入/场景）的UUID",
+      "sceneItemId": "场景项的数字ID",
+      "sceneItemIndex": "项目的索引位置"
+    },
+    "SceneItemRemoved": {
+      "sceneName": "项目被移除的场景名称",
+      "sceneUuid": "项目被移除的场景UUID",
+      "sourceName": "底层源（输入/场景）的名称",
+      "sourceUuid": "底层源（输入/场景）的UUID",
+      "sceneItemId": "场景项的数字ID"
+    },
+    "SceneItemListReindexed": {
+      "sceneName": "场景名称",
+      "sceneUuid": "场景UUID",
+      "sceneItems": "场景项对象数组"
+    },
+    "SceneItemEnableStateChanged": {
+      "sceneName": "场景项所在的场景名称",
+      "sceneUuid": "场景项所在的场景UUID",
+      "sceneItemId": "场景项的数字ID",
+      "sceneItemEnabled": "场景项是否启用（可见）"
+    },
+    "SceneItemLockStateChanged": {
+      "sceneName": "场景项所在的场景名称",
+      "sceneUuid": "场景项所在的场景UUID",
+      "sceneItemId": "场景项的数字ID",
+      "sceneItemLocked": "场景项是否被锁定"
+    },
+    "SceneItemSelected": {
+      "sceneName": "场景项所在的场景名称",
+      "sceneUuid": "场景项所在的场景UUID",
+      "sceneItemId": "场景项的数字ID"
+    },
+    "SceneItemTransformChanged": {
+      "sceneName": "场景项所在的场景名称",
+      "sceneUuid": "场景项所在的场景UUID",
+      "sceneItemId": "场景项的数字ID",
+      "sceneItemTransform": "场景项的新变换/裁剪信息"
+    },
+    "StreamStateChanged": {
+      "outputActive": "输出是否激活",
+      "outputState": "输出的具体状态"
+    },
+    "RecordStateChanged": {
+      "outputActive": "输出是否激活",
+      "outputState": "输出的具体状态",
+      "outputPath": "保存的录像文件名，如果记录已停止。否则为null"
+    },
+    "ReplayBufferStateChanged": {
+      "outputActive": "输出是否激活",
+      "outputState": "输出的具体状态"
+    },
+    "VirtualcamStateChanged": {
+      "outputActive": "输出是否激活",
+      "outputState": "输出的具体状态",
+      "savedReplayPath": "保存的回放文件路径"
+    },
+    "MediaInputPlaybackStarted": {
+      "inputName": "输入的名称",
+      "inputUuid": "输入的UUID"
+    },
+    "MediaInputPlaybackEnded": {
+      "inputName": "输入的名称",
+      "inputUuid": "输入的UUID"
+    },
+    "MediaInputActionTriggered": {
+      "inputName": "输入的名称",
+      "inputUuid": "输入的UUID",
+      "mediaAction": "在输入上执行的操作。见ObsMediaInputAction枚举"
+    },
+    "StudioModeStateChanged": {
+      "studioModeEnabled": "是否启用了工作室模式，True 启用，False 禁用"
+    },
+    "ScreenshotSaved": {
+      "savedScreenshotPath": "保存的图像文件路径"
+    }
+  },
+  "Actions": {
+    "Send": "发送",
+    "Clear": "清除",
+    "ClickToExpand": "点击展开"
+  },
+  "Tooltops": {
+    "LoopGetStat": "循环或暂停更新系统状态",
+    "connectOBS": "连接或断开OBS WebSocket",
+    "configOBS": "点击配置连接参数，如密码"
   }
-  
+}
