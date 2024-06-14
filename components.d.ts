@@ -30,7 +30,6 @@ declare module 'vue' {
     ATextarea: typeof import('ant-design-vue/es')['Textarea']
     ATooltip: typeof import('ant-design-vue/es')['Tooltip']
     BottomBar: typeof import('./src/components/BottomBar/index.vue')['default']
-    EventList: typeof import('./src/components/Detail/EventViewer/eventList.vue')['default']
     EventViewer: typeof import('./src/components/Detail/EventViewer/index.vue')['default']
     HeaderBar: typeof import('./src/components/HeaderBar/index.vue')['default']
     Request: typeof import('./src/components/Detail/request.vue')['default']
