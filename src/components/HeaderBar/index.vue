@@ -1,8 +1,9 @@
 <template>
     <div class="statusBar">
         <div class="item">OBS Websocket Debug Tools</div>
-        <div v-if="WSconnected" class="leftItem container"> </div>
+        <div class="leftItem container"> </div>
 
+        
         <div v-if="WSconnected" class="rightItem container">
             <div class="websocket item">
                 <div class="flexdiv">
@@ -21,13 +22,29 @@
                 </div>
             </div>
         </div>
+
+        <div class="rightItem container">
+            <!-- switch language -->
+            <div class="websocket item">
+                <div class="flexdiv">
+                    <a-divider class="bottomDivider" type="vertical" />
+                    <span @click="switchLang('en')">English</span>
+                </div>
+            </div>
+            <div class="websocket item">
+                <div class="flexdiv">
+                    <a-divider class="bottomDivider" type="vertical" />
+                    <span @click="switchLang('zh')">中文</span>
+                </div>
+            </div>
+        </div>
     </div>
 </template>
 
 <script setup lang="ts">
 import { ref,reactive, computed } from 'vue'
 import { WindowsOutlined,BranchesOutlined,LinkOutlined,DisconnectOutlined,AppleOutlined } from '@ant-design/icons-vue';
-import { WSconnected,OBSVideoConfig,OBSGeneralConfig } from '../../state';
+import { WSconnected,OBSVideoConfig,OBSGeneralConfig, switchLang } from '../../state';
 
 
 const baseSize = computed(()=> OBSVideoConfig.baseWidth.value + 'x' + OBSVideoConfig.baseHeight.value)
@@ -35,7 +52,6 @@ const outputSize = computed(()=> OBSVideoConfig.outputWidth.value + 'x' + OBSVid
 
 const Profile = computed(() => OBSGeneralConfig.currentProfile.value );
 const SceneCollection = computed(() => OBSGeneralConfig.currentSCname.value );
-
 
 
 </script>
@@ -75,7 +91,7 @@ const SceneCollection = computed(() => OBSGeneralConfig.currentSCname.value );
     display: flex;
     align-items: center;
     height: 100%;
-    padding: 0 0 0 5px;
+    padding: 0 0 0 0px;
 }
 
 .flexdiv{
