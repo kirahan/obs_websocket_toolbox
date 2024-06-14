@@ -462,7 +462,7 @@
       "transitionDuration": "以毫秒为单位的转换持续时间"
     },
     "SetCurrentSceneTransitionSettings": {
-      "transitionSettings": "要应用到转换的设置对象。可以是{}",
+      "transitionSettings": "要应用到转换的设置对象。可以是{{}}",
       "overlay": "是否要在当前设置上覆盖"
     },
     "SetTBarPosition": {
@@ -709,7 +709,7 @@
     "CallVendorRequest": {
       "vendorName": "使用的供应商名称",
       "requestType": "要调用的请求类型",
-      "responseData": "包含适当响应数据的对象。如果没有请求提供任何响应数据则为{}"
+      "responseData": "包含适当响应数据的对象。如果没有请求提供任何响应数据则为{{}}"
     },
     "GetHotkeyList": {
       "hotkeys": "热键名称数组"
@@ -961,7 +961,7 @@
     },
     "VendorEvent": {
       "vendorName": "发出事件的供应商名称",
-      "eventData": "供应商提供的事件数据。如果没有事件提供任何数据则为{}",
+      "eventData": "供应商提供的事件数据。如果没有事件提供任何数据则为{{}}",
       "eventType": "供应商提供的事件类型定义"
     },
     "CustomEvent": {
