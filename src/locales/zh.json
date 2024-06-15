@@ -1,11 +1,11 @@
 {
-  "name": "obs",
+  "name": "OBS",
   "Titles": {
     "TreeList": {
       "summary": "介绍"
     },
     "Detail": {
-      "Query": "查询",
+      "Query": "请求参数",
       "Request": "请求",
       "EventViewer": "事件查看器",
       "Params": "参数",
@@ -17,22 +17,21 @@
     "Value": "值",
     "Type": "类型",
     "Des": "描述",
-    "ValueRestrictions": "值限制",
+    "ValueRestrictions": "取值限制",
     "DefaultBehavior": "默认行为"
   },
   "RequestDes": {
     "GetVersion": "获取当前插件和RPC版本的数据。",
     "GetStats": "获取OBS、obs-websocket和当前会话的统计信息。",
     "BroadcastCustomEvent": "向所有WebSocket客户端广播CustomEvent。接收者是已识别并订阅的客户端。",
-    "CallVendorRequest": "调用注册到供应商的请求。<br><br>供应商是由第三方插件或脚本注册的唯一名称，允许将自定义请求和事件添加到obs-websocket。如果插件或脚本实现了供应商请求或事件，预期会随附提供文档。",
+    "CallVendorRequest": "调用注册到vendor的请求。<br><br>vendor是由第三方插件或脚本注册的唯一名称，允许将自定义请求和事件添加到obs-websocket。如果插件或脚本实现了vendor请求或事件，预期会随附提供文档。",
     "GetHotkeyList": "获取OBS中所有热键名称的数组。<br><br>注意：obs-websocket中的热键功能按原样提供，如果出现问题，我们不保证提供支持。在9/10次热键请求的使用中，通过其他请求存在更好、更可靠的方法。",
     "TriggerHotkeyByName": "使用其名称触发热键。请参阅GetHotkeyList。<br><br>注意：obs-websocket中的热键功能按原样提供，如果出现问题，我们不保证提供支持。在9/10次热键请求的使用中，通过其他请求存在更好、更可靠的方法。",
     "TriggerHotkeyByKeySequence": "使用一系列键触发热键。<br><br>注意：obs-websocket中的热键功能按原样提供，如果出现问题，我们不保证提供支持。在9/10次热键请求的使用中，通过其他请求存在更好、更可靠的方法。",
     "Sleep": "休眠一段时间或帧数。仅在SERIAL_REALTIME或SERIAL_FRAME类型的请求批次中可用。",
     "GetPersistentData": "从选定的持久数据领域获取“插槽”的值。",
     "SetPersistentData": "设置选定的持久数据领域中“插槽”的值。",
-    "GetSceneCollectionList": "获取所有场景集合的数组",
-    "SetCurrentSceneCollection": "切换到场景集合。<br><br>注意：这将阻塞，直到集合完成更改。",
+    "GetSceneCoqntSceneCollection": "切换到场景集合。<br><br>注意：这将阻塞，直到集合完成更改。",
     "CreateSceneCollection": "创建一个新的场景集合，并在此过程中切换到它。<br><br>注意：这将阻塞，直到集合完成更改。",
     "GetProfileList": "获取所有配置文件的数组",
     "SetCurrentProfile": "切换到配置文件。",

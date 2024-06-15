@@ -35,7 +35,11 @@
                             </div>
 
                             <div class="w_40">
-                                <span>{{ item.params }}</span>
+                                <!-- base64图片数据直接显示出来 -->
+                                <div v-if="item.name==='GetSourceScreenshot' && item.type=='response'">
+                                    <a-image :src="item.params['imageData']" :preview="showBigImage" @click.stop="handleImageClick" alt="screenshot" :width="200"/>    
+                                </div>
+                                <span v-else >{{ item.params }}</span>
                             </div>
                         </div>
                     </div>
@@ -43,11 +47,11 @@
                     <a-drawer
                         placement="right"
                         :closable="true"
-                        :mask="false"
+                        :mask="true"
                         :title="selectedTitle"
                         :width="500"
                         :headerStyle="headerStyle"
-                        :maskClosable="false"
+                        :maskClosable="true"
                         :open="open"
                         :style="{ position: 'absolute' }"
                         @close="onClose"
@@ -86,6 +90,9 @@ import {ref} from 'vue'
 
 const activeKey = ref(['1'])
 
+// 图片大图预览
+const showBigImage = ref(false)
+
 const headerStyle = {
     height:'5px!',
     padding: '0px',
@@ -101,6 +108,10 @@ const onClose = ()=>{
 
 const clearAll = ()=>{
     WSEventAndRequestHistory.value = []
+}
+
+const handleImageClick = ()=>{
+    showBigImage.value = true
 }
 
 
