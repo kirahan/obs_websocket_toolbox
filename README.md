@@ -34,13 +34,14 @@ Events Viewer
 
 Preview JSON Data
 ![Preview JSON Data](screenshots/6.png)
+
 ### Features
 
-- [x]Check the document
-- [x]Connect to an OBS WebSocket server
-- [x]Send and receive messages
-- [x]Support OBS above 26.0.0
-- [x]Support OBS WebSocket above 4.9.0
+- [x] Check the document
+- [x] Connect to an OBS WebSocket server
+- [x] Send and receive messages
+- [x] Support OBS above 26.0.0
+- [x] Support OBS WebSocket above 4.9.0
 
 
 ### Build instructions:
