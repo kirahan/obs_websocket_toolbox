@@ -24,6 +24,11 @@
         </div>
 
         <div class="rightItem container">
+            <div class="websocket item">
+                <div class="flexdiv">
+                    <GithubOutlined @click="goToGithub"/>
+                </div>
+            </div>
             <!-- switch language -->
             <div class="websocket item">
                 <div class="flexdiv">
@@ -37,13 +42,14 @@
                     <span @click="switchLang('zh')">中文</span>
                 </div>
             </div>
+            
         </div>
     </div>
 </template>
 
 <script setup lang="ts">
 import { ref,reactive, computed } from 'vue'
-import { WindowsOutlined,BranchesOutlined,LinkOutlined,DisconnectOutlined,AppleOutlined } from '@ant-design/icons-vue';
+import { WindowsOutlined,BranchesOutlined,LinkOutlined,DisconnectOutlined,AppleOutlined,GithubOutlined } from '@ant-design/icons-vue';
 import { WSconnected,OBSVideoConfig,OBSGeneralConfig, switchLang } from '../../state';
 
 
@@ -52,7 +58,9 @@ const outputSize = computed(()=> OBSVideoConfig.outputWidth.value + 'x' + OBSVid
 
 const Profile = computed(() => OBSGeneralConfig.currentProfile.value );
 const SceneCollection = computed(() => OBSGeneralConfig.currentSCname.value );
-
+const goToGithub = ()=>{
+    window.open('https://github.com/kirahan/obs_websocket_toolbox', '_blank');
+}
 
 </script>
 
