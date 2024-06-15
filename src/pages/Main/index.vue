@@ -6,7 +6,7 @@
       </a-layout-header>
 
       <a-layout class="middle">
-        <a-layout-sider width="400" theme="light" class="side">
+        <a-layout-sider :width="leftTreeWidth" theme="light" class="side">
             <div class="listContainer">
                 <div class="searchSection flex-al-center">
                     <!-- <a-input v-model:value="searchValue" type="text">
@@ -47,6 +47,7 @@
             </div>
             
         </a-layout-sider>
+        <div class="sash vertical" :class="sashClass" @mousedown="(event)=>{startResize(event,true,'leftTreeWidth')}"></div>
         <a-layout-content class="content">
           <Detail :name="detailName"></Detail>
         </a-layout-content>
@@ -71,14 +72,19 @@ import { t } from "../../locales";
 import {obsTreeData} from "../../data";
 import { onBeforeRouteUpdate } from "vue-router";
 import { DataNode } from "ant-design-vue/es/tree";
-import { detailName, selectedKeys, expandedKeys, getParentListFromKey } from "../../state";
+import { detailName, selectedKeys, expandedKeys, getParentListFromKey,leftTreeWidth,pageWidgets } from "../../state";
 
 
 const searchValue = ref("");
 const summarySelected = ref(false);
 
 const searchOptions = ref([])
+let animationFrameId = null
+let isResizeDirectionX = true
+let widgetNameNeedResize = ''
 
+// 用来保持显示sash的class
+const sashClass = ref('')
 
 const handleSearch = ()=>{
   if(searchValue.value){
@@ -121,8 +127,6 @@ onMounted(()=>{
   expendData(obsTreeData)
 })
 
-
-
 const handleSummaryClick = () => {
     summarySelected.value = true;
     selectedKeys.value = [];
@@ -137,6 +141,33 @@ const handleClick = (e: Event,data:any) => {
     console.log('selectedKeys',selectedKeys.value);
 };
 
+const startResize = (event:MouseEvent,isX:boolean,storageName)=>{  
+  isResizeDirectionX = isX
+  widgetNameNeedResize = storageName
+  sashClass.value = 'ischanging'
+  document.addEventListener('mousemove',resizeWidget)
+  document.addEventListener('mouseup',finishResize)
+}
+
+const finishResize = ()=>{
+  document.removeEventListener('mousemove',resizeWidget);
+  sashClass.value = ''
+  if (animationFrameId !== null) {
+    cancelAnimationFrame(animationFrameId);
+    animationFrameId = null;
+  }
+}
+
+
+const resizeWidget = (event:MouseEvent)=>{
+  if (animationFrameId !== null) {
+    return;
+  }
+  animationFrameId = requestAnimationFrame(() => {
+    pageWidgets[widgetNameNeedResize].value = isResizeDirectionX?event.clientX:event.clientY;
+    animationFrameId = null;
+  });
+}
 
 
 </script>

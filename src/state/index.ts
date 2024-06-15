@@ -15,6 +15,13 @@ export const switchLang = (lang: 'en'|'zh'|'tw') => {
     VueI18n.global.locale = lang;
 }
 
+export const leftTreeWidth = useStorage('leftTreeWidth', 400)
+
+export const pageWidgets = {
+    leftTreeWidth
+}
+
+
 export const getParentListFromKey = (key: string) => {
     let parentList = [];
     obsRequestTreeData.forEach((item) => {
