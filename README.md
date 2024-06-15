@@ -18,23 +18,22 @@ URL:[https://kirahan.github.io/obs_websocket_toolbox](https://kirahan.github.io/
 ### Screenshots
 
 Main Page
-![Main Page](./screenshots/1.png）
+![Main Page](screenshots/1.png)
 
 Connect OBS WebSocket
-![Connect OBS WebSocket](./screenshots/2.png）
+![Connect OBS WebSocket](screenshots/2.png)
 
 Send OBS WebSocket Request
-![Send OBS WebSocket Request](./screenshots/3.png）
+![Send OBS WebSocket Request](screenshots/3.png)
 
 Search Requests Or Events
-![Search Requests Or Events](./screenshots/4.png）
+![Search Requests Or Events](screenshots/4.png)
 
 Events Viewer
-![Events Viewer](./screenshots/5.png）
+![Events Viewer](screenshots/5.png)
 
 Preview JSON Data
-![Preview JSON Data](./screenshots/6.png）
-
+![Preview JSON Data](screenshots/6.png)
 ### Features
 
 - [x]Check the document
