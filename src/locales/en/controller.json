@@ -1,0 +1,32 @@
+{
+  "title": "OBS Controller",
+  "program": "Program",
+  "source": "Source",
+  "sourceContent": "Source control content goes here",
+  "audio": "Audio",
+  "audioContent": "Audio control content goes here",
+  "transition": "Transition",
+  "controller": "Controller",
+  "controllerContent": "Additional controller features go here",
+  "streaming": "Streaming",
+  "cut": "Cut",
+  "auto": "Auto",
+  "fade": "Fade",
+  "startStreaming": "Start Streaming",
+  "stopStreaming": "Stop Streaming",
+  "cam": "Cam {number}",
+  "startRecording": "Start Recording",
+  "stopRecording": "Stop Recording",
+  "enterStudioMode": "Enter Studio Mode",
+  "exitStudioMode": "Exit Studio Mode",
+  "startVirtualCamera": "Start Virtual Camera",
+  "stopVirtualCamera": "Stop Virtual Camera",
+  "transitions": {
+    "cut": "Cut",
+    "fade": "Fade",
+    "slide": "Slide",
+    "stinger": "Stinger",
+    "fade_to_color": "Fade to Color",
+    "luma_wipe": "Luma Wipe"
+  }
+}

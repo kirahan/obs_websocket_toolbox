@@ -1,0 +1,18 @@
+{
+  "title": "OBS Websocket 工具集",
+  "enterModule": "進入模組",
+  "modules": {
+    "debugger": {
+      "title": "除錯器",
+      "description": "OBS Websocket 除錯工具，用於測試和驗證 Websocket 連接和命令。"
+    },
+    "controller": {
+      "title": "控制器",
+      "description": "用於遠程控制 OBS 的界面，提供常用操作的快捷方式。"
+    },
+    "simulator": {
+      "title": "OBS 模擬器",
+      "description": "模擬 OBS Websocket 伺服器，用於開發和測試沒有 OBS 環境的情況。"
+    }
+  }
+}

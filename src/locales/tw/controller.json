@@ -1,0 +1,32 @@
+{
+  "title": "OBS 控制器",
+  "program": "節目",
+  "source": "源",
+  "sourceContent": "這裡是源控制內容",
+  "audio": "音頻",
+  "audioContent": "這裡是音頻控制內容",
+  "transition": "轉場",
+  "controller": "控制器",
+  "controllerContent": "這裡是額外的控制器功能",
+  "streaming": "直播",
+  "cut": "切換",
+  "auto": "自動",
+  "fade": "淡入淡出",
+  "startStreaming": "開始直播",
+  "stopStreaming": "停止直播",
+  "cam": "攝像機 {number}",
+  "startRecording": "開始錄製",
+  "stopRecording": "停止錄製",
+  "enterStudioMode": "進入工作室模式",
+  "exitStudioMode": "退出工作室模式",
+  "startVirtualCamera": "啟動虛擬攝像頭",
+  "stopVirtualCamera": "停止虛擬攝像頭",
+  "transitions": {
+    "cut": "切換",
+    "fade": "淡入淡出",
+    "slide": "滑動",
+    "stinger": "Stinger",
+    "fade_to_color": "顏色漸變",
+    "luma_wipe": "亮度擦除"
+  }
+}

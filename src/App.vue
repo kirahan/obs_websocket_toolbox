@@ -1,14 +1,11 @@
 <script setup lang="ts">
+// 不需要导入特定组件
 </script>
 
 <template>
-  <div>
-    <a-style-provider hash-priority="high">
-      <router-view></router-view>
-    </a-style-provider>
-  </div>
+  <router-view></router-view>
 </template>
 
 <style scoped>
-
+/* 可以添加全局样式 */
 </style>

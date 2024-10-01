@@ -26,7 +26,7 @@
 </template>
 
 <script setup lang="ts">
-import { PropType, defineProps, ref } from 'vue'
+import { PropType, ref } from 'vue'
 import { FolderOutlined,BellOutlined,PhoneOutlined,MoreOutlined } from "@ant-design/icons-vue";
 import { computed } from 'vue';
 import { WSversions } from "../../state";

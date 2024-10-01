@@ -113,6 +113,8 @@ import { WindowsOutlined,BranchesOutlined,LinkOutlined,DisconnectOutlined,AppleO
 import { OBSConnectionConfig,WSconnected,WSversions,WSplatform,WSstats } from '../../state';
 import OBS from '../../obs';
 import { watch } from 'vue';
+import { scenesList,currentScene } from '../../obs/state';
+
 const obs = OBS.getInstance()
 
 const CPU = computed(() => WSstats.value.cpuUsage?.toFixed(1) + '%');

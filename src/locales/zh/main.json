@@ -1,0 +1,18 @@
+{
+  "title": "OBS Websocket 工具集",
+  "enterModule": "进入模块",
+  "modules": {
+    "debugger": {
+      "title": "调试器",
+      "description": "OBS Websocket 调试工具，用于测试和验证 Websocket 连接和命令。"
+    },
+    "controller": {
+      "title": "控制器",
+      "description": "用于远程控制 OBS 的界面，提供常用操作的快捷方式。"
+    },
+    "simulator": {
+      "title": "OBS 模拟器",
+      "description": "模拟 OBS Websocket 服务器，用于开发和测试没有 OBS 环境的情况。"
+    }
+  }
+}

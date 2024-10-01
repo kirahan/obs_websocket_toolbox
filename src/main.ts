@@ -2,8 +2,11 @@ import { createApp } from 'vue'
 import './style.scss'
 import App from './App.vue'
 import router from './router'
-import VueI18n from './locales'
-import 'ant-design-vue/dist/reset.css';
+import i18n from './locales'
 
+const app = createApp(App)
 
-createApp(App).use(router).use(VueI18n).mount('#app')
+app.use(router)
+app.use(i18n)
+
+app.mount('#app')

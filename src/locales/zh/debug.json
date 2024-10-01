@@ -473,7 +473,8 @@
       "sourceUuid": "源的UUID"
     },
     "GetSourceFilterDefaultSettings": {
-      "filterKind": "要获取默认设置的过滤器类型"
+      "filterKind": "要获取默认设置的过滤器类型",
+      "defaultFilterSettings": "过滤器类型的默认设置对象"
     },
     "CreateSourceFilter": {
       "sourceName": "要添加过滤器的源的名称",

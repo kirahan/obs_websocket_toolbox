@@ -1,12 +1,14 @@
 import { defineConfig } from 'vite'
 import vue from '@vitejs/plugin-vue'
+import path from 'path'
 import Components from 'unplugin-vue-components/vite';
 import { AntDesignVueResolver } from 'unplugin-vue-components/resolvers';
 
+const isDev = process.env.NODE_ENV === 'development'
 
 // https://vitejs.dev/config/
 export default defineConfig({
-  base: '/obs_websocket_toolbox/',
+  base: isDev ? '/' : '/obs_websocket_toolbox/',
   build: {
     // sourcemap: true,
   },
@@ -26,4 +28,9 @@ export default defineConfig({
       ]
     }),
   ],
+  resolve: {
+    alias: {
+      '@': path.resolve(__dirname, './src')
+    }
+  }
 })

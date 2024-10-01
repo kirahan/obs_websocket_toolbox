@@ -4,6 +4,7 @@ import { OBSConnectionConfig, OBSGeneralConfig, OBSVideoConfig, OBSstatus, WSEve
 import { OBSEventTypes, OBSRequestTypes, OBSResponseTypes } from 'obs-websocket-js'
 import { obsEventDetailData } from '../data/events';
 import { message } from 'ant-design-vue';
+import { currentScene, scenesList } from './state';
 class OBS {
     static instance: OBS;
     static getInstance(): OBS {
@@ -123,6 +124,19 @@ class OBS {
         await this.getVideoSettings();
         await this.getSceneCollectionList();
         await this.getProfileList();
+        await this.getSceneList();
+        
+    }
+
+    async getSceneList() {
+        const { scenes, currentProgramSceneName } = await this.ws?.call("GetSceneList");
+        scenesList.value = scenes.map((scene, index) => ({
+            name: scene.sceneName,
+            sceneIndex: index
+        }));
+        currentScene.value = currentProgramSceneName;
+        console.log("[obs]场景列表", scenes);
+        console.log("[obs]当前场景", currentProgramSceneName);
     }
 
     async sendRequest(request: keyof OBSRequestTypes,query?:any) {

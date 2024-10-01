@@ -1,0 +1,21 @@
+{
+  "title": "OBS Websocket Toolkit",
+  "enterModule": "Enter Module",
+  "nav": {
+    "home": "Home"
+  },
+  "modules": {
+    "debugger": {
+      "title": "Debugger",
+      "description": "OBS Websocket debugging tool for testing and validating Websocket connections and commands."
+    },
+    "controller": {
+      "title": "Controller",
+      "description": "Interface for remote control of OBS, providing shortcuts for common operations."
+    },
+    "simulator": {
+      "title": "OBS Simulator",
+      "description": "Simulates an OBS Websocket server for development and testing without an OBS environment."
+    }
+  }
+}
