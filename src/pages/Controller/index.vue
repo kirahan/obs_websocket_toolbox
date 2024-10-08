@@ -218,7 +218,7 @@ const setTransition = (transition: string) => {
 
 const setCurrentScene = async (sceneName: string) => {
   try {
-    await obs.call('SetCurrentProgramScene', { sceneName });
+    // await obs.call('SetCurrentProgramScene', { sceneName });
     currentScene.value = sceneName;
   } catch (error) {
     console.error('Failed to set current scene:', error);

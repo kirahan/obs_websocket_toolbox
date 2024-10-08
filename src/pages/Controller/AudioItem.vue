@@ -38,7 +38,6 @@ defineProps<{
     name: string;
     volume: number;
     muted: boolean;
-    type: string;
   }
 }>();
 
