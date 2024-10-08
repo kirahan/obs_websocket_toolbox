@@ -131,7 +131,7 @@ class OBS {
     async getSceneList() {
         const { scenes, currentProgramSceneName } = await this.ws?.call("GetSceneList");
         scenesList.value = scenes.map((scene, index) => ({
-            name: scene.sceneName,
+            name: scene.sceneName as string,
             sceneIndex: index
         }));
         currentScene.value = currentProgramSceneName;
