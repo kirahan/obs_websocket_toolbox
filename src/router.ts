@@ -14,7 +14,7 @@ const routes = [
 ]
 
 const router = createRouter({
-    history: createWebHistory(),
+    history: createWebHistory('/obs_websocket_toolbox/'),
     routes
 })
 
