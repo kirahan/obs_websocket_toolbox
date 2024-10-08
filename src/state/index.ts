@@ -12,7 +12,7 @@ export const localLang = useStorage('lang','zh')
 
 export const switchLang = (lang: 'en'|'zh'|'tw') => {
     localLang.value = lang;
-    VueI18n.global.locale = lang;
+    VueI18n.global.locale.value = lang as 'en'|'zh'|'tw';
 }
 
 export const leftTreeWidth = useStorage('leftTreeWidth', 400)

@@ -20,6 +20,7 @@
 import { ref } from 'vue';
 import { useRouter } from 'vue-router';
 import NavHeader from '../../components/NavHeader.vue';
+import { message } from 'ant-design-vue';
 
 const router = useRouter();
 
@@ -39,6 +40,10 @@ const modules = ref([
 ]);
 
 const navigateTo = (route: string) => {
+  if(route === '/simulator' || route === '/controller'){
+    message.warning('This module is not implemented yet');
+    return;
+  }
   router.push(route);
 };
 </script>

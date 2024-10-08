@@ -3,7 +3,7 @@
         <div class="leftItem container">
             <a-tooltip
             key="connectOBS"
-            :title="$t('Tooltops.connectOBS')"
+            :title="$t('debug.Tooltops.connectOBS')"
             >
                     <div class="iconBtn" :class="WSconnected?'':'red'">
                         <LinkOutlined v-if="WSconnected" @click="disConnectOBS"/>
@@ -13,7 +13,7 @@
             
             <a-tooltip
             key="configOBS"
-            :title="$t('Tooltops.configOBS')"
+            :title="$t('debug.Tooltops.configOBS')"
             >
                 <div class="websocket item">
                         <div class="flexdiv">
@@ -81,7 +81,7 @@
         <div v-if="WSconnected" class="rightItem container">
             <a-tooltip
             key="loopGetStat"
-            :title="$t('Tooltops.LoopGetStat')"
+            :title="$t('debug.Tooltops.LoopGetStat')"
             >
                 <div class="iconBtn">
                     <ReloadOutlined v-if="!looptimer" @click="loopGetStat"/>

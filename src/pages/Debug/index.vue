@@ -1,9 +1,14 @@
 <template>
     <div class="main">
       <a-layout class="nobackground">
-        <a-layout-header  class="header">
-          <HeaderBar></HeaderBar>
-        </a-layout-header>
+        <!-- <a-layout-header  class="header">
+          
+        </a-layout-header> -->
+        <NavHeader >
+            <template #middle>
+              <HeaderBar></HeaderBar>
+            </template>
+          </NavHeader>
   
         <a-layout class="middle">
           <a-layout-sider :width="leftTreeWidth" theme="light" class="side">
@@ -29,7 +34,7 @@
                       @click="handleSummaryClick"
                   >
                       <ReadOutlined />
-                      <span>{{ $t('Titles.TreeList.summary') }}</span>
+                      <span>{{ $t('debug.Titles.TreeList.summary') }}</span>
                   </div>
                   <div class="listSection">
                       <a-directory-tree
@@ -61,6 +66,8 @@
   </template>
   
   <script setup lang="ts">
+  import NavHeader from '../../components/NavHeader.vue';
+
   import HeaderBar from "../../components/HeaderBar/index.vue";
   import BottomBar from "../../components/BottomBar/index.vue";
   import TreeItem from "../../components/TreeList/treeItem.vue";
@@ -177,11 +184,11 @@
     height: 100vh;
     width: 100vw;
   
-    .header {
-      // background-color: rgb(0, 33, 43);
-      padding: 0;
-      height: 40px;
-    }
+    // .header {
+    //   // background-color: rgb(0, 33, 43);
+    //   padding: 0;
+    //   height: 40px;
+    // }
     .middle {
       // background-color: rgb(0, 33, 43);
       padding: 0;

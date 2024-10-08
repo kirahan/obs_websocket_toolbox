@@ -1,10 +1,13 @@
 <template>
     <div class="statusBar">
-        <div class="item">OBS Websocket Debug Tools</div>
         <div class="leftItem container"> </div>
 
-        
+        <div v-if="!WSconnected" class="middleItem container">
+            <div >Debug Tools</div>
+        </div>
+
         <div v-if="WSconnected" class="rightItem container">
+            
             <div class="websocket item">
                 <div class="flexdiv">
                     <a-divider class="bottomDivider" type="vertical" />
@@ -22,28 +25,6 @@
                 </div>
             </div>
         </div>
-
-        <div class="rightItem container">
-            <div class="websocket item">
-                <div class="flexdiv">
-                    <GithubOutlined @click="goToGithub"/>
-                </div>
-            </div>
-            <!-- switch language -->
-            <div class="websocket item">
-                <div class="flexdiv">
-                    <a-divider class="bottomDivider" type="vertical" />
-                    <span @click="switchLang('en')">English</span>
-                </div>
-            </div>
-            <div class="websocket item">
-                <div class="flexdiv">
-                    <a-divider class="bottomDivider" type="vertical" />
-                    <span @click="switchLang('zh')">中文</span>
-                </div>
-            </div>
-            
-        </div>
     </div>
 </template>
 
@@ -58,9 +39,7 @@ const outputSize = computed(()=> OBSVideoConfig.outputWidth.value + 'x' + OBSVid
 
 const Profile = computed(() => OBSGeneralConfig.currentProfile.value );
 const SceneCollection = computed(() => OBSGeneralConfig.currentSCname.value );
-const goToGithub = ()=>{
-    window.open('https://github.com/kirahan/obs_websocket_toolbox', '_blank');
-}
+
 
 </script>
 
@@ -86,6 +65,11 @@ const goToGithub = ()=>{
         display: flex;
         align-items: center;
         .websocket{}
+    }
+    .middleItem{
+        flex: 1;
+        display: flex;
+        align-items: center;
     }
     .rightItem{
         flex-direction: row-reverse;

@@ -1,7 +1,8 @@
 <template>
   <header class="nav-header">
     <div class="logo" @click="goHome">
-      <!-- <img src="/path-to-your-logo.png" alt="Logo" /> -->
+      <!-- <img src="/path-to-your-logo.png" alt="Logo" /> -->  
+      <ArrowLeftOutlined />
       <span>{{ $t('main.title') }}</span>
     </div>
     <nav class="middle-section">
@@ -11,14 +12,15 @@
       </slot>
     </nav>
     <div class="right-section">
-      <a-select v-model:value="currentLanguage" style="width: 120px" @change="changeLanguage">
+      <a-select v-model:value="localLang" style="width: 120px" @change="switchLang">
         <a-select-option v-for="lang in languages" :key="lang.value" :value="lang.value">
           {{ lang.label }}
         </a-select-option>
       </a-select>
-      <a-avatar style="margin-left: 16px; background-color: #1890ff;">
+      <GithubOutlined style="margin-left: 16px; cursor: pointer; font-size: 16px;" @click="goToGithub"/>
+      <!-- <a-avatar style="margin-left: 16px;">
         <template #icon><UserOutlined /></template>
-      </a-avatar>
+      </a-avatar> -->
     </div>
   </header>
 </template>
@@ -26,11 +28,9 @@
 <script setup lang="ts">
 import { ref } from 'vue';
 import { useRouter } from 'vue-router';
-import { useI18n } from 'vue-i18n';
-import { UserOutlined } from '@ant-design/icons-vue';
-
+import { ArrowLeftOutlined, UserOutlined,GithubOutlined } from '@ant-design/icons-vue';
+import { localLang,switchLang } from '../state';
 const router = useRouter();
-const { locale } = useI18n();
 
 const languages = [
   { value: 'en', label: 'English' },
@@ -38,12 +38,9 @@ const languages = [
   { value: 'tw', label: '繁體中文' }
 ];
 
-const currentLanguage = ref(locale.value);
-
-const changeLanguage = (lang: string) => {
-  locale.value = lang;
-  localStorage.setItem('lang', lang);
-};
+const goToGithub = ()=>{
+    window.open('https://github.com/kirahan/obs_websocket_toolbox', '_blank');
+}
 
 const goHome = () => {
   router.push('/');
@@ -56,7 +53,7 @@ const goHome = () => {
   justify-content: space-between;
   align-items: center;
   padding: 0 20px;
-  height: 60px;
+  height: 40px;
   background-color: #001529; /* 暗色背景 */
   color: #fff; /* 白色文字 */
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);

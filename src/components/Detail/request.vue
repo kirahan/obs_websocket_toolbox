@@ -4,7 +4,7 @@
             <div class="summary">
                 <span>{{ elementInfo.title }}</span>
                 <!-- 只有requests的时候才会显示发送按钮 -->
-                <a-button v-if="elementInfo.type=='request'" size="small" type="primary" @click="sendRequest">{{$t('Actions.Send')}}</a-button>
+                <a-button v-if="elementInfo.type=='request'" size="small" type="primary" @click="sendRequest">{{$t('debug.Actions.Send')}}</a-button>
                 <a-tag color="magenta">{{ elementInfo.type }}</a-tag>
                 <a-tag color="cyan" v-for="t in elementInfo.tags" :key="t">{{ t }}</a-tag>
             </div>
@@ -20,11 +20,11 @@
 
         <!-- 只有requests的时候才会显示query -->
         <div v-if="elementInfo.type=='request'" class="queryPanel flex_column">
-            <h3>{{ $t('Titles.Detail.Query') }} 
-                <a-button size="small" type="primary" @click="sendRequest">{{$t('Actions.Send')}}</a-button>
+            <h3>{{ $t('debug.Titles.Detail.Query') }} 
+                <a-button size="small" type="primary" @click="sendRequest">{{$t('debug.Actions.Send')}}</a-button>
             </h3>
             <a-collapse v-model:activeKey="activeReq">
-                <a-collapse-panel key="1" :header='$t("Actions.ClickToExpand")'>
+                <a-collapse-panel key="1" :header='$t("debug.Actions.ClickToExpand")'>
                     <a-table
                         :columns="QueryColumns"
                         :data-source="requestParams"
@@ -74,9 +74,9 @@
 
 
         <div class="responsePanel flex_column">
-            <h3>{{ $t('Titles.Detail.Response') }}</h3>
+            <h3>{{ $t('debug.Titles.Detail.Response') }}</h3>
             <a-collapse v-model:activeKey="activeRes">
-                <a-collapse-panel key="1" :header='$t("Actions.ClickToExpand")'>
+                <a-collapse-panel key="1" :header='$t("debug.Actions.ClickToExpand")'>
                     <a-table
                         :columns="ResponseColumns"
                         :data-source="responseParams"

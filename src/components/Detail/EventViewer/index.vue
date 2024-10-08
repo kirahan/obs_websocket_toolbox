@@ -1,10 +1,10 @@
 <template>
     <div class="no_p_m_body flex_column">
-        <h3>{{ $t('Titles.Detail.EventViewer') }}
-            <a-button v-if="WSEventAndRequestHistory.length" size="small" type="primary" @click="clearAll">{{$t('Actions.Clear')}}</a-button>
+        <h3>{{ $t('debug.Titles.Detail.EventViewer') }}
+            <a-button v-if="WSEventAndRequestHistory.length" size="small" type="primary" @click="clearAll">{{$t('debug.Actions.Clear')}}</a-button>
         </h3>
         <a-collapse v-model:activeKey="activeKey">
-            <a-collapse-panel key="1" :header='$t("Actions.ClickToExpand")'>
+            <a-collapse-panel key="1" :header='$t("debug.Actions.ClickToExpand")'>
                 <div class="content">
                     <div class="event_container flex_column">
                         <div v-for="item in WSEventAndRequestHistory"
