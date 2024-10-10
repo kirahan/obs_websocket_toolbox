@@ -654,7 +654,7 @@
       "TriggerMediaInputAction": {
         "inputName": "Name of the media input\t",
         "inputUuid": "UUID of the media input\t",
-        "mediaAction": "Identifier of the ObsMediaInputAction enum\t"
+        "mediaAction": "Identifier of the ObsMediaInputAction enum\t:\nOBS_WEBSOCKET_MEDIA_INPUT_ACTION_NONE\nOBS_WEBSOCKET_MEDIA_INPUT_ACTION_PLAY\nOBS_WEBSOCKET_MEDIA_INPUT_ACTION_PAUSE\nOBS_WEBSOCKET_MEDIA_INPUT_ACTION_STOP\nOBS_WEBSOCKET_MEDIA_INPUT_ACTION_RESTART\nOBS_WEBSOCKET_MEDIA_INPUT_ACTION_NEXT\nOBS_WEBSOCKET_MEDIA_INPUT_ACTION_PREVIOUS"
       },
       "SetStudioModeEnabled": {
         "inputName": "True == Enabled, False == Disabled\t"

@@ -5223,7 +5223,7 @@ export const obsRequestDetailData:{[index:string]:I_Request_Detail} = {
             },
             {
                 name: 'mediaAction',
-                type: "Number",
+                type: "string",
                 des: t('debug.ReqParamsDes.TriggerMediaInputAction.mediaAction'),
                 default: '',
                 require: true,

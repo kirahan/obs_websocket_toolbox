@@ -654,7 +654,7 @@
     "TriggerMediaInputAction": {
       "inputName": "媒体输入的名称",
       "inputUuid": "媒体输入的UUID",
-      "mediaAction": "要执行的ObsMediaInputAction枚举标识符"
+      "mediaAction": "要执行的ObsMediaInputAction枚举标识符:\nOBS_WEBSOCKET_MEDIA_INPUT_ACTION_NONE\nOBS_WEBSOCKET_MEDIA_INPUT_ACTION_PLAY\nOBS_WEBSOCKET_MEDIA_INPUT_ACTION_PAUSE\nOBS_WEBSOCKET_MEDIA_INPUT_ACTION_STOP\nOBS_WEBSOCKET_MEDIA_INPUT_ACTION_RESTART\nOBS_WEBSOCKET_MEDIA_INPUT_ACTION_NEXT\nOBS_WEBSOCKET_MEDIA_INPUT_ACTION_PREVIOUS"
     },
     "SetStudioModeEnabled": {
       "inputName": "是否启用工作室模式，True 启用，False 禁用"

@@ -448,7 +448,7 @@ export const obsEventDetailData:{[index:string]:I_Event_Detail} = {
     ExitStarted:{
         key: 'ExitStarted',
         title: 'ExitStarted',
-        des: t('EventDes.ExitStarted'),
+        des: t('debug.EventDes.ExitStarted'),
         tags: ['General'],
         responseParams: [
 
@@ -457,36 +457,36 @@ export const obsEventDetailData:{[index:string]:I_Event_Detail} = {
     VendorEvent:{
         key: 'VendorEvent',
         title: 'VendorEvent',
-        des: t('EventDes.VendorEvent'),
+        des: t('debug.EventDes.VendorEvent'),
         tags: ['General'],
         responseParams: [
             {
                 name: 'vendorName',
                 type: "String",
-                des: t('ResParamsDes.VendorEvent.vendorName'),
+                des: t('debug.ResParamsDes.VendorEvent.vendorName'),
             },
             {
                 name: 'eventType',
                 type: "String",
-                des: t('ResParamsDes.VendorEvent.eventType'),
+                des: t('debug.ResParamsDes.VendorEvent.eventType'),
             },
             {
                 name: 'eventData',
                 type: "Object",
-                des: t('ResParamsDes.VendorEvent.eventData'),
+                des: t('debug.ResParamsDes.VendorEvent.eventData'),
             },
         ]
     },
     CustomEvent:{
         key: 'CustomEvent',
         title: 'CustomEvent',
-        des: t('EventDes.CustomEvent'),
+        des: t('debug.EventDes.CustomEvent'),
         tags: ['General'],
         responseParams: [
             {
                 name: 'eventData',
                 type: "Object",
-                des: t('ResParamsDes.CustomEvent.eventData'),
+                des: t('debug.ResParamsDes.CustomEvent.eventData'),
             },
         ]
     },
@@ -494,78 +494,78 @@ export const obsEventDetailData:{[index:string]:I_Event_Detail} = {
     CurrentSceneCollectionChanging:{
         key: 'CurrentSceneCollectionChanging',
         title: 'CurrentSceneCollectionChanging',
-        des: t('EventDes.CurrentSceneCollectionChanging'),
+        des: t('debug.EventDes.CurrentSceneCollectionChanging'),
         tags: ['Config'],
         responseParams: [
             {
                 name: 'sceneCollectionName',
                 type: "String",
-                des: t('ResParamsDes.CurrentSceneCollectionChanging.sceneCollectionName'),
+                des: t('debug.ResParamsDes.CurrentSceneCollectionChanging.sceneCollectionName'),
             },
         ]
     },
     CurrentSceneCollectionChanged:{
         key: 'CurrentSceneCollectionChanged',
         title: 'CurrentSceneCollectionChanged',
-        des: t('EventDes.CurrentSceneCollectionChanged'),
+        des: t('debug.EventDes.CurrentSceneCollectionChanged'),
         tags: ['Config'],
         responseParams: [
             {
                 name: 'sceneCollectionName',
                 type: "String",
-                des: t('ResParamsDes.CurrentSceneCollectionChanged.sceneCollectionName'),
+                des: t('debug.ResParamsDes.CurrentSceneCollectionChanged.sceneCollectionName'),
             },
         ]
     },
     SceneCollectionListChanged:{
         key: 'SceneCollectionListChanged',
         title: 'SceneCollectionListChanged',
-        des: t('EventDes.SceneCollectionListChanged'),
+        des: t('debug.EventDes.SceneCollectionListChanged'),
         tags: ['Config'],
         responseParams: [
             {
                 name: 'sceneCollections',
                 type: "Array<String>",
-                des: t('ResParamsDes.SceneCollectionListChanged.sceneCollections'),
+                des: t('debug.ResParamsDes.SceneCollectionListChanged.sceneCollections'),
             },
         ]
     },
     CurrentProfileChanging:{
         key: 'CurrentProfileChanging',
         title: 'CurrentProfileChanging',
-        des: t('EventDes.CurrentProfileChanging'),
+        des: t('debug.EventDes.CurrentProfileChanging'),
         tags: ['Config'],
         responseParams: [
             {
                 name: 'profileName',
                 type: "String",
-                des: t('ResParamsDes.CurrentProfileChanging.profileName'),
+                des: t('debug.ResParamsDes.CurrentProfileChanging.profileName'),
             },
         ]
     },
     CurrentProfileChanged:{
         key: 'CurrentProfileChanged',
         title: 'CurrentProfileChanged',
-        des: t('EventDes.CurrentProfileChanged'),
+        des: t('debug.EventDes.CurrentProfileChanged'),
         tags: ['Config'],
         responseParams: [
             {
                 name: 'profileName',
                 type: "String",
-                des: t('ResParamsDes.CurrentProfileChanged.profileName'),
+                des: t('debug.ResParamsDes.CurrentProfileChanged.profileName'),
             },
         ]
     },
     ProfileListChanged:{
         key: 'ProfileListChanged',
         title: 'ProfileListChanged',
-        des: t('EventDes.ProfileListChanged'),
+        des: t('debug.EventDes.ProfileListChanged'),
         tags: ['Config'],
         responseParams: [
             {
                 name: 'profiles',
                 type: "Array<String>",
-                des: t('ResParamsDes.ProfileListChanged.profiles'),
+                des: t('debug.ResParamsDes.ProfileListChanged.profiles'),
             },
         ]
     },
@@ -573,118 +573,118 @@ export const obsEventDetailData:{[index:string]:I_Event_Detail} = {
     SceneCreated:{
         key: 'SceneCreated',
         title: 'SceneCreated',
-        des: t('EventDes.SceneCreated'),
+        des: t('debug.EventDes.SceneCreated'),
         tags: ['Scenes'],
         responseParams: [
             {
                 name: 'sceneName',
                 type: "String",
-                des: t('ResParamsDes.SceneCreated.sceneName'),
+                des: t('debug.ResParamsDes.SceneCreated.sceneName'),
             },
             {
                 name: 'sceneUuid',
                 type: "String",
-                des: t('ResParamsDes.SceneCreated.sceneUuid'),
+                des: t('debug.ResParamsDes.SceneCreated.sceneUuid'),
             },
             {
                 name: 'isGroup',
                 type: "Boolean",
-                des: t('ResParamsDes.SceneCreated.isGroup'),
+                des: t('debug.ResParamsDes.SceneCreated.isGroup'),
             },
         ]
     },
     SceneRemoved:{
         key: 'SceneRemoved',
         title: 'SceneRemoved',
-        des: t('EventDes.SceneRemoved'),
+        des: t('debug.EventDes.SceneRemoved'),
         tags: ['Scenes'],
         responseParams: [
             {
                 name: 'sceneName',
                 type: "String",
-                des: t('ResParamsDes.SceneRemoved.sceneName'),
+                des: t('debug.ResParamsDes.SceneRemoved.sceneName'),
             },
             {
                 name: 'sceneUuid',
                 type: "String",
-                des: t('ResParamsDes.SceneRemoved.sceneUuid'),
+                des: t('debug.ResParamsDes.SceneRemoved.sceneUuid'),
             },
             {
                 name: 'isGroup',
                 type: "Boolean",
-                des: t('ResParamsDes.SceneRemoved.isGroup'),
+                des: t('debug.ResParamsDes.SceneRemoved.isGroup'),
             },
         ]
     },
     SceneNameChanged:{
         key: 'SceneNameChanged',
         title: 'SceneNameChanged',
-        des: t('EventDes.SceneNameChanged'),
+        des: t('debug.EventDes.SceneNameChanged'),
         tags: ['Scenes'],
         responseParams: [
             {
                 name: 'sceneName',
                 type: "String",
-                des: t('ResParamsDes.SceneNameChanged.sceneName'),
+                des: t('debug.ResParamsDes.SceneNameChanged.sceneName'),
             },
             {
                 name: 'sceneUuid',
                 type: "String",
-                des: t('ResParamsDes.SceneNameChanged.sceneUuid'),
+                des: t('debug.ResParamsDes.SceneNameChanged.sceneUuid'),
             },
             {
                 name: 'oldSceneName',
                 type: "String",
-                des: t('ResParamsDes.SceneNameChanged.oldSceneName'),
+                des: t('debug.ResParamsDes.SceneNameChanged.oldSceneName'),
             },
         ]
     },
     CurrentProgramSceneChanged:{
         key: 'CurrentProgramSceneChanged',
         title: 'CurrentProgramSceneChanged',
-        des: t('EventDes.CurrentProgramSceneChanged'),
+        des: t('debug.EventDes.CurrentProgramSceneChanged'),
         tags: ['Scenes'],
         responseParams: [
             {
                 name: 'sceneName',
                 type: "String",
-                des: t('ResParamsDes.CurrentProgramSceneChanged.sceneName'),
+                des: t('debug.ResParamsDes.CurrentProgramSceneChanged.sceneName'),
             },
             {
                 name: 'sceneUuid',
                 type: "String",
-                des: t('ResParamsDes.CurrentProgramSceneChanged.sceneUuid'),
+                des: t('debug.ResParamsDes.CurrentProgramSceneChanged.sceneUuid'),
             },
         ]
     },
     CurrentPreviewSceneChanged:{
         key: 'CurrentPreviewSceneChanged',
         title: 'CurrentPreviewSceneChanged',
-        des: t('EventDes.CurrentPreviewSceneChanged'),
+        des: t('debug.EventDes.CurrentPreviewSceneChanged'),
         tags: ['Scenes'],
         responseParams: [
             {
                 name: 'sceneName',
                 type: "String",
-                des: t('ResParamsDes.CurrentPreviewSceneChanged.sceneName'),
+                des: t('debug.ResParamsDes.CurrentPreviewSceneChanged.sceneName'),
             },
             {
                 name: 'sceneUuid',
                 type: "String",
-                des: t('ResParamsDes.CurrentPreviewSceneChanged.sceneUuid'),
+                des: t('debug.ResParamsDes.CurrentPreviewSceneChanged.sceneUuid'),
             },
         ]
     },
     SceneListChanged:{
         key: 'SceneListChanged',
         title: 'SceneListChanged',
-        des: t('EventDes.SceneListChanged'),
+        des: t('debug.EventDes.SceneListChanged'),
         tags: ['Scenes'],
         responseParams: [
             {
                 name: 'scenes',
                 type: "Array<Object>",
-                des: t('ResParamsDes.SceneListChanged.scenes'),
+                des: t('debug.ResParamsDes.SceneListChanged.scenes'),
             },
         ]
     },
@@ -692,304 +692,304 @@ export const obsEventDetailData:{[index:string]:I_Event_Detail} = {
     InputCreated:{
         key: 'InputCreated',
         title: 'InputCreated',
-        des: t('EventDes.InputCreated'),
+        des: t('debug.EventDes.InputCreated'),
         tags: ['Inputs'],
         responseParams: [
             {
                 name: 'inputName',
                 type: "String",
-                des: t('ResParamsDes.InputCreated.inputName'),
+                des: t('debug.ResParamsDes.InputCreated.inputName'),
             },
             {
                 name: 'inputUuid',
                 type: "String",
-                des: t('ResParamsDes.InputCreated.inputUuid'),
+                des: t('debug.ResParamsDes.InputCreated.inputUuid'),
             },
             {
                 name: 'inputKind',
                 type: "String",
-                des: t('ResParamsDes.InputCreated.inputKind'),
+                des: t('debug.ResParamsDes.InputCreated.inputKind'),
             },
             {
                 name: 'unversionedInputKind',
                 type: "String",
-                des: t('ResParamsDes.InputCreated.unversionedInputKind'),
+                des: t('debug.ResParamsDes.InputCreated.unversionedInputKind'),
             },
             {
                 name: 'inputSettings',
                 type: "Object",
-                des: t('ResParamsDes.InputCreated.inputSettings'),
+                des: t('debug.ResParamsDes.InputCreated.inputSettings'),
             },
             {
                 name: 'defaultInputSettings',
                 type: "Object",
-                des: t('ResParamsDes.InputCreated.defaultInputSettings'),
+                des: t('debug.ResParamsDes.InputCreated.defaultInputSettings'),
             },
         ]
     },
     InputRemoved:{
         key: 'InputRemoved',
         title: 'InputRemoved',
-        des: t('EventDes.InputRemoved'),
+        des: t('debug.EventDes.InputRemoved'),
         tags: ['Inputs'],
         responseParams: [
             {
                 name: 'inputName',
                 type: "String",
-                des: t('ResParamsDes.InputRemoved.inputName'),
+                des: t('debug.ResParamsDes.InputRemoved.inputName'),
             },
             {
                 name: 'inputUuid',
                 type: "String",
-                des: t('ResParamsDes.InputRemoved.inputUuid'),
+                des: t('debug.ResParamsDes.InputRemoved.inputUuid'),
             },
         ]
     },
     InputNameChanged:{
         key: 'InputNameChanged',
         title: 'InputNameChanged',
-        des: t('EventDes.InputNameChanged'),
+        des: t('debug.EventDes.InputNameChanged'),
         tags: ['Inputs'],
         responseParams: [
             {
                 name: 'inputName',
                 type: "String",
-                des: t('ResParamsDes.InputNameChanged.inputName'),
+                des: t('debug.ResParamsDes.InputNameChanged.inputName'),
             },
             {
                 name: 'inputUuid',
                 type: "String",
-                des: t('ResParamsDes.InputNameChanged.inputUuid'),
+                des: t('debug.ResParamsDes.InputNameChanged.inputUuid'),
             },
             {
                 name: 'oldInputName',
                 type: "String",
-                des: t('ResParamsDes.InputNameChanged.oldInputName'),
+                des: t('debug.ResParamsDes.InputNameChanged.oldInputName'),
             },
         ]
     },
     InputSettingsChanged:{
         key: 'InputSettingsChanged',
         title: 'InputSettingsChanged',
-        des: t('EventDes.InputSettingsChanged'),
+        des: t('debug.EventDes.InputSettingsChanged'),
         tags: ['Inputs'],
         responseParams: [
             {
                 name: 'inputName',
                 type: "String",
-                des: t('ResParamsDes.InputSettingsChanged.inputName'),
+                des: t('debug.ResParamsDes.InputSettingsChanged.inputName'),
             },
             {
                 name: 'inputUuid',
                 type: "String",
-                des: t('ResParamsDes.InputSettingsChanged.inputUuid'),
+                des: t('debug.ResParamsDes.InputSettingsChanged.inputUuid'),
             },
             {
                 name: 'inputSettings',
                 type: "Object",
-                des: t('ResParamsDes.InputSettingsChanged.inputSettings'),
+                des: t('debug.ResParamsDes.InputSettingsChanged.inputSettings'),
             },
         ]
     },
     InputActiveStateChanged:{
         key: 'InputActiveStateChanged',
         title: 'InputActiveStateChanged',
-        des: t('EventDes.InputActiveStateChanged'),
+        des: t('debug.EventDes.InputActiveStateChanged'),
         tags: ['Inputs'],
         responseParams: [
             {
                 name: 'inputName',
                 type: "String",
-                des: t('ResParamsDes.InputActiveStateChanged.inputName'),
+                des: t('debug.ResParamsDes.InputActiveStateChanged.inputName'),
             },
             {
                 name: 'inputUuid',
                 type: "String",
-                des: t('ResParamsDes.InputActiveStateChanged.inputUuid'),
+                des: t('debug.ResParamsDes.InputActiveStateChanged.inputUuid'),
             },
             {
                 name: 'videoActive',
                 type: "Boolean",
-                des: t('ResParamsDes.InputActiveStateChanged.videoActive'),
+                des: t('debug.ResParamsDes.InputActiveStateChanged.videoActive'),
             },
         ]
     },
     InputShowStateChanged:{
         key: 'InputShowStateChanged',
         title: 'InputShowStateChanged',
-        des: t('EventDes.InputShowStateChanged'),
+        des: t('debug.EventDes.InputShowStateChanged'),
         tags: ['Inputs'],
         responseParams: [
             {
                 name: 'inputName',
                 type: "String",
-                des: t('ResParamsDes.InputShowStateChanged.inputName'),
+                des: t('debug.ResParamsDes.InputShowStateChanged.inputName'),
             },
             {
                 name: 'inputUuid',
                 type: "String",
-                des: t('ResParamsDes.InputShowStateChanged.inputUuid'),
+                des: t('debug.ResParamsDes.InputShowStateChanged.inputUuid'),
             },
             {
                 name: 'videoShowing',
                 type: "Boolean",
-                des: t('ResParamsDes.InputShowStateChanged.videoShowing'),
+                des: t('debug.ResParamsDes.InputShowStateChanged.videoShowing'),
             },
         ]
     },
     InputMuteStateChanged:{
         key: 'InputMuteStateChanged',
         title: 'InputMuteStateChanged',
-        des: t('EventDes.InputMuteStateChanged'),
+        des: t('debug.EventDes.InputMuteStateChanged'),
         tags: ['Inputs'],
         responseParams: [
             {
                 name: 'inputName',
                 type: "String",
-                des: t('ResParamsDes.InputMuteStateChanged.inputName'),
+                des: t('debug.ResParamsDes.InputMuteStateChanged.inputName'),
             },
             {
                 name: 'inputUuid',
                 type: "String",
-                des: t('ResParamsDes.InputMuteStateChanged.inputUuid'),
+                des: t('debug.ResParamsDes.InputMuteStateChanged.inputUuid'),
             },
             {
                 name: 'inputMuted',
                 type: "Boolean",
-                des: t('ResParamsDes.InputMuteStateChanged.inputMuted'),
+                des: t('debug.ResParamsDes.InputMuteStateChanged.inputMuted'),
             },
         ]
     },
     InputVolumeChanged:{
         key: 'InputVolumeChanged',
         title: 'InputVolumeChanged',
-        des: t('EventDes.InputVolumeChanged'),
+        des: t('debug.EventDes.InputVolumeChanged'),
         tags: ['Inputs'],
         responseParams: [
             {
                 name: 'inputName',
                 type: "String",
-                des: t('ResParamsDes.InputVolumeChanged.inputName'),
+                des: t('debug.ResParamsDes.InputVolumeChanged.inputName'),
             },
             {
                 name: 'inputUuid',
                 type: "String",
-                des: t('ResParamsDes.InputVolumeChanged.inputUuid'),
+                des: t('debug.ResParamsDes.InputVolumeChanged.inputUuid'),
             },
             {
                 name: 'inputVolumeMul',
                 type: "Number",
-                des: t('ResParamsDes.InputVolumeChanged.inputVolumeMul'),
+                des: t('debug.ResParamsDes.InputVolumeChanged.inputVolumeMul'),
             },
             {
                 name: 'inputVolumeDb',
                 type: "Number",
-                des: t('ResParamsDes.InputVolumeChanged.inputVolumeDb'),
+                des: t('debug.ResParamsDes.InputVolumeChanged.inputVolumeDb'),
             },
         ]
     },
     InputAudioBalanceChanged:{
         key: 'InputAudioBalanceChanged',
         title: 'InputAudioBalanceChanged',
-        des: t('EventDes.InputAudioBalanceChanged'),
+        des: t('debug.EventDes.InputAudioBalanceChanged'),
         tags: ['Inputs'],
         responseParams: [
             {
                 name: 'inputName',
                 type: "String",
-                des: t('ResParamsDes.InputAudioBalanceChanged.inputName'),
+                des: t('debug.ResParamsDes.InputAudioBalanceChanged.inputName'),
             },
             {
                 name: 'inputUuid',
                 type: "String",
-                des: t('ResParamsDes.InputAudioBalanceChanged.inputUuid'),
+                des: t('debug.ResParamsDes.InputAudioBalanceChanged.inputUuid'),
             },
             {
                 name: 'inputAudioBalance',
                 type: "Number",
-                des: t('ResParamsDes.InputAudioBalanceChanged.inputAudioBalance'),
+                des: t('debug.ResParamsDes.InputAudioBalanceChanged.inputAudioBalance'),
             },
         ]
     },
     InputAudioSyncOffsetChanged:{
         key: 'InputAudioSyncOffsetChanged',
         title: 'InputAudioSyncOffsetChanged',
-        des: t('EventDes.InputAudioSyncOffsetChanged'),
+        des: t('debug.EventDes.InputAudioSyncOffsetChanged'),
         tags: ['Inputs'],
         responseParams: [
             {
                 name: 'inputName',
                 type: "String",
-                des: t('ResParamsDes.InputAudioSyncOffsetChanged.inputName'),
+                des: t('debug.ResParamsDes.InputAudioSyncOffsetChanged.inputName'),
             },
             {
                 name: 'inputUuid',
                 type: "String",
-                des: t('ResParamsDes.InputAudioSyncOffsetChanged.inputUuid'),
+                des: t('debug.ResParamsDes.InputAudioSyncOffsetChanged.inputUuid'),
             },
             {
                 name: 'inputAudioSyncOffset',
                 type: "Number",
-                des: t('ResParamsDes.InputAudioSyncOffsetChanged.inputAudioSyncOffset'),
+                des: t('debug.ResParamsDes.InputAudioSyncOffsetChanged.inputAudioSyncOffset'),
             },
         ]
     },
     InputAudioTracksChanged:{
         key: 'InputAudioTracksChanged',
         title: 'InputAudioTracksChanged',
-        des: t('EventDes.InputAudioTracksChanged'),
+        des: t('debug.EventDes.InputAudioTracksChanged'),
         tags: ['Inputs'],
         responseParams: [
             {
                 name: 'inputName',
                 type: "String",
-                des: t('ResParamsDes.InputAudioTracksChanged.inputName'),
+                des: t('debug.ResParamsDes.InputAudioTracksChanged.inputName'),
             },
             {
                 name: 'inputUuid',
                 type: "String",
-                des: t('ResParamsDes.InputAudioTracksChanged.inputUuid'),
+                des: t('debug.ResParamsDes.InputAudioTracksChanged.inputUuid'),
             },
             {
                 name: 'inputAudioTracks',
                 type: "Object",
-                des: t('ResParamsDes.InputAudioTracksChanged.inputAudioTracks'),
+                des: t('debug.ResParamsDes.InputAudioTracksChanged.inputAudioTracks'),
             },
         ]
     },
     InputAudioMonitorTypeChanged:{
         key: 'InputAudioMonitorTypeChanged',
         title: 'InputAudioMonitorTypeChanged',
-        des: t('EventDes.InputAudioMonitorTypeChanged'),
+        des: t('debug.EventDes.InputAudioMonitorTypeChanged'),
         tags: ['Inputs'],
         responseParams: [
             {
                 name: 'inputName',
                 type: "String",
-                des: t('ResParamsDes.InputAudioMonitorTypeChanged.inputName'),
+                des: t('debug.ResParamsDes.InputAudioMonitorTypeChanged.inputName'),
             },
             {
                 name: 'inputUuid',
                 type: "String",
-                des: t('ResParamsDes.InputAudioMonitorTypeChanged.inputUuid'),
+                des: t('debug.ResParamsDes.InputAudioMonitorTypeChanged.inputUuid'),
             },
             {
                 name: 'monitorType',
                 type: "String",
-                des: t('ResParamsDes.InputAudioMonitorTypeChanged.monitorType'),
+                des: t('debug.ResParamsDes.InputAudioMonitorTypeChanged.monitorType'),
             },
         ]
     },
     InputVolumeMeters:{
         key: 'InputVolumeMeters',
         title: 'InputVolumeMeters',
-        des: t('EventDes.InputVolumeMeters'),
+        des: t('debug.EventDes.InputVolumeMeters'),
         tags: ['Inputs'],
         responseParams: [
             {
                 name: 'inputs',
                 type: "Array<Object>",
-                des: t('ResParamsDes.InputVolumeMeters.inputs'),
+                des: t('debug.ResParamsDes.InputVolumeMeters.inputs'),
             },
         ]
     },
@@ -997,85 +997,85 @@ export const obsEventDetailData:{[index:string]:I_Event_Detail} = {
     CurrentSceneTransitionChanged:{
         key: 'CurrentSceneTransitionChanged',
         title: 'CurrentSceneTransitionChanged',
-        des: t('EventDes.CurrentSceneTransitionChanged'),
+        des: t('debug.EventDes.CurrentSceneTransitionChanged'),
         tags: ['Transitions'],
         responseParams: [
             {
                 name: 'transitionName',
                 type: "String",
-                des: t('ResParamsDes.CurrentSceneTransitionChanged.transitionName'),
+                des: t('debug.ResParamsDes.CurrentSceneTransitionChanged.transitionName'),
             },
             {
                 name: 'transitionUuid',
                 type: "String",
-                des: t('ResParamsDes.CurrentSceneTransitionChanged.transitionUuid'),
+                des: t('debug.ResParamsDes.CurrentSceneTransitionChanged.transitionUuid'),
             },
         ]
     },
     CurrentSceneTransitionDurationChanged:{
         key: 'CurrentSceneTransitionDurationChanged',
         title: 'CurrentSceneTransitionDurationChanged',
-        des: t('EventDes.CurrentSceneTransitionDurationChanged'),
+        des: t('debug.EventDes.CurrentSceneTransitionDurationChanged'),
         tags: ['Transitions'],
         responseParams: [
             {
                 name: 'transitionDuration',
                 type: "Number",
-                des: t('ResParamsDes.CurrentSceneTransitionDurationChanged.transitionDuration'),
+                des: t('debug.ResParamsDes.CurrentSceneTransitionDurationChanged.transitionDuration'),
             },
         ]
     },
     SceneTransitionStarted:{
         key: 'SceneTransitionStarted',
         title: 'SceneTransitionStarted',
-        des: t('EventDes.SceneTransitionStarted'),
+        des: t('debug.EventDes.SceneTransitionStarted'),
         tags: ['Transitions'],
         responseParams: [
             {
                 name: 'transitionName',
                 type: "String",
-                des: t('ResParamsDes.SceneTransitionStarted.transitionName'),
+                des: t('debug.ResParamsDes.SceneTransitionStarted.transitionName'),
             },
             {
                 name: 'transitionUuid',
                 type: "String",
-                des: t('ResParamsDes.SceneTransitionStarted.transitionUuid'),
+                des: t('debug.ResParamsDes.SceneTransitionStarted.transitionUuid'),
             },
         ]
     },
     SceneTransitionEnded:{
         key: 'SceneTransitionEnded',
         title: 'SceneTransitionEnded',
-        des: t('EventDes.SceneTransitionEnded'),
+        des: t('debug.EventDes.SceneTransitionEnded'),
         tags: ['Transitions'],
         responseParams: [
             {
                 name: 'transitionName',
                 type: "String",
-                des: t('ResParamsDes.SceneTransitionEnded.transitionName'),
+                des: t('debug.ResParamsDes.SceneTransitionEnded.transitionName'),
             },
             {
                 name: 'transitionUuid',
                 type: "String",
-                des: t('ResParamsDes.SceneTransitionEnded.transitionUuid'),
+                des: t('debug.ResParamsDes.SceneTransitionEnded.transitionUuid'),
             },
         ]
     },
     SceneTransitionVideoEnded:{
         key: 'SceneTransitionVideoEnded',
         title: 'SceneTransitionVideoEnded',
-        des: t('EventDes.SceneTransitionVideoEnded'),
+        des: t('debug.EventDes.SceneTransitionVideoEnded'),
         tags: ['Transitions'],
         responseParams: [
             {
                 name: 'transitionName',
                 type: "String",
-                des: t('ResParamsDes.SceneTransitionVideoEnded.transitionName'),
+                des: t('debug.ResParamsDes.SceneTransitionVideoEnded.transitionName'),
             },
             {
                 name: 'transitionUuid',
                 type: "String",
-                des: t('ResParamsDes.SceneTransitionVideoEnded.transitionUuid'),
+                des: t('debug.ResParamsDes.SceneTransitionVideoEnded.transitionUuid'),
             },
         ]
     },
@@ -1083,143 +1083,143 @@ export const obsEventDetailData:{[index:string]:I_Event_Detail} = {
     SourceFilterListReindexed:{
         key: 'SourceFilterListReindexed',
         title: 'SourceFilterListReindexed',
-        des: t('EventDes.SourceFilterListReindexed'),
+        des: t('debug.EventDes.SourceFilterListReindexed'),
         tags: ['Filters'],
         responseParams: [
             {
                 name: 'sourceName',
                 type: "String",
-                des: t('ResParamsDes.SourceFilterListReindexed.sourceName'),
+                des: t('debug.ResParamsDes.SourceFilterListReindexed.sourceName'),
             },
             {
                 name: 'filters',
                 type: "Array<Object>",
-                des: t('ResParamsDes.SourceFilterListReindexed.filters'),
+                des: t('debug.ResParamsDes.SourceFilterListReindexed.filters'),
             },
         ]
     },
     SourceFilterCreated:{
         key: 'SourceFilterCreated',
         title: 'SourceFilterCreated',
-        des: t('EventDes.SourceFilterCreated'),
+        des: t('debug.EventDes.SourceFilterCreated'),
         tags: ['Filters'],
         responseParams: [
             {
                 name: 'sourceName',
                 type: "String",
-                des: t('ResParamsDes.SourceFilterCreated.sourceName'),
+                des: t('debug.ResParamsDes.SourceFilterCreated.sourceName'),
             },
             {
                 name: 'filterName',
                 type: "String",
-                des: t('ResParamsDes.SourceFilterCreated.filterName'),
+                des: t('debug.ResParamsDes.SourceFilterCreated.filterName'),
             },
             {
                 name: 'filterKind',
                 type: "String",
-                des: t('ResParamsDes.SourceFilterCreated.filterKind'),
+                des: t('debug.ResParamsDes.SourceFilterCreated.filterKind'),
             },
             {
                 name: 'filterIndex',
                 type: "Number",
-                des: t('ResParamsDes.SourceFilterCreated.filterIndex'),
+                des: t('debug.ResParamsDes.SourceFilterCreated.filterIndex'),
             },
             {
                 name: 'filterSettings',
                 type: "Object",
-                des: t('ResParamsDes.SourceFilterCreated.filterSettings'),
+                des: t('debug.ResParamsDes.SourceFilterCreated.filterSettings'),
             },
             {
                 name: 'defaultFilterSettings',
                 type: "Object",
-                des: t('ResParamsDes.SourceFilterCreated.defaultFilterSettings'),
+                des: t('debug.ResParamsDes.SourceFilterCreated.defaultFilterSettings'),
             },
         ]
     },
     SourceFilterRemoved:{
         key: 'SourceFilterRemoved',
         title: 'SourceFilterRemoved',
-        des: t('EventDes.SourceFilterRemoved'),
+        des: t('debug.EventDes.SourceFilterRemoved'),
         tags: ['Filters'],
         responseParams: [
             {
                 name: 'sourceName',
                 type: "String",
-                des: t('ResParamsDes.SourceFilterRemoved.sourceName'),
+                des: t('debug.ResParamsDes.SourceFilterRemoved.sourceName'),
             },
             {
                 name: 'filterName',
                 type: "String",
-                des: t('ResParamsDes.SourceFilterRemoved.filterName'),
+                des: t('debug.ResParamsDes.SourceFilterRemoved.filterName'),
             },
         ]
     },
     SourceFilterNameChanged:{
         key: 'SourceFilterNameChanged',
         title: 'SourceFilterNameChanged',
-        des: t('EventDes.SourceFilterNameChanged'),
+        des: t('debug.EventDes.SourceFilterNameChanged'),
         tags: ['Filters'],
         responseParams: [
             {
                 name: 'sourceName',
                 type: "String",
-                des: t('ResParamsDes.SourceFilterNameChanged.sourceName'),
+                des: t('debug.ResParamsDes.SourceFilterNameChanged.sourceName'),
             },
             {
                 name: 'filterName',
                 type: "String",
-                des: t('ResParamsDes.SourceFilterNameChanged.filterName'),
+                des: t('debug.ResParamsDes.SourceFilterNameChanged.filterName'),
             },
             {
                 name: 'oldFilterName',
                 type: "String",
-                des: t('ResParamsDes.SourceFilterNameChanged.oldFilterName'),
+                des: t('debug.ResParamsDes.SourceFilterNameChanged.oldFilterName'),
             },
         ]
     },
     SourceFilterSettingsChanged:{
         key: 'SourceFilterSettingsChanged',
         title: 'SourceFilterSettingsChanged',
-        des: t('EventDes.SourceFilterSettingsChanged'),
+        des: t('debug.EventDes.SourceFilterSettingsChanged'),
         tags: ['Filters'],
         responseParams: [
             {
                 name: 'sourceName',
                 type: "String",
-                des: t('ResParamsDes.SourceFilterSettingsChanged.sourceName'),
+                des: t('debug.ResParamsDes.SourceFilterSettingsChanged.sourceName'),
             },
             {
                 name: 'filterName',
                 type: "String",
-                des: t('ResParamsDes.SourceFilterSettingsChanged.filterName'),
+                des: t('debug.ResParamsDes.SourceFilterSettingsChanged.filterName'),
             },
             {
                 name: 'filterSettings',
                 type: "Object",
-                des: t('ResParamsDes.SourceFilterSettingsChanged.filterSettings'),
+                des: t('debug.ResParamsDes.SourceFilterSettingsChanged.filterSettings'),
             },
         ]
     },
     SourceFilterEnableStateChanged:{
         key: 'SourceFilterEnableStateChanged',
         title: 'SourceFilterEnableStateChanged',
-        des: t('EventDes.SourceFilterEnableStateChanged'),
+        des: t('debug.EventDes.SourceFilterEnableStateChanged'),
         tags: ['Filters'],
         responseParams: [
             {
                 name: 'sourceName',
                 type: "String",
-                des: t('ResParamsDes.SourceFilterEnableStateChanged.sourceName'),
+                des: t('debug.ResParamsDes.SourceFilterEnableStateChanged.sourceName'),
             },
             {
                 name: 'filterName',
                 type: "String",
-                des: t('ResParamsDes.SourceFilterEnableStateChanged.filterName'),
+                des: t('debug.ResParamsDes.SourceFilterEnableStateChanged.filterName'),
             },
             {
                 name: 'filterEnabled',
                 type: "Boolean",
-                des: t('ResParamsDes.SourceFilterEnableStateChanged.filterEnabled'),
+                des: t('debug.ResParamsDes.SourceFilterEnableStateChanged.filterEnabled'),
             },
         ]
     },
@@ -1227,201 +1227,201 @@ export const obsEventDetailData:{[index:string]:I_Event_Detail} = {
     SceneItemCreated:{
         key: 'SceneItemCreated',
         title: 'SceneItemCreated',
-        des: t('EventDes.SceneItemCreated'),
+        des: t('debug.EventDes.SceneItemCreated'),
         tags: ['Scene Items'],
         responseParams: [
             {
                 name: 'sceneName',
                 type: "String",
-                des: t('ResParamsDes.SceneItemCreated.sceneName'),
+                des: t('debug.ResParamsDes.SceneItemCreated.sceneName'),
             },
             {
                 name: 'sceneUuid',
                 type: "String",
-                des: t('ResParamsDes.SceneItemCreated.sceneUuid'),
+                des: t('debug.ResParamsDes.SceneItemCreated.sceneUuid'),
             },
             {
                 name: 'sourceName',
                 type: "Number",
-                des: t('ResParamsDes.SceneItemCreated.sourceName'),
+                des: t('debug.ResParamsDes.SceneItemCreated.sourceName'),
             },
             {
                 name: 'sourceUuid',
                 type: "String",
-                des: t('ResParamsDes.SceneItemCreated.sourceUuid'),
+                des: t('debug.ResParamsDes.SceneItemCreated.sourceUuid'),
             },
             {
                 name: 'sceneItemId',
                 type: "Number",
-                des: t('ResParamsDes.SceneItemCreated.sceneItemId'),
+                des: t('debug.ResParamsDes.SceneItemCreated.sceneItemId'),
             },
             {
                 name: 'sceneItemIndex',
                 type: "Number",
-                des: t('ResParamsDes.SceneItemCreated.sceneItemIndex'),
+                des: t('debug.ResParamsDes.SceneItemCreated.sceneItemIndex'),
             },
         ]
     },
     SceneItemRemoved:{
         key: 'SceneItemRemoved',
         title: 'SceneItemRemoved',
-        des: t('EventDes.SceneItemRemoved'),
+        des: t('debug.EventDes.SceneItemRemoved'),
         tags: ['Scene Items'],
         responseParams: [
             {
                 name: 'sceneName',
                 type: "String",
-                des: t('ResParamsDes.SceneItemRemoved.sceneName'),
+                des: t('debug.ResParamsDes.SceneItemRemoved.sceneName'),
             },
             {
                 name: 'sceneUuid',
                 type: "String",
-                des: t('ResParamsDes.SceneItemRemoved.sceneUuid'),
+                des: t('debug.ResParamsDes.SceneItemRemoved.sceneUuid'),
             },
             {
                 name: 'sourceName',
                 type: "Number",
-                des: t('ResParamsDes.SceneItemRemoved.sourceName'),
+                des: t('debug.ResParamsDes.SceneItemRemoved.sourceName'),
             },
             {
                 name: 'sourceUuid',
                 type: "String",
-                des: t('ResParamsDes.SceneItemRemoved.sourceUuid'),
+                des: t('debug.ResParamsDes.SceneItemRemoved.sourceUuid'),
             },
             {
                 name: 'sceneItemId',
                 type: "Number",
-                des: t('ResParamsDes.SceneItemRemoved.sceneItemId'),
+                des: t('debug.ResParamsDes.SceneItemRemoved.sceneItemId'),
             },
         ]
     },
     SceneItemListReindexed:{
         key: 'SceneItemListReindexed',
         title: 'SceneItemListReindexed',
-        des: t('EventDes.SceneItemListReindexed'),
+        des: t('debug.EventDes.SceneItemListReindexed'),
         tags: ['Scene Items'],
         responseParams: [
             {
                 name: 'sceneName',
                 type: "String",
-                des: t('ResParamsDes.SceneItemListReindexed.sceneName'),
+                des: t('debug.ResParamsDes.SceneItemListReindexed.sceneName'),
             },
             {
                 name: 'sceneUuid',
                 type: "String",
-                des: t('ResParamsDes.SceneItemListReindexed.sceneUuid'),
+                des: t('debug.ResParamsDes.SceneItemListReindexed.sceneUuid'),
             },
             {
                 name: 'sceneItems',
                 type: "Array<Object>",
-                des: t('ResParamsDes.SceneItemListReindexed.sceneItems'),
+                des: t('debug.ResParamsDes.SceneItemListReindexed.sceneItems'),
             },
         ]
     },
     SceneItemEnableStateChanged:{
         key: 'SceneItemEnableStateChanged',
         title: 'SceneItemEnableStateChanged',
-        des: t('EventDes.SceneItemEnableStateChanged'),
+        des: t('debug.EventDes.SceneItemEnableStateChanged'),
         tags: ['Scene Items'],
         responseParams: [
             {
                 name: 'sceneName',
                 type: "String",
-                des: t('ResParamsDes.SceneItemEnableStateChanged.sceneName'),
+                des: t('debug.ResParamsDes.SceneItemEnableStateChanged.sceneName'),
             },
             {
                 name: 'sceneUuid',
                 type: "String",
-                des: t('ResParamsDes.SceneItemEnableStateChanged.sceneUuid'),
+                des: t('debug.ResParamsDes.SceneItemEnableStateChanged.sceneUuid'),
             },
             {
                 name: 'sceneItemId',
                 type: "Number",
-                des: t('ResParamsDes.SceneItemEnableStateChanged.sceneItemId'),
+                des: t('debug.ResParamsDes.SceneItemEnableStateChanged.sceneItemId'),
             },
             {
                 name: 'sceneItemEnabled',
                 type: "Boolean",
-                des: t('ResParamsDes.SceneItemEnableStateChanged.sceneItemEnabled'),
+                des: t('debug.ResParamsDes.SceneItemEnableStateChanged.sceneItemEnabled'),
             },
         ]
     },
     SceneItemLockStateChanged:{
         key: 'SceneItemLockStateChanged',
         title: 'SceneItemLockStateChanged',
-        des: t('EventDes.SceneItemLockStateChanged'),
+        des: t('debug.EventDes.SceneItemLockStateChanged'),
         tags: ['Scene Items'],
         responseParams: [
             {
                 name: 'sceneName',
                 type: "String",
-                des: t('ResParamsDes.SceneItemLockStateChanged.sceneName'),
+                des: t('debug.ResParamsDes.SceneItemLockStateChanged.sceneName'),
             },
             {
                 name: 'sceneUuid',
                 type: "String",
-                des: t('ResParamsDes.SceneItemLockStateChanged.sceneUuid'),
+                des: t('debug.ResParamsDes.SceneItemLockStateChanged.sceneUuid'),
             },
             {
                 name: 'sceneItemId',
                 type: "Number",
-                des: t('ResParamsDes.SceneItemLockStateChanged.sceneItemId'),
+                des: t('debug.ResParamsDes.SceneItemLockStateChanged.sceneItemId'),
             },
             {
                 name: 'sceneItemLocked',
                 type: "Boolean",
-                des: t('ResParamsDes.SceneItemLockStateChanged.sceneItemLocked'),
+                des: t('debug.ResParamsDes.SceneItemLockStateChanged.sceneItemLocked'),
             },
         ]
     },
     SceneItemSelected:{
         key: 'SceneItemSelected',
         title: 'SceneItemSelected',
-        des: t('EventDes.SceneItemSelected'),
+        des: t('debug.EventDes.SceneItemSelected'),
         tags: ['Scene Items'],
         responseParams: [
             {
                 name: 'sceneName',
                 type: "String",
-                des: t('ResParamsDes.SceneItemSelected.sceneName'),
+                des: t('debug.ResParamsDes.SceneItemSelected.sceneName'),
             },
             {
                 name: 'sceneUuid',
                 type: "String",
-                des: t('ResParamsDes.SceneItemSelected.sceneUuid'),
+                des: t('debug.ResParamsDes.SceneItemSelected.sceneUuid'),
             },
             {
                 name: 'sceneItemId',
                 type: "Number",
-                des: t('ResParamsDes.SceneItemSelected.sceneItemId'),
+                des: t('debug.ResParamsDes.SceneItemSelected.sceneItemId'),
             },
         ]
     },
     SceneItemTransformChanged:{
         key: 'SceneItemTransformChanged',
         title: 'SceneItemTransformChanged',
-        des: t('EventDes.SceneItemTransformChanged'),
+        des: t('debug.EventDes.SceneItemTransformChanged'),
         tags: ['Scene Items'],
         responseParams: [
             {
                 name: 'sceneName',
                 type: "String",
-                des: t('ResParamsDes.SceneItemTransformChanged.sceneName'),
+                des: t('debug.ResParamsDes.SceneItemTransformChanged.sceneName'),
             },
             {
                 name: 'sceneUuid',
                 type: "String",
-                des: t('ResParamsDes.SceneItemTransformChanged.sceneUuid'),
+                des: t('debug.ResParamsDes.SceneItemTransformChanged.sceneUuid'),
             },
             {
                 name: 'sceneItemId',
                 type: "Number",
-                des: t('ResParamsDes.SceneItemTransformChanged.sceneItemId'),
+                des: t('debug.ResParamsDes.SceneItemTransformChanged.sceneItemId'),
             },
             {
                 name: 'sceneItemTransform',
                 type: "Object",
-                des: t('ResParamsDes.SceneItemTransformChanged.sceneItemTransform'),
+                des: t('debug.ResParamsDes.SceneItemTransformChanged.sceneItemTransform'),
             },
         ]
     },
@@ -1429,90 +1429,90 @@ export const obsEventDetailData:{[index:string]:I_Event_Detail} = {
     StreamStateChanged:{
         key: 'StreamStateChanged',
         title: 'StreamStateChanged',
-        des: t('EventDes.StreamStateChanged'),
+        des: t('debug.EventDes.StreamStateChanged'),
         tags: ['Outputs'],
         responseParams: [
             {
                 name: 'outputActive',
                 type: "Boolean",
-                des: t('ResParamsDes.StreamStateChanged.outputActive'),
+                des: t('debug.ResParamsDes.StreamStateChanged.outputActive'),
             },
             {
                 name: 'outputState',
                 type: "String",
-                des: t('ResParamsDes.StreamStateChanged.outputState'),
+                des: t('debug.ResParamsDes.StreamStateChanged.outputState'),
             },
         ]
     },
     RecordStateChanged:{
         key: 'RecordStateChanged',
         title: 'RecordStateChanged',
-        des: t('EventDes.RecordStateChanged'),
+        des: t('debug.EventDes.RecordStateChanged'),
         tags: ['Outputs'],
         responseParams: [
             {
                 name: 'outputActive',
                 type: "Boolean",
-                des: t('ResParamsDes.RecordStateChanged.outputActive'),
+                des: t('debug.ResParamsDes.RecordStateChanged.outputActive'),
             },
             {
                 name: 'outputState',
                 type: "String",
-                des: t('ResParamsDes.RecordStateChanged.outputState'),
+                des: t('debug.ResParamsDes.RecordStateChanged.outputState'),
             },
             {
                 name: 'outputPath',
                 type: "String",
-                des: t('ResParamsDes.RecordStateChanged.outputPath'),
+                des: t('debug.ResParamsDes.RecordStateChanged.outputPath'),
             },
         ]
     },
     ReplayBufferStateChanged:{
         key: 'ReplayBufferStateChanged',
         title: 'ReplayBufferStateChanged',
-        des: t('EventDes.ReplayBufferStateChanged'),
+        des: t('debug.EventDes.ReplayBufferStateChanged'),
         tags: ['Outputs'],
         responseParams: [
             {
                 name: 'outputActive',
                 type: "Boolean",
-                des: t('ResParamsDes.ReplayBufferStateChanged.outputActive'),
+                des: t('debug.ResParamsDes.ReplayBufferStateChanged.outputActive'),
             },
             {
                 name: 'outputState',
                 type: "String",
-                des: t('ResParamsDes.ReplayBufferStateChanged.outputState'),
+                des: t('debug.ResParamsDes.ReplayBufferStateChanged.outputState'),
             },
         ]
     },
     VirtualcamStateChanged:{
         key: 'VirtualcamStateChanged',
         title: 'VirtualcamStateChanged',
-        des: t('EventDes.VirtualcamStateChanged'),
+        des: t('debug.EventDes.VirtualcamStateChanged'),
         tags: ['Outputs'],
         responseParams: [
             {
                 name: 'outputActive',
                 type: "Boolean",
-                des: t('ResParamsDes.VirtualcamStateChanged.outputActive'),
+                des: t('debug.ResParamsDes.VirtualcamStateChanged.outputActive'),
             },
             {
                 name: 'outputState',
                 type: "String",
-                des: t('ResParamsDes.VirtualcamStateChanged.outputState'),
+                des: t('debug.ResParamsDes.VirtualcamStateChanged.outputState'),
             },
         ]
     },
     ReplayBufferSaved:{
         key: 'ReplayBufferSaved',
         title: 'ReplayBufferSaved',
-        des: t('EventDes.ReplayBufferSaved'),
+        des: t('debug.EventDes.ReplayBufferSaved'),
         tags: ['Outputs'],
         responseParams: [
             {
                 name: 'savedReplayPath',
                 type: "String",
-                des: t('ResParamsDes.VirtualcamStateChanged.savedReplayPath'),
+                des: t('debug.ResParamsDes.VirtualcamStateChanged.savedReplayPath'),
             },
         ]
     },
@@ -1520,59 +1520,59 @@ export const obsEventDetailData:{[index:string]:I_Event_Detail} = {
     MediaInputPlaybackStarted:{
         key: 'MediaInputPlaybackStarted',
         title: 'MediaInputPlaybackStarted',
-        des: t('EventDes.MediaInputPlaybackStarted'),
+        des: t('debug.EventDes.MediaInputPlaybackStarted'),
         tags: ['Media Inputs'],
         responseParams: [
             {
                 name: 'inputName',
                 type: "String",
-                des: t('ResParamsDes.MediaInputPlaybackStarted.inputName'),
+                des: t('debug.ResParamsDes.MediaInputPlaybackStarted.inputName'),
             },
             {
                 name: 'inputUuid',
                 type: "String",
-                des: t('ResParamsDes.MediaInputPlaybackStarted.inputUuid'),
+                des: t('debug.ResParamsDes.MediaInputPlaybackStarted.inputUuid'),
             },
         ]
     },
     MediaInputPlaybackEnded:{
         key: 'MediaInputPlaybackEnded',
         title: 'MediaInputPlaybackEnded',
-        des: t('EventDes.MediaInputPlaybackEnded'),
+        des: t('debug.EventDes.MediaInputPlaybackEnded'),
         tags: ['Media Inputs'],
         responseParams: [
             {
                 name: 'inputName',
                 type: "String",
-                des: t('ResParamsDes.MediaInputPlaybackEnded.inputName'),
+                des: t('debug.ResParamsDes.MediaInputPlaybackEnded.inputName'),
             },
             {
                 name: 'inputUuid',
                 type: "String",
-                des: t('ResParamsDes.MediaInputPlaybackEnded.inputUuid'),
+                des: t('debug.ResParamsDes.MediaInputPlaybackEnded.inputUuid'),
             },
         ]
     },
     MediaInputActionTriggered:{
         key: 'MediaInputActionTriggered',
         title: 'MediaInputActionTriggered',
-        des: t('EventDes.MediaInputActionTriggered'),
+        des: t('debug.EventDes.MediaInputActionTriggered'),
         tags: ['Media Inputs'],
         responseParams: [
             {
                 name: 'inputName',
                 type: "String",
-                des: t('ResParamsDes.MediaInputActionTriggered.inputName'),
+                des: t('debug.ResParamsDes.MediaInputActionTriggered.inputName'),
             },
             {
                 name: 'inputUuid',
                 type: "String",
-                des: t('ResParamsDes.MediaInputActionTriggered.inputUuid'),
+                des: t('debug.ResParamsDes.MediaInputActionTriggered.inputUuid'),
             },
             {
                 name: 'mediaAction',
                 type: "String",
-                des: t('ResParamsDes.MediaInputActionTriggered.mediaAction'),
+                des: t('debug.ResParamsDes.MediaInputActionTriggered.mediaAction'),
             },
         ]
     },
@@ -1580,26 +1580,26 @@ export const obsEventDetailData:{[index:string]:I_Event_Detail} = {
     StudioModeStateChanged:{
         key: 'StudioModeStateChanged',
         title: 'StudioModeStateChanged',
-        des: t('EventDes.StudioModeStateChanged'),
+        des: t('debug.EventDes.StudioModeStateChanged'),
         tags: ['Ui'],
         responseParams: [
             {
                 name: 'studioModeEnabled',
                 type: "Boolean",
-                des: t('ResParamsDes.StudioModeStateChanged.studioModeEnabled'),
+                des: t('debug.ResParamsDes.StudioModeStateChanged.studioModeEnabled'),
             },
         ]
     },
     ScreenshotSaved:{
         key: 'ScreenshotSaved',
         title: 'ScreenshotSaved',
-        des: t('EventDes.ScreenshotSaved'),
+        des: t('debug.EventDes.ScreenshotSaved'),
         tags: ['Ui'],
         responseParams: [
             {
                 name: 'savedScreenshotPath',
                 type: "String",
-                des: t('ResParamsDes.ScreenshotSaved.savedScreenshotPath'),
+                des: t('debug.ResParamsDes.ScreenshotSaved.savedScreenshotPath'),
             },
         ]
     },
