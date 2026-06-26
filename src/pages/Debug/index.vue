@@ -1,247 +1,266 @@
 <template>
-    <div class="main">
-      <a-layout class="nobackground">
-        <!-- <a-layout-header  class="header">
-          
-        </a-layout-header> -->
-        <NavHeader >
-            <template #middle>
-              <HeaderBar></HeaderBar>
-            </template>
-          </NavHeader>
-  
-        <a-layout class="middle">
-          <a-layout-sider :width="leftTreeWidth" theme="light" class="side">
-              <div class="listContainer">
-                  <div class="searchSection flex-al-center">
-                      <!-- <a-input v-model:value="searchValue" type="text">
-                          <template #prefix>
-                              <SearchOutlined />
-                          </template>
-                      </a-input> -->
-                      <a-auto-complete
-                          v-model:value="searchValue"
-                          allowClear
-                          style="width: 100%"
-                          :options="searchOptions"
-                          :filter-option="filterOption"
-                          @search="handleSearch"
-                          placeholder="input here"
-                      />
-                      <a-button @click="handleSearch">search</a-button>
-                  </div>
-                  <div class="summarySection flex-al-center" :class="summarySelected?'selected':''"
-                      @click="handleSummaryClick"
-                  >
-                      <ReadOutlined />
-                      <span>{{ $t('debug.Titles.TreeList.summary') }}</span>
-                  </div>
-                  <div class="listSection">
-                      <a-directory-tree
-                          :showIcon="false"
-                          v-model:selectedKeys="selectedKeys"
-                          v-model:expandedKeys="expandedKeys"
-                          :tree-data="obsTreeData"
-                          @click="handleClick"
-                      >
-                      <template #title="itemData">
-                          <TreeItem :options="itemData"></TreeItem>
-                      </template>
-                      </a-directory-tree>
-                  </div>
-              </div>
-              
-          </a-layout-sider>
-          <div class="sash vertical" :class="sashClass" @mousedown="(event)=>{startResize(event,true,'leftTreeWidth')}"></div>
-          <a-layout-content class="content">
-            <Detail :name="detailName"></Detail>
-          </a-layout-content>
-        </a-layout>
-  
-        <a-layout-footer class="footer">
-          <BottomBar></BottomBar>
-        </a-layout-footer>
-      </a-layout>
-    </div>
-  </template>
-  
-  <script setup lang="ts">
-  import NavHeader from '../../components/NavHeader.vue';
+  <div class="debug-page">
+    <a-layout class="debug-layout">
+      <NavHeader>
+        <template #middle>
+          <HeaderBar />
+        </template>
+      </NavHeader>
 
-  import HeaderBar from "../../components/HeaderBar/index.vue";
-  import BottomBar from "../../components/BottomBar/index.vue";
-  import TreeItem from "../../components/TreeList/treeItem.vue";
-  import Detail from "../../components/Detail/request.vue";
-  import { ref,computed,onMounted } from "vue";
-  import { TreeProps } from "ant-design-vue";
-  import { SearchOutlined,ReadOutlined,PushpinOutlined } from "@ant-design/icons-vue";
-  import { t } from "../../locales";
-  import {obsTreeData} from "../../data";
-  import { onBeforeRouteUpdate } from "vue-router";
-  import { DataNode } from "ant-design-vue/es/tree";
-  import { detailName, selectedKeys, expandedKeys, getParentListFromKey,leftTreeWidth,pageWidgets } from "../../state";
-  
-  
-  const searchValue = ref("");
-  const summarySelected = ref(false);
-  
-  const searchOptions = ref([])
-  let animationFrameId = null
-  let isResizeDirectionX = true
-  let widgetNameNeedResize = ''
-  
-  // 用来保持显示sash的class
-  const sashClass = ref('')
-  
-  const handleSearch = ()=>{
-    if(searchValue.value){
-      summarySelected.value = false;
-      detailName.value = searchValue.value
-      selectedKeys.value = [searchValue.value]
-      const expandedList = getParentListFromKey(searchValue.value)
-      // 如果父节点不再expandedKeys中，添加进去，展开父节点
-      if(expandedList.length){
-          expandedList.forEach(key=>{
-              if(!expandedKeys.value.includes(key)){
-                  expandedKeys.value.push(key)
-              }
-          })
-      }
-      // console.log('====expandedList',expandedList)
+      <a-layout class="debug-body">
+        <a-layout-sider :width="leftTreeWidth" class="sidebar">
+          <div class="sidebar-inner">
+            <div class="search-bar">
+              <a-auto-complete
+                v-model:value="searchValue"
+                allowClear
+                style="width: 100%"
+                :options="searchOptions"
+                :filter-option="filterOption"
+                :placeholder="$t('debug.searchPlaceholder')"
+                @select="handleSearchSelect"
+              />
+            </div>
+            <div
+              class="summary-item"
+              :class="{ active: summarySelected }"
+              @click="handleSummaryClick"
+            >
+              <ReadOutlined />
+              <span>{{ $t('debug.Titles.TreeList.summary') }}</span>
+            </div>
+            <div class="tree-section">
+              <a-directory-tree
+                :showIcon="false"
+                v-model:selectedKeys="selectedKeys"
+                v-model:expandedKeys="expandedKeys"
+                :tree-data="obsTreeData"
+                @click="handleClick"
+              >
+                <template #title="itemData">
+                  <TreeItem :options="itemData" />
+                </template>
+              </a-directory-tree>
+            </div>
+          </div>
+        </a-layout-sider>
+
+        <div
+          class="sash vertical"
+          :class="sashClass"
+          @mousedown="(event) => startResize(event, true, 'leftTreeWidth')"
+        />
+
+        <a-layout-content class="detail-area">
+          <Detail :name="detailName" />
+        </a-layout-content>
+      </a-layout>
+
+      <footer class="status-footer">
+        <BottomBar />
+      </footer>
+    </a-layout>
+  </div>
+</template>
+
+<script setup lang="ts">
+import NavHeader from '../../components/NavHeader.vue'
+import HeaderBar from '../../components/HeaderBar/index.vue'
+import BottomBar from '../../components/BottomBar/index.vue'
+import TreeItem from '../../components/TreeList/treeItem.vue'
+import Detail from '../../components/Detail/request.vue'
+import { ref, onMounted } from 'vue'
+import { ReadOutlined } from '@ant-design/icons-vue'
+import { obsTreeData } from '../../data'
+import { DataNode } from 'ant-design-vue/es/tree'
+import {
+  detailName,
+  selectedKeys,
+  expandedKeys,
+  getParentListFromKey,
+  leftTreeWidth,
+  pageWidgets,
+} from '../../state'
+
+const searchValue = ref('')
+const summarySelected = ref(false)
+const searchOptions = ref<{ value: string; key: string }[]>([])
+let animationFrameId: number | null = null
+let isResizeDirectionX = true
+let widgetNameNeedResize = ''
+const sashClass = ref('')
+
+const navigateToItem = (key: string) => {
+  if (!key) return
+  summarySelected.value = false
+  detailName.value = key
+  selectedKeys.value = [key]
+  const expandedList = getParentListFromKey(key)
+  expandedList.forEach((k) => {
+    if (!expandedKeys.value.includes(k)) {
+      expandedKeys.value.push(k)
     }
-  }
-  
-  const filterOption = (input: string, option:any) => {
-    return option.value.toUpperCase().indexOf(input.toUpperCase()) >= 0;
-  };
-  
-  
-  const expendData = (lists:DataNode[])=>{
-    lists.map(list=>{
-      if(list.children && list.children.length){
-        expendData(list.children)
-      }else{
-        // @ts-ignore
-        searchOptions.value.push({
-          value: list.title,
-          key: list.key
-        })
-      }
-    })
-  }
-  
-  onMounted(()=>{
-    expendData(obsTreeData)
   })
-  
-  const handleSummaryClick = () => {
-      summarySelected.value = true;
-      selectedKeys.value = [];
-  };
-  
-  const handleClick = (e: Event,data:any) => {
-      summarySelected.value = false;
-      detailName.value = data.key
-      console.log('handleClick data',data)
-      console.log('data key',data.key)
-      console.log('expandedKeys',expandedKeys.value);
-      console.log('selectedKeys',selectedKeys.value);
-  };
-  
-  const startResize = (event:MouseEvent,isX:boolean,storageName)=>{  
-    isResizeDirectionX = isX
-    widgetNameNeedResize = storageName
-    sashClass.value = 'ischanging'
-    document.addEventListener('mousemove',resizeWidget)
-    document.addEventListener('mouseup',finishResize)
-  }
-  
-  const finishResize = ()=>{
-    document.removeEventListener('mousemove',resizeWidget);
-    sashClass.value = ''
-    if (animationFrameId !== null) {
-      cancelAnimationFrame(animationFrameId);
-      animationFrameId = null;
+}
+
+const handleSearchSelect = (value: string) => {
+  navigateToItem(value)
+}
+
+const filterOption = (input: string, option: { value: string }) => {
+  return option.value.toUpperCase().indexOf(input.toUpperCase()) >= 0
+}
+
+const expendData = (lists: DataNode[]) => {
+  lists.forEach((list) => {
+    if (list.children?.length) {
+      expendData(list.children)
+    } else {
+      searchOptions.value.push({
+        value: list.title as string,
+        key: list.key as string,
+      })
     }
+  })
+}
+
+onMounted(() => {
+  expendData(obsTreeData)
+})
+
+const handleSummaryClick = () => {
+  summarySelected.value = true
+  selectedKeys.value = []
+}
+
+const handleClick = (_e: Event, data: { key: string }) => {
+  summarySelected.value = false
+  detailName.value = data.key
+}
+
+const startResize = (_event: MouseEvent, isX: boolean, storageName: string) => {
+  isResizeDirectionX = isX
+  widgetNameNeedResize = storageName
+  sashClass.value = 'ischanging'
+  document.addEventListener('mousemove', resizeWidget)
+  document.addEventListener('mouseup', finishResize)
+}
+
+const finishResize = () => {
+  document.removeEventListener('mousemove', resizeWidget)
+  document.removeEventListener('mouseup', finishResize)
+  sashClass.value = ''
+  if (animationFrameId !== null) {
+    cancelAnimationFrame(animationFrameId)
+    animationFrameId = null
   }
-  
-  
-  const resizeWidget = (event:MouseEvent)=>{
-    if (animationFrameId !== null) {
-      return;
-    }
-    animationFrameId = requestAnimationFrame(() => {
-      pageWidgets[widgetNameNeedResize].value = isResizeDirectionX?event.clientX:event.clientY;
-      animationFrameId = null;
-    });
+}
+
+const resizeWidget = (event: MouseEvent) => {
+  if (animationFrameId !== null) return
+  animationFrameId = requestAnimationFrame(() => {
+    pageWidgets[widgetNameNeedResize].value = isResizeDirectionX
+      ? event.clientX
+      : event.clientY
+    animationFrameId = null
+  })
+}
+</script>
+
+<style scoped lang="scss">
+.debug-page {
+  height: 100vh;
+  width: 100vw;
+  overflow: hidden;
+}
+
+.debug-layout {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.debug-body {
+  flex: 1;
+  overflow: hidden;
+  display: flex;
+}
+
+.sidebar {
+  border-right: 1px solid var(--color-border);
+  overflow: hidden;
+}
+
+.sidebar-inner {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  overflow: hidden;
+}
+
+.search-bar {
+  padding: var(--space-sm) var(--space-md);
+  border-bottom: 1px solid var(--color-border-light);
+  flex-shrink: 0;
+}
+
+.summary-item {
+  display: flex;
+  align-items: center;
+  gap: var(--space-sm);
+  padding: var(--space-sm) var(--space-md);
+  font-size: 13px;
+  color: var(--color-text-secondary);
+  cursor: pointer;
+  border-bottom: 1px solid var(--color-border-light);
+  flex-shrink: 0;
+  transition: background 0.15s, color 0.15s;
+
+  &:hover {
+    background: var(--color-bg-subtle);
+    color: var(--color-text);
   }
-  
-  
-  </script>
-  
-  <style scoped lang="scss">
-  .main {
-    height: 100vh;
-    width: 100vw;
-  
-    // .header {
-    //   // background-color: rgb(0, 33, 43);
-    //   padding: 0;
-    //   height: 40px;
-    // }
-    .middle {
-      // background-color: rgb(0, 33, 43);
-      padding: 0;
-      height: calc(100vh - 80px);
-      .listContainer{
-          overflow: auto;
-          // background-color: aqua;
-          display: flex;
-          flex-direction: column;
-          height: 100%;
-          width: 100%;
-          // overflow: hidden;
-          .searchSection, .summarySection{
-              padding: 2px 10px;
-              gap: 10px;
-              intput{
-                  flex: 1;
-              }
-          }
-          .summarySection:hover{
-              background-color: rgba(94, 94, 94, 0.1);
-          }
-      }
-      .content{
-        overflow-y: scroll;
-        &::-webkit-scrollbar{
-          width: 5px;
-          background-color: #F5F5F5;
-        }
-        &::-webkit-scrollbar-thumb{
-          background-color: #666;
-          border-radius: 2px;
-        }
-      }
-  
-    }
-  
-    .footer {
-      background-color: rgb(0, 33, 43);
-      padding: 0;
-      height: 40px;
-    }
+
+  &.active {
+    background: var(--color-primary-light);
+    color: var(--color-primary);
+    font-weight: 500;
   }
-  
-  .selected {
-      background-color: #1677ff;
-      // color: white;
+}
+
+.tree-section {
+  flex: 1;
+  overflow: auto;
+  padding: var(--space-xs) var(--space-sm);
+
+  &::-webkit-scrollbar {
+    width: 4px;
   }
-  
-  .selected:hover {
-      background-color: #1677ff !important;
-      // color: white;
+
+  &::-webkit-scrollbar-thumb {
+    background: var(--color-border);
+    border-radius: 2px;
   }
-  
-  </style>
-  
+}
+
+.detail-area {
+  overflow-y: auto;
+  padding: var(--space-lg);
+
+  &::-webkit-scrollbar {
+    width: 4px;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background: var(--color-border);
+    border-radius: 2px;
+  }
+}
+
+.status-footer {
+  height: var(--footer-height);
+  border-top: 1px solid var(--color-border);
+  background: var(--color-bg-elevated);
+  flex-shrink: 0;
+}
+</style>

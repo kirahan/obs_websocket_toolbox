@@ -1,122 +1,85 @@
 <template>
-    <div class="statusBar">
-        <div class="leftItem container"> </div>
-
-        <div v-if="!WSconnected" class="middleItem container">
-            <div >Debug Tools</div>
-        </div>
-
-        <div v-if="WSconnected" class="rightItem container">
-            
-            <div class="websocket item">
-                <div class="flexdiv">
-                    <a-divider class="bottomDivider" type="vertical" />
-                    <span>Profile:{{ Profile }}</span>
-                    <a-divider class="bottomDivider" type="vertical" />
-                    <span>SC:{{ SceneCollection }}</span>
-                </div>
-            </div>
-            <div class="websocket item">
-                <div class="flexdiv">
-                    <a-divider class="bottomDivider" type="vertical" />
-                    <span>Base:{{ baseSize }}</span>
-                    <a-divider class="bottomDivider" type="vertical" />
-                    <span>Out:{{ outputSize }}</span>
-                </div>
-            </div>
-        </div>
+  <div class="header-bar">
+    <div v-if="!WSconnected" class="connection-status disconnected">
+      <span class="status-dot" />
+      <span>{{ $t('debug.connection.disconnected') }}</span>
     </div>
+    <div v-else class="connection-info">
+      <span class="status-dot connected" />
+      <span class="info-item">{{ $t('debug.connection.profile') }}: {{ Profile }}</span>
+      <span class="divider" />
+      <span class="info-item">{{ $t('debug.connection.sceneCollection') }}: {{ SceneCollection }}</span>
+      <span class="divider" />
+      <span class="info-item">{{ $t('debug.connection.base') }}: {{ baseSize }}</span>
+      <span class="divider" />
+      <span class="info-item">{{ $t('debug.connection.output') }}: {{ outputSize }}</span>
+    </div>
+  </div>
 </template>
 
 <script setup lang="ts">
-import { ref,reactive, computed } from 'vue'
-import { WindowsOutlined,BranchesOutlined,LinkOutlined,DisconnectOutlined,AppleOutlined,GithubOutlined } from '@ant-design/icons-vue';
-import { WSconnected,OBSVideoConfig,OBSGeneralConfig, switchLang } from '../../state';
+import { computed } from 'vue'
+import { WSconnected, OBSVideoConfig, OBSGeneralConfig } from '../../state'
 
-
-const baseSize = computed(()=> OBSVideoConfig.baseWidth.value + 'x' + OBSVideoConfig.baseHeight.value)
-const outputSize = computed(()=> OBSVideoConfig.outputWidth.value + 'x' + OBSVideoConfig.outputHeight.value)
-
-const Profile = computed(() => OBSGeneralConfig.currentProfile.value );
-const SceneCollection = computed(() => OBSGeneralConfig.currentSCname.value );
-
-
+const baseSize = computed(
+  () => OBSVideoConfig.baseWidth.value + '×' + OBSVideoConfig.baseHeight.value,
+)
+const outputSize = computed(
+  () => OBSVideoConfig.outputWidth.value + '×' + OBSVideoConfig.outputHeight.value,
+)
+const Profile = computed(() => OBSGeneralConfig.currentProfile.value)
+const SceneCollection = computed(() => OBSGeneralConfig.currentSCname.value)
 </script>
 
 <style scoped lang="scss">
-.statusBar{
-    display: flex;
-    color: rgb(147,161,161);
-    font-size: 14px;
-    font-weight: bold;
-    overflow: hidden;
-    height:100%;
-    width:100%;
-    .container{
-        .item:hover{
-            background-color: rgba(147,161,161,0.4);
-        }
-        .item:hover .flexdiv{
-            background-color: rgba(147,161,161,0.2);
-        }
-    }
-    .leftItem{
-        flex: 1;
-        display: flex;
-        align-items: center;
-        .websocket{}
-    }
-    .middleItem{
-        flex: 1;
-        display: flex;
-        align-items: center;
-    }
-    .rightItem{
-        flex-direction: row-reverse;
-        display: flex;
-        align-items: center;
-    }
+.header-bar {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  font-size: 12px;
 }
 
-
-.item{
-    display: flex;
-    align-items: center;
-    height: 100%;
-    padding: 0 0 0 0px;
+.connection-status {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  color: var(--color-text-muted);
 }
 
-.flexdiv{
-    height: 100%;
-    padding: 0 2px;
-    display: flex;
-    align-items: center;
-    span{
-        padding: 0 2px;
-    }
+.connection-info {
+  display: flex;
+  align-items: center;
+  gap: var(--space-sm);
+  color: var(--color-text-secondary);
+  flex-wrap: wrap;
+  justify-content: center;
 }
 
-.clickAble{
-    cursor: pointer;
+.status-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--color-text-muted);
+  flex-shrink: 0;
+
+  &.connected {
+    background: var(--color-success);
+  }
 }
 
-.iconBtn{
-    height: 100%;
-    padding: 0 5px;
-    display: flex;
-    align-items: center;
-    background-color: rgba(42, 161, 152, 0.6);
-    cursor: pointer;
-    &.red{
-    background-color: rgba(255, 0, 0, 0.6);
-}
+.disconnected .status-dot {
+  background: var(--color-error);
 }
 
-.bottomDivider{
-    margin: 0 2px;
-    height: 100%;
-    background-color: rgba(147,161,161,0.2);
-    top: 0;
+.info-item {
+  white-space: nowrap;
 }
 
+.divider {
+  width: 1px;
+  height: 12px;
+  background: var(--color-border);
+  flex-shrink: 0;
+}
 </style>

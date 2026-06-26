@@ -1,5 +1,24 @@
 {
   "name": "OBS",
+  "searchPlaceholder": "搜索请求或事件…",
+  "selectRequest": "从左侧选择一个请求或事件",
+  "notSupported": "不支持",
+  "noEvents": "暂无请求或事件记录",
+  "connection": {
+    "disconnected": "WebSocket 未连接",
+    "profile": "配置",
+    "sceneCollection": "场景集合",
+    "base": "基础分辨率",
+    "output": "输出分辨率",
+    "host": "主机",
+    "port": "端口",
+    "password": "密码",
+    "save": "保存",
+    "hostRequired": "请输入主机地址",
+    "portRequired": "请输入端口",
+    "memory": "内存",
+    "disk": "磁盘"
+  },
   "Titles": {
     "TreeList": {
       "summary": "介绍"
@@ -159,7 +178,16 @@
     "OpenInputInteractDialog": "打开输入的交互对话框。",
     "GetMonitorList": "获取连接的监视器列表及有关它们的信息。",
     "OpenVideoMixProjector": "为特定输出视频混合打开投影仪。混合类型：OBS_WEBSOCKET_VIDEO_MIX_TYPE_PREVIEW、OBS_WEBSOCKET_VIDEO_MIX_TYPE_PROGRAM、OBS_WEBSOCKET_VIDEO_MIX_TYPE_MULTIVIEW。注意：这个请求是为了提供与4.x版本的功能一致性。它很可能会在未来的版本中更改/弃用。",
-    "OpenSourceProjector": "为源打开投影仪。注意：这个请求是为了提供与4.x版本的功能一致性。它很可能会在未来的版本中更改/弃用。"
+    "OpenSourceProjector": "为源打开投影仪。注意：这个请求是为了提供与4.x版本的功能一致性。它很可能会在未来的版本中更改/弃用。",
+    "GetSceneCollectionList": "Gets an array of all scene collections",
+    "SetCurrentSceneCollection": "Switches to a scene collection.<br><br>Note: This will block until the collection has finished changing.",
+    "GetCanvasList": "Gets an array of canvases in OBS.",
+    "GetInputDeinterlaceMode": "Gets the deinterlace mode of an input.<br><br>Deinterlace Modes:<br><br>- `OBS_DEINTERLACE_MODE_DISABLE` - `OBS_DEINTERLACE_MODE_DISCARD` - `OBS_DEINTERLACE_MODE_RETRO` - `OBS_DEINTERLACE_MODE_BLEND` - `OBS_DEINTERLACE_MODE_BLEND_2X` - `OBS_DEINTERLACE_MODE_LINEAR` - `OBS_DEINTERLACE_MODE_LINEAR_2X` - `OBS_DEINTERLACE_MODE_YADIF` - `OBS_DEINTERLACE_MODE_YADIF_2X`<br><br>Note: Deinterlacing functionality is restricted to async inputs only.",
+    "SetInputDeinterlaceMode": "Sets the deinterlace mode of an input.<br><br>Note: Deinterlacing functionality is restricted to async inputs only.",
+    "GetInputDeinterlaceFieldOrder": "Gets the deinterlace field order of an input.<br><br>Deinterlace Field Orders:<br><br>- `OBS_DEINTERLACE_FIELD_ORDER_TOP` - `OBS_DEINTERLACE_FIELD_ORDER_BOTTOM`<br><br>Note: Deinterlacing functionality is restricted to async inputs only.",
+    "SetInputDeinterlaceFieldOrder": "Sets the deinterlace field order of an input.<br><br>Note: Deinterlacing functionality is restricted to async inputs only.",
+    "SplitRecordFile": "Splits the current file being recorded into a new file.",
+    "CreateRecordChapter": "Adds a new chapter marker to the file currently being recorded.<br><br>Note: As of OBS 30.2.0, the only file format supporting this feature is Hybrid MP4."
   },
   "EventDes": {
     "ExitStarted": "OBS已开始关闭流程。",
@@ -215,7 +243,13 @@
     "MediaInputPlaybackEnded": "媒体输入已播放结束。",
     "MediaInputActionTriggered": "已在输入上执行操作。",
     "StudioModeStateChanged": "工作室模式已启用或禁用。",
-    "ScreenshotSaved": "截图已被保存。注意：仅在设置 -> 热键 -> 截图输出中可用的截图功能触发。使用Get/SaveSourceScreenshot的应用程序应实现CustomEvent，如果需要这种客户端间通信。"
+    "ScreenshotSaved": "截图已被保存。注意：仅在设置 -> 热键 -> 截图输出中可用的截图功能触发。使用Get/SaveSourceScreenshot的应用程序应实现CustomEvent，如果需要这种客户端间通信。",
+    "CanvasCreated": "A new canvas has been created.",
+    "CanvasRemoved": "A canvas has been removed.",
+    "CanvasNameChanged": "The name of a canvas has changed.",
+    "SourceFilterRemoved": "A filter has been removed from a source.",
+    "SourceFilterNameChanged": "The name of a source filter has changed.",
+    "RecordFileChanged": "The record output has started writing to a new file. For example, when a file split happens."
   },
   "ReqParamsDes": {
     "BroadcastCustomEvent": {
@@ -294,7 +328,8 @@
     },
     "GetSourceActive": {
       "sourceName": "要获取激活状态的源的名称",
-      "sourceUuid": "要获取激活状态的源的UUID"
+      "sourceUuid": "要获取激活状态的源的UUID",
+      "canvasUuid": "UUID of the canvas the source is in, if using sourceName field"
     },
     "GetSourceScreenshot": {
       "sourceName": "要获取截图的源的名称",
@@ -302,7 +337,8 @@
       "imageFormat": "要使用的图像压缩格式。使用GetVersion获取兼容的图像格式",
       "imageWidth": "要缩放到的宽度",
       "imageHeight": "要缩放到的高度",
-      "imageCompressionQuality": "要使用的压缩质量。0表示高压缩，100表示未压缩。-1表示使用“默认”（具体含义不明）"
+      "imageCompressionQuality": "要使用的压缩质量。0表示高压缩，100表示未压缩。-1表示使用“默认”（具体含义不明）",
+      "canvasUuid": "UUID of the canvas the source is in, if using sourceName field"
     },
     "SaveSourceScreenshot": {
       "sourceName": "要保存截图的源的名称",
@@ -311,7 +347,8 @@
       "imageWidth": "要缩放到的宽度",
       "imageHeight": "要缩放到的高度",
       "imageCompressionQuality": "要使用的压缩质量。0表示高压缩，100表示未压缩。-1表示使用“默认”（具体含义不明）",
-      "imageFilePath": "保存截图文件的路径。例如：C:\\Users\\user\\Desktop\\screenshot.png"
+      "imageFilePath": "保存截图文件的路径。例如：C:\\Users\\user\\Desktop\\screenshot.png",
+      "canvasUuid": "UUID of the canvas the source is in, if using sourceName field"
     },
     "SetCurrentProgramScene": {
       "sceneName": "要设置为节目场景的名称",
@@ -322,26 +359,31 @@
       "sceneUuid": "要设置为预览场景的UUID"
     },
     "CreateScene": {
-      "sceneName": "新场景的名称"
+      "sceneName": "新场景的名称",
+      "canvasUuid": "UUID of the canvas to create the new scene in. Leave default to assume main canvas"
     },
     "RemoveScene": {
       "sceneName": "要删除的场景的名称",
-      "sceneUuid": "要删除的场景的UUID"
+      "sceneUuid": "要删除的场景的UUID",
+      "canvasUuid": "UUID of the canvas the scene is in, if using the sceneName field"
     },
     "SetSceneName": {
       "sceneName": "当前场景名称",
       "sceneUuid": "当前场景UUID",
-      "newSceneName": "场景的新名称"
+      "newSceneName": "场景的新名称",
+      "canvasUuid": "UUID of the canvas the scene is in, if using the sceneName field"
     },
     "GetSceneSceneTransitionOverride": {
       "sceneName": "要获取场景转换覆盖的场景名称",
-      "sceneUuid": "要获取场景转换覆盖的场景UUID"
+      "sceneUuid": "要获取场景转换覆盖的场景UUID",
+      "canvasUuid": "UUID of the canvas the scene is in, if using the sceneName field"
     },
     "SetSceneSceneTransitionOverride": {
       "sceneName": "要设置场景转换覆盖的场景名称",
       "sceneUuid": "要设置场景转换覆盖的场景UUID",
       "transitionName": "用作覆盖的场景转换名称。指定null以移除",
-      "transitionDuration": "用于任何覆盖转换的持续时间。指定null以移除"
+      "transitionDuration": "用于任何覆盖转换的持续时间。指定null以移除",
+      "canvasUuid": "UUID of the canvas the scene is in, if using the sceneName field"
     },
     "GetInputList": {
       "inputKind": "输入的类型"
@@ -355,7 +397,8 @@
       "inputName": "新创建的输入名称",
       "inputKind": "输入的类型",
       "inputSettings": "输入的设置对象",
-      "sceneItemEnabled": "在创建时应用到场景项的启用状态"
+      "sceneItemEnabled": "在创建时应用到场景项的启用状态",
+      "canvasUuid": "UUID of the canvas the scene is in, if using the sceneName field"
     },
     "inputName": "新创建的输入名称",
     "inputSettings": "输入的设置对象",
@@ -370,7 +413,8 @@
     },
     "GetInputDefaultSettings": {
       "inputName": "要获取默认设置的输入类型",
-      "defaultInputSettings": "输入类型的默认设置对象"
+      "defaultInputSettings": "输入类型的默认设置对象",
+      "inputKind": "Input kind to get the default settings for"
     },
     "GetInputSettings": {
       "inputName": "要获取设置的输入名称",
@@ -470,7 +514,8 @@
     },
     "GetSourceFilterList": {
       "sourceName": "源的名称",
-      "sourceUuid": "源的UUID"
+      "sourceUuid": "源的UUID",
+      "canvasUuid": "UUID of the canvas the source is in, if using the sourceName field"
     },
     "GetSourceFilterDefaultSettings": {
       "filterKind": "要获取默认设置的过滤器类型",
@@ -481,76 +526,96 @@
       "sourceUuid": "要添加过滤器的源的UUID",
       "filterName": "要创建的新过滤器的名称",
       "filterKind": "要创建的过滤器类型",
-      "filterSettings": "用于初始化过滤器的设置对象"
+      "filterSettings": "用于初始化过滤器的设置对象",
+      "canvasUuid": "UUID of the canvas the source is in, if using the sourceName field"
     },
     "RemoveSourceFilter": {
       "sourceName": "过滤器所在的源的名称",
       "sourceUuid": "过滤器所在的源的UUID",
-      "filterName": "要删除的过滤器的名称"
+      "filterName": "要删除的过滤器的名称",
+      "canvasUuid": "UUID of the canvas the source is in, if using the sourceName field"
     },
     "SetSourceFilterName": {
       "sourceName": "过滤器所在的源的名称",
       "sourceUuid": "过滤器所在的源的UUID",
       "newFilterName": "过滤器的新名称",
-      "filterName": "过滤器当前的名称"
+      "filterName": "过滤器当前的名称",
+      "canvasUuid": "UUID of the canvas the source is in, if using the sourceName field"
     },
     "GetSourceFilter": {
       "filterName": "过滤器的名称",
       "sourceUuid": "源的UUID",
-      "sourceName": "源的名称"
+      "sourceName": "源的名称",
+      "canvasUuid": "UUID of the canvas the source is in, if using the sourceName field"
     },
     "SetSourceFilterIndex": {
       "sourceName": "过滤器所在的源的名称",
       "sourceUuid": "过滤器所在的源的UUID",
       "filterName": "过滤器的名称",
-      "filterIndex": "过滤器的新索引位置"
+      "filterIndex": "过滤器的新索引位置",
+      "canvasUuid": "UUID of the canvas the source is in, if using the sourceName field"
     },
     "SetSourceFilterSettings": {
       "sourceName": "过滤器所在的源的名称",
       "sourceUuid": "过滤器所在的源的UUID",
       "filterName": "要设置设置的过滤器的名称",
       "filterIndex": "要应用的设置对象",
-      "overlay": "True == 在现有设置上应用设置，False == 将过滤器重置为其默认值，然后应用设置."
+      "overlay": "True == 在现有设置上应用设置，False == 将过滤器重置为其默认值，然后应用设置.",
+      "canvasUuid": "UUID of the canvas the source is in, if using the sourceName field",
+      "filterSettings": "Object of settings to apply"
     },
     "SetSourceFilterEnabled": {
       "filterEnabled": "过滤器的新启用状态",
       "filterName": "过滤器的名称",
       "sourceUuid": "过滤器所在的源的UUID",
-      "sourceName": "过滤器所在的源的名称"
+      "sourceName": "过滤器所在的源的名称",
+      "canvasUuid": "UUID of the canvas the source is in, if using the sourceName field"
     },
     "GetSceneItemList": {
       "sceneName": "要获取项目列表的场景名称",
       "sceneUuid": "要获取项目列表的场景UUID",
       "sourceName": "场景的源名称",
-      "sourceUuid": "场景的源UUID"
+      "sourceUuid": "场景的源UUID",
+      "canvasUuid": "UUID of the canvas the scene is in, if using the sceneName field"
     },
     "GetGroupSceneItemList": {
       "sourceName": "要获取项目列表的组名称",
       "sourceUuid": "要获取项目列表的组UUID",
       "sceneUuid": "要获取项目列表的组的场景UUID",
-      "sceneName": "要获取项目列表的组的场景名称"
+      "sceneName": "要获取项目列表的组的场景名称",
+      "canvasUuid": "UUID of the canvas the group is in, if using the sceneName field"
     },
     "GetSceneItemId": {
       "sourceName": "要查找的源的名称",
       "sourceUuid": "要搜索的场景或组的UUID",
-      "searchOffset": "搜索期间要跳过的匹配数。>= 0 表示第一个向前。-1 表示最后一个（顶部）项目"
+      "searchOffset": "搜索期间要跳过的匹配数。>= 0 表示第一个向前。-1 表示最后一个（顶部）项目",
+      "canvasUuid": "UUID of the canvas the scene or group is in, if using the sceneName field",
+      "sceneName": "Name of the scene or group to search in",
+      "sceneUuid": "UUID of the scene or group to search in"
     },
     "GetSceneItemSource": {
       "sourceName": "场景项所在的场景名称",
       "sourceUuid": "场景项所在的场景UUID",
-      "sceneItemId": "场景项的数字ID"
+      "sceneItemId": "场景项的数字ID",
+      "canvasUuid": "UUID of the canvas the scene is in, if using the sceneName field",
+      "sceneName": "Name of the scene the item is in",
+      "sceneUuid": "UUID of the scene the item is in"
     },
     "CreateSceneItem": {
       "sourceName": "要创建新项的场景名称",
       "sourceUuid": "要创建新项的场景UUID",
-      "sceneItemEnabled": "在创建时应用到场景项的启用状态"
+      "sceneItemEnabled": "在创建时应用到场景项的启用状态",
+      "canvasUuid": "UUID of the canvas the scene is in, if using the sceneName field",
+      "sceneName": "Name of the scene to create the new item in",
+      "sceneUuid": "UUID of the scene to create the new item in"
     },
     "RemoveSceneItem": {
       "sourceName": "场景项所在的场景名称",
       "sourceUuid": "场景项所在的场景UUID",
       "sceneItemId": "场景项的数字ID",
       "sceneName": "场景项所在的场景名称",
-      "sceneUuid": "场景项所在的场景UUID"
+      "sceneUuid": "场景项所在的场景UUID",
+      "canvasUuid": "UUID of the canvas the scene is in, if using the sceneName field"
     },
     "DuplicateSceneItem": {
       "sourceName": "场景项所在的场景名称",
@@ -559,61 +624,73 @@
       "sceneName": "场景项所在的场景名称",
       "sceneItemId": "场景项的数字ID",
       "destinationSceneName": "要创建复制项的场景名称",
-      "destinationSceneUuid": "要创建复制项的场景UUID"
+      "destinationSceneUuid": "要创建复制项的场景UUID",
+      "canvasUuid": "UUID of the canvas the scene is in, if using the sceneName field"
     },
     "GetSceneItemTransform": {
       "sceneName": "场景项所在的场景名称",
       "sceneUuid": "场景项所在的场景UUID",
-      "sceneItemId": "场景项的数字ID"
+      "sceneItemId": "场景项的数字ID",
+      "canvasUuid": "UUID of the canvas the scene is in, if using the sceneName field"
     },
     "SetSceneItemTransform": {
       "sceneName": "场景项所在的场景名称",
       "sceneUuid": "场景项所在的场景UUID",
       "sceneItemId": "场景项的数字ID",
-      "sceneItemTransform": "要更新的场景项变换信息对象"
+      "sceneItemTransform": "要更新的场景项变换信息对象",
+      "canvasUuid": "UUID of the canvas the scene is in, if using the sceneName field"
     },
     "GetSceneItemEnabled": {
       "sceneName": "场景项所在的场景名称",
       "sceneUuid": "场景项所在的场景UUID",
-      "sceneItemId": "场景项的数字ID"
+      "sceneItemId": "场景项的数字ID",
+      "canvasUuid": "UUID of the canvas the scene is in, if using the sceneName field"
     },
     "SetSceneItemEnabled": {
       "sceneName": "场景项所在的场景名称",
       "sceneUuid": "场景项所在的场景UUID",
       "sceneItemId": "场景项的数字ID",
-      "sceneItemEnabled": "场景项的新启用状态"
+      "sceneItemEnabled": "场景项的新启用状态",
+      "canvasUuid": "UUID of the canvas the scene is in, if using the sceneName field"
     },
     "GetSceneItemLocked": {
       "sceneName": "场景项所在的场景名称",
       "sceneUuid": "场景项所在的场景UUID",
-      "sceneItemId": "场景项的数字ID"
+      "sceneItemId": "场景项的数字ID",
+      "canvasUuid": "UUID of the canvas the scene is in, if using the sceneName field"
     },
     "SetSceneItemLocked": {
       "sceneName": "场景项所在的场景名称",
       "sceneUuid": "场景项所在的场景UUID",
       "sceneItemId": "场景项的数字ID",
-      "sceneItemLocked": "场景项的新锁定状态"
+      "sceneItemLocked": "场景项的新锁定状态",
+      "canvasUuid": "UUID of the canvas the scene is in, if using the sceneName field"
     },
     "GetSceneItemIndex": {
       "sceneName": "场景项所在的场景名称",
       "sceneUuid": "场景项所在的场景UUID",
-      "sceneItemId": "场景项的数字ID"
+      "sceneItemId": "场景项的数字ID",
+      "canvasUuid": "UUID of the canvas the scene is in, if using the sceneName field"
     },
     "SetSceneItemIndex": {
       "sceneName": "场景项所在的场景名称",
       "sceneUuid": "场景项所在的场景UUID",
       "sceneItemId": "场景项的数字ID",
-      "sceneItemIndex": "场景项的新索引位置"
+      "sceneItemIndex": "场景项的新索引位置",
+      "canvasUuid": "UUID of the canvas the scene is in, if using the sceneName field"
     },
     "GetSceneItemBlendMode": {
       "sceneItemId": "场景项的数字ID",
       "sceneUuid": "场景项所在的场景UUID",
-      "sceneName": "场景项所在的场景名称"
+      "sceneName": "场景项所在的场景名称",
+      "canvasUuid": "UUID of the canvas the scene is in, if using the sceneName field"
     },
     "SetSceneItemBlendMode": {
       "sceneName": "场景项所在的场景名称",
       "sceneUuid": "场景项所在的场景UUID",
-      "sceneItemId": "场景项的数字ID"
+      "sceneItemId": "场景项的数字ID",
+      "canvasUuid": "UUID of the canvas the scene is in, if using the sceneName field",
+      "sceneItemBlendMode": "New blend mode"
     },
     "GetOutputStatus": {
       "outputName": "输出名称"
@@ -657,7 +734,8 @@
       "mediaAction": "要执行的ObsMediaInputAction枚举标识符:\nOBS_WEBSOCKET_MEDIA_INPUT_ACTION_NONE\nOBS_WEBSOCKET_MEDIA_INPUT_ACTION_PLAY\nOBS_WEBSOCKET_MEDIA_INPUT_ACTION_PAUSE\nOBS_WEBSOCKET_MEDIA_INPUT_ACTION_STOP\nOBS_WEBSOCKET_MEDIA_INPUT_ACTION_RESTART\nOBS_WEBSOCKET_MEDIA_INPUT_ACTION_NEXT\nOBS_WEBSOCKET_MEDIA_INPUT_ACTION_PREVIOUS"
     },
     "SetStudioModeEnabled": {
-      "inputName": "是否启用工作室模式，True 启用，False 禁用"
+      "inputName": "是否启用工作室模式，True 启用，False 禁用",
+      "studioModeEnabled": "True == Enabled, False == Disabled"
     },
     "OpenInputPropertiesDialog": {
       "inputUuid": "要打开属性对话框的输入的UUID",
@@ -680,7 +758,32 @@
       "projectorGeometry": "窗口化投影仪的尺寸/位置数据，以Qt Base64编码格式。与monitorIndex互斥",
       "monitorIndex": "监视器索引，使用GetMonitorList获取索引",
       "sourceUuid": "要为其打开投影仪的源的UUID",
-      "sourceName": "要为其打开投影仪的源的名称"
+      "sourceName": "要为其打开投影仪的源的名称",
+      "canvasUuid": "UUID of the canvas the source is in, if using the sourceName field"
+    },
+    "GetSceneList": {
+      "canvasUuid": "UUID of the canvas the scenes are in"
+    },
+    "GetInputDeinterlaceMode": {
+      "inputName": "Name of the input",
+      "inputUuid": "UUID of the input"
+    },
+    "SetInputDeinterlaceMode": {
+      "inputName": "Name of the input",
+      "inputUuid": "UUID of the input",
+      "inputDeinterlaceMode": "Deinterlace mode for the input"
+    },
+    "GetInputDeinterlaceFieldOrder": {
+      "inputName": "Name of the input",
+      "inputUuid": "UUID of the input"
+    },
+    "SetInputDeinterlaceFieldOrder": {
+      "inputName": "Name of the input",
+      "inputUuid": "UUID of the input",
+      "inputDeinterlaceFieldOrder": "Deinterlace field order for the input"
+    },
+    "CreateRecordChapter": {
+      "chapterName": "Name of the new chapter"
     }
   },
   "ResParamsDes": {
@@ -723,7 +826,8 @@
     },
     "GetProfileList": {
       "profiles": "所有可用配置文件的数组",
-      "sceneCollectionName": "当前配置文件的名称"
+      "sceneCollectionName": "当前配置文件的名称",
+      "currentProfileName": "The name of the current profile"
     },
     "GetProfileParameter": {
       "parameterValue": "与参数关联的值。如果没有设置且没有默认值则为null",
@@ -815,7 +919,8 @@
       "inputAudioSyncOffset": "音频同步偏移，单位毫秒"
     },
     "GetInputAudioMonitorType": {
-      "inputAudioSyncOffset": "音频监控类型"
+      "inputAudioSyncOffset": "音频监控类型",
+      "monitorType": "Audio monitor type"
     },
     "GetInputAudioTracks": {
       "inputAudioTracks": "音频轨道及其关联的启用状态的对象",
@@ -852,7 +957,8 @@
       "filterEnabled": "滤镜是否启用",
       "filterIndex": "滤镜在列表中的索引，从0开始",
       "filterKind": "滤镜类型",
-      "filters": "与滤镜关联的设置对象"
+      "filters": "与滤镜关联的设置对象",
+      "filterSettings": "Settings object associated with the filter"
     },
     "GetSceneItemList": {
       "sceneItems": "场景中的场景项数组"
@@ -1017,7 +1123,8 @@
       "inputKind": "输入的类型",
       "inputSettings": "配置到输入的设置",
       "unversionedInputKind": "输入的未版本化类型（即没有_v2之类的）",
-      "defaultInputSettings": "输入的默认设置"
+      "defaultInputSettings": "输入的默认设置",
+      "inputKindCaps": "Bitflag value for the caps that an input supports. See obs_source_info.output_flags in the libobs docs"
     },
     "InputRemoved": {
       "inputName": "输入的名称",
@@ -1207,6 +1314,50 @@
     },
     "ScreenshotSaved": {
       "savedScreenshotPath": "保存的图像文件路径"
+    },
+    "GetCanvasList": {
+      "canvases": "Array of canvases"
+    },
+    "GetInputDefaultSettings": {
+      "defaultInputSettings": "Object of default settings for the input kind"
+    },
+    "GetInputSettings": {
+      "inputSettings": "Object of settings for the input",
+      "inputKind": "The kind of the input"
+    },
+    "GetInputMute": {
+      "inputMuted": "Whether the input is muted"
+    },
+    "GetInputDeinterlaceMode": {
+      "inputDeinterlaceMode": "Deinterlace mode of the input"
+    },
+    "GetInputDeinterlaceFieldOrder": {
+      "inputDeinterlaceFieldOrder": "Deinterlace field order of the input"
+    },
+    "GetInputPropertiesListPropertyItems": {
+      "propertyItems": "Array of items in the list property"
+    },
+    "GetSourceFilterDefaultSettings": {
+      "defaultFilterSettings": "Object of default settings for the filter kind"
+    },
+    "CanvasCreated": {
+      "canvasName": "Name of the new canvas",
+      "canvasUuid": "UUID of the new canvas"
+    },
+    "CanvasRemoved": {
+      "canvasName": "Name of the removed canvas",
+      "canvasUuid": "UUID of the removed canvas"
+    },
+    "CanvasNameChanged": {
+      "canvasUuid": "UUID of the canvas",
+      "oldCanvasName": "Old name of the canvas",
+      "canvasName": "New name of the canvas"
+    },
+    "RecordFileChanged": {
+      "newOutputPath": "File name that the output has begun writing to"
+    },
+    "ReplayBufferSaved": {
+      "savedReplayPath": "Path of the saved replay file"
     }
   },
   "Actions": {
@@ -1216,7 +1367,9 @@
   },
   "Tooltops": {
     "LoopGetStat": "循环或暂停更新系统状态",
-    "connectOBS": "连接或断开OBS WebSocket",
+    "pauseStat": "暂停更新系统状态",
+    "connectOBS": "连接 OBS WebSocket",
+    "disconnectOBS": "断开 OBS WebSocket",
     "configOBS": "点击配置连接参数，如密码"
   }
 }
