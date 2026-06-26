@@ -280,6 +280,15 @@ function parseProtocol(markdown) {
 // i18n generation
 // ---------------------------------------------------------------------------
 
+/** vue-i18n treats `{}` as an empty interpolation slot and throws at runtime. */
+function sanitizeEnI18nText(text) {
+  if (!text || typeof text !== 'string') return text
+  return text
+    .replace(/Can be `\{\}`/g, 'Can be an empty object')
+    .replace(/\.\s*\{\}\s+if/g, ', or an empty object if')
+    .replace(/\.\s*\{\}\s*$/g, ', or an empty object')
+}
+
 function buildI18n(data) {
   const i18n = {
     RequestDes: {},
@@ -328,6 +337,16 @@ function buildI18n(data) {
   }
 
   return i18n
+}
+
+function sanitizeEnI18nTree(node) {
+  if (typeof node === 'string') return sanitizeEnI18nText(node)
+  if (!node || typeof node !== 'object') return node
+  const out = Array.isArray(node) ? [] : {}
+  for (const [key, value] of Object.entries(node)) {
+    out[key] = sanitizeEnI18nTree(value)
+  }
+  return out
 }
 
 function mergeI18nSection(existing, generated, preserveExisting) {
@@ -386,7 +405,7 @@ async function main() {
   console.log(`✓ Wrote ${path.relative(ROOT, OUTPUT_JSON)}`)
 
   const enPath = path.join(LOCALE_DIR, 'en/debug.json')
-  mergeLocaleFile(enPath, i18n, false)
+  mergeLocaleFile(enPath, sanitizeEnI18nTree(i18n), false)
   console.log(`✓ Updated ${path.relative(ROOT, enPath)} (full replace of protocol i18n)`)
 
   for (const locale of ['zh', 'tw']) {

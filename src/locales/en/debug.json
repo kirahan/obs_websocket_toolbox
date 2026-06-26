@@ -513,7 +513,7 @@
       "transitionDuration": "Duration in milliseconds"
     },
     "SetCurrentSceneTransitionSettings": {
-      "transitionSettings": "Settings object to apply to the transition. Can be `{}`",
+      "transitionSettings": "Settings object to apply to the transition. Can be an empty object",
       "overlay": "Whether to overlay over the current settings or replace them"
     },
     "SetTBarPosition": {
@@ -819,7 +819,7 @@
     "CallVendorRequest": {
       "vendorName": "Echoed of `vendorName`",
       "requestType": "Echoed of `requestType`",
-      "responseData": "Object containing appropriate response data. {} if request does not provide any response data"
+      "responseData": "Object containing appropriate response data, or an empty object if the request does not provide any response data"
     },
     "GetHotkeyList": {
       "hotkeys": "Array of hotkey names"
@@ -1074,7 +1074,7 @@
     },
     "VendorEvent": {
       "vendorName": "Name of the vendor emitting the event",
-      "eventData": "Vendor-provided event data. {} if event does not provide any data",
+      "eventData": "Vendor-provided event data, or an empty object if the event does not provide any data",
       "eventType": "Vendor-provided event typedef"
     },
     "CustomEvent": {
