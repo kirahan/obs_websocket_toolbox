@@ -1,82 +1,50 @@
-:root {
-  font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
+@import './styles/theme.scss';
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  font-family: var(--font-sans);
   line-height: 1.5;
   font-weight: 400;
-
-  color-scheme: light dark;
-  color: rgba(255, 255, 255, 0.87);
-  background-color: #242424;
-
   font-synthesis: none;
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
-a {
-  font-weight: 500;
-  color: #646cff;
-  text-decoration: inherit;
-}
-a:hover {
-  color: #535bf2;
-}
-
 body {
   margin: 0;
-  display: flex;
-  place-items: center;
   min-width: 320px;
   min-height: 100vh;
-}
-
-h1 {
-  font-size: 3.2em;
-  line-height: 1.1;
-}
-
-button {
-  border-radius: 8px;
-  border: 1px solid transparent;
-  padding: 0.6em 1.2em;
-  font-size: 1em;
-  font-weight: 500;
-  font-family: inherit;
-  background-color: #1a1a1a;
-  cursor: pointer;
-  transition: border-color 0.25s;
-}
-button:hover {
-  border-color: #646cff;
-}
-button:focus,
-button:focus-visible {
-  outline: 4px auto -webkit-focus-ring-color;
-}
-
-.card {
-  padding: 2em;
+  background-color: var(--color-bg);
+  color: var(--color-text);
 }
 
 #app {
   margin: 0;
   padding: 0;
   text-align: left;
-  background-color: rgb(0, 33, 43);
-  color: white;
+  background-color: var(--color-bg);
+  color: var(--color-text);
 }
 
-@media (prefers-color-scheme: light) {
-  :root {
-    color: #213547;
-    background-color: #ffffff;
-  }
-  a:hover {
-    color: #747bff;
-  }
-  button {
-    background-color: #f9f9f9;
-  }
+a {
+  color: var(--color-primary);
+  text-decoration: none;
+}
+
+a:hover {
+  color: var(--color-primary-hover);
+}
+
+h1, h2, h3, h4 {
+  margin: 0;
+  font-weight: 600;
+  color: var(--color-text);
 }
 
 .no_p_m_body {
@@ -98,43 +66,106 @@ button:focus-visible {
 .flex_column {
   display: flex;
   flex-direction: column;
-
 }
 
-.iconBtn{
-  height: 100%;
-  padding: 0 5px;
-  display: flex;
-  align-items: center;
-  background-color: rgba(42, 161, 152, 0.6);
-  cursor: pointer;
-  &.red{
-      background-color: rgba(255, 0, 0, 0.6);
-  }
+/* Ant Design 全局覆盖 — 简约风格 */
+.ant-layout {
+  background: var(--color-bg) !important;
 }
 
-// 宽度调整条样式
-.sash{
-  /* background: transparent; */
+.ant-layout-sider {
+  background: var(--color-bg-elevated) !important;
+}
+
+.ant-layout-content {
+  background: var(--color-bg) !important;
+}
+
+.ant-tree {
+  background: transparent !important;
+  font-size: 13px;
+}
+
+.ant-tree .ant-tree-node-content-wrapper {
+  border-radius: var(--radius-sm);
+  transition: background 0.15s;
+}
+
+.ant-tree .ant-tree-node-content-wrapper:hover {
+  background: var(--color-bg-subtle) !important;
+}
+
+.ant-tree .ant-tree-node-content-wrapper.ant-tree-node-selected {
+  background: var(--color-primary-light) !important;
+  color: var(--color-primary) !important;
+}
+
+.ant-table {
+  font-size: 13px;
+}
+
+.ant-table-thead > tr > th {
+  background: var(--color-bg-subtle) !important;
+  font-weight: 500;
+  color: var(--color-text-secondary) !important;
+  border-bottom: 1px solid var(--color-border) !important;
+}
+
+.ant-table-tbody > tr > td {
+  border-bottom: 1px solid var(--color-border-light) !important;
+}
+
+.ant-collapse {
+  border: 1px solid var(--color-border) !important;
+  border-radius: var(--radius-md) !important;
+  background: var(--color-bg-elevated) !important;
+}
+
+.ant-collapse > .ant-collapse-item {
+  border-bottom: 1px solid var(--color-border-light) !important;
+}
+
+.ant-collapse-header {
+  font-weight: 500 !important;
+  color: var(--color-text) !important;
+}
+
+.ant-tag {
+  border-radius: 4px;
+  font-size: 12px;
+}
+
+.ant-btn-primary {
+  background: var(--color-primary);
+  border-color: var(--color-primary);
+  box-shadow: none;
+}
+
+.ant-btn-primary:hover {
+  background: var(--color-primary-hover);
+  border-color: var(--color-primary-hover);
+}
+
+/* 宽度调整条 */
+.sash {
   position: relative;
   z-index: 99;
-  &:hover{
-    background: rgba(25, 36, 35, 0.7);
+  flex-shrink: 0;
+
+  &:hover,
+  &.ischanging {
+    background: var(--color-border);
   }
-  //防止拖动过快时鼠标移出元素导致失效
-  &.ischanging{
-    background: rgba(25, 36, 35, 0.7);
-  }
-  &.vertical{
-    cursor:col-resize;
-    left: -5px;
-    width: 5px;
+
+  &.vertical {
+    cursor: col-resize;
+    width: 4px;
     height: 100%;
   }
-  &.horizontal{
-    cursor:row-resize;
-    top: -5px;
+
+  &.horizontal {
+    cursor: row-resize;
     width: 100%;
-    height: 5px;
+    height: 4px;
   }
 }

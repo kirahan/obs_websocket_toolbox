@@ -1,11 +1,24 @@
 <script setup lang="ts">
-// 不需要导入特定组件
+import { ConfigProvider, theme } from 'ant-design-vue'
+import { computed } from 'vue'
+
+const themeConfig = computed(() => ({
+  token: {
+    colorPrimary: '#2563eb',
+    borderRadius: 6,
+    fontFamily: "'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif",
+    colorBgContainer: '#ffffff',
+    colorBorder: '#e5e7eb',
+    colorText: '#1a1a2e',
+    colorTextSecondary: '#6b7280',
+    fontSize: 14,
+  },
+  algorithm: theme.defaultAlgorithm,
+}))
 </script>
 
 <template>
-  <router-view></router-view>
+  <ConfigProvider :theme="themeConfig">
+    <router-view />
+  </ConfigProvider>
 </template>
-
-<style scoped>
-/* 可以添加全局样式 */
-</style>
