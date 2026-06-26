@@ -34,6 +34,13 @@
       </div>
 
       <div class="timeline panel">
+        <div class="timeline-header">
+          <span>{{ $t('modules.eventMonitor.columns.time') }}</span>
+          <span>{{ $t('modules.eventMonitor.columns.type') }}</span>
+          <span>{{ $t('modules.eventMonitor.columns.name') }}</span>
+          <span>{{ $t('modules.eventMonitor.columns.summary') }}</span>
+          <span>{{ $t('modules.eventMonitor.columns.payload') }}</span>
+        </div>
         <div
           v-for="item in filteredEvents"
           :key="item.uuid || item.name + item.timestamp"
@@ -43,12 +50,14 @@
           <span class="time">{{ item.timestamp }}</span>
           <span class="badge" :class="item.type">{{ typeLabel(item.type) }}</span>
           <button class="name" @click.stop="goToDoc(item)">{{ item.name }}</button>
-          <span class="summary">{{ summarize(item.params) }}</span>
+          <EventSummaryLine :summary="getSummary(item)" />
+          <span class="payload">{{ formatPayload(item.params) }}</span>
         </div>
         <div v-if="!filteredEvents.length" class="empty">{{ $t('modules.eventMonitor.empty') }}</div>
       </div>
 
       <a-drawer :open="drawerOpen" :title="selected?.name" :width="520" @close="drawerOpen = false">
+        <EventSummaryLine v-if="selected" class="drawer-summary" :summary="getSummary(selected)" show-description />
         <JsonViewer v-if="selected" :data="selected.params" view-mode="tree" />
       </a-drawer>
     </div>
@@ -57,21 +66,18 @@
 
 <script setup lang="ts">
 import { computed, ref, watch } from 'vue'
-import { useRouter } from 'vue-router'
 import ModuleLayout from '../../components/ModuleLayout.vue'
+import EventSummaryLine from '../../components/EventSummaryLine.vue'
 import JsonViewer from '../../components/Detail/EventViewer/JsonViewer.vue'
 import { obsEventDetailData } from '../../data/events'
 import { obsEventTreeData } from '../../data/events'
 import {
-  detailName,
-  expandedKeys,
-  getParentListFromKey,
   I_Event_item,
-  selectedKeys,
   WSEventAndRequestHistory,
 } from '../../state'
+import { openProtocolDoc } from '../../state/protocol-doc'
+import { buildEventSummary, formatEventSummaryPlain } from '../../utils/event-summary'
 
-const router = useRouter()
 const paused = ref(false)
 const search = ref('')
 const categoryFilter = ref<string[]>([])
@@ -117,7 +123,13 @@ const filteredEvents = computed(() => {
         // keep responses that are request responses
         if (item.type === 'response' && !obsEventNames.has(item.name)) return false
       }
-      if (search.value && !item.name.toLowerCase().includes(search.value.toLowerCase())) return false
+      if (search.value) {
+        const q = search.value.toLowerCase()
+        const inName = item.name.toLowerCase().includes(q)
+        const inSummary = formatEventSummaryPlain(item).toLowerCase().includes(q)
+        const inPayload = formatPayload(item.params).toLowerCase().includes(q)
+        if (!inName && !inSummary && !inPayload) return false
+      }
       if (categoryFilter.value.length && obsEventNames.has(item.name)) {
         const cat = eventToCategory.value[item.name]
         if (!categoryFilter.value.includes(cat)) return false
@@ -127,16 +139,18 @@ const filteredEvents = computed(() => {
     .reverse()
 })
 
+const getSummary = (item: I_Event_item) => buildEventSummary(item)
+
 const typeLabel = (type: string) => {
   if (type === 'request') return 'REQ'
   if (type === 'error') return 'ERR'
   return 'EVT'
 }
 
-const summarize = (params: unknown) => {
+const formatPayload = (params: unknown) => {
   try {
     const s = typeof params === 'string' ? params : JSON.stringify(params)
-    return s.length > 100 ? s.slice(0, 100) + '…' : s
+    return s.length > 120 ? `${s.slice(0, 120)}…` : s
   } catch {
     return String(params)
   }
@@ -148,13 +162,7 @@ const selectItem = (item: I_Event_item) => {
 }
 
 const goToDoc = (item: I_Event_item) => {
-  detailName.value = item.name
-  selectedKeys.value = [item.name]
-  const list = getParentListFromKey(item.name)
-  list.forEach((k) => {
-    if (!expandedKeys.value.includes(k)) expandedKeys.value.push(k)
-  })
-  router.push('/debug')
+  openProtocolDoc(item.name)
 }
 
 const clearLocal = () => {
@@ -173,9 +181,11 @@ const exportJson = () => {
 
 const exportCsv = () => {
   const rows = localEvents.value.map((e) =>
-    [e.timestamp, e.type, e.name, JSON.stringify(e.params)].map((c) => `"${String(c).replace(/"/g, '""')}"`).join(','),
+    [e.timestamp, e.type, e.name, formatEventSummaryPlain(e), formatPayload(e.params)]
+      .map((c) => `"${String(c).replace(/"/g, '""')}"`)
+      .join(','),
   )
-  const csv = ['timestamp,type,name,params', ...rows].join('\n')
+  const csv = ['timestamp,type,name,summary,payload', ...rows].join('\n')
   const blob = new Blob([csv], { type: 'text/csv' })
   const url = URL.createObjectURL(blob)
   const a = document.createElement('a')
@@ -190,7 +200,7 @@ const exportCsv = () => {
 @import '../../styles/module-page.scss';
 
 .full-width {
-  max-width: 1200px;
+  max-width: 1400px;
 }
 
 .page-header.row {
@@ -220,12 +230,29 @@ const exportCsv = () => {
   overflow-y: auto;
 }
 
+.timeline-header {
+  display: grid;
+  grid-template-columns: 80px 48px 180px minmax(180px, 1fr) minmax(220px, 1.2fr);
+  gap: var(--space-sm);
+  padding: 8px var(--space-md);
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--color-text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  border-bottom: 1px solid var(--color-border);
+  position: sticky;
+  top: 0;
+  background: var(--color-bg-elevated);
+  z-index: 1;
+}
+
 .timeline-item {
   display: grid;
-  grid-template-columns: 80px 48px 200px 1fr;
+  grid-template-columns: 80px 48px 180px minmax(180px, 1fr) minmax(220px, 1.2fr);
   gap: var(--space-sm);
-  align-items: center;
-  padding: 8px var(--space-md);
+  align-items: start;
+  padding: 10px var(--space-md);
   border-bottom: 1px solid var(--color-border-light);
   font-size: 12px;
   cursor: pointer;
@@ -256,14 +283,26 @@ const exportCsv = () => {
   text-align: left;
   padding: 0;
   color: var(--color-text);
+  align-self: start;
+  padding-top: 2px;
 }
 
-.summary {
+.drawer-summary {
+  padding: var(--space-md);
+  border-bottom: 1px solid var(--color-border-light);
+  margin-bottom: var(--space-sm);
+}
+
+.payload {
   color: var(--color-text-secondary);
   font-family: var(--font-mono);
+  font-size: 11px;
+  line-height: 1.5;
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
+  align-self: start;
+  padding-top: 2px;
 }
 
 .empty {

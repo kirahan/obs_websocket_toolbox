@@ -2,6 +2,8 @@
 import { ConfigProvider, theme } from 'ant-design-vue'
 import { computed } from 'vue'
 import CommandPalette from './components/CommandPalette.vue'
+import ProtocolDocPanel from './components/ProtocolDocPanel.vue'
+import { protocolDocPanelOpen } from './state/protocol-doc'
 
 const themeConfig = computed(() => ({
   token: {
@@ -20,7 +22,26 @@ const themeConfig = computed(() => ({
 
 <template>
   <ConfigProvider :theme="themeConfig">
-    <router-view />
+    <div class="app-shell">
+      <div class="app-main">
+        <router-view />
+      </div>
+      <ProtocolDocPanel v-if="protocolDocPanelOpen" />
+    </div>
     <CommandPalette />
   </ConfigProvider>
 </template>
+
+<style scoped lang="scss">
+.app-shell {
+  display: flex;
+  height: 100vh;
+  overflow: hidden;
+}
+
+.app-main {
+  flex: 1;
+  min-width: 0;
+  overflow: auto;
+}
+</style>

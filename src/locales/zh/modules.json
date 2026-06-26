@@ -50,7 +50,35 @@
     "search": "搜索事件名…",
     "category": "事件分类",
     "showRequests": "显示请求",
-    "empty": "暂无事件，连接 OBS 后开始采集"
+    "empty": "暂无事件，连接 OBS 后开始采集",
+    "columns": {
+      "time": "时间",
+      "type": "类型",
+      "name": "名称",
+      "summary": "摘要",
+      "payload": "原始数据"
+    },
+    "summary": {
+      "requestSuccessful": "请求成功",
+      "requestFailed": "请求失败",
+      "fields": {
+        "scene": "场景",
+        "item": "源项",
+        "input": "输入",
+        "itemId": "源项 ID",
+        "enabled": "启用",
+        "locked": "锁定",
+        "active": "激活",
+        "state": "状态",
+        "transition": "转场",
+        "duration": "时长",
+        "kind": "类型",
+        "vendor": "Vendor",
+        "eventType": "事件类型",
+        "eventData": "事件数据",
+        "message": "消息"
+      }
+    }
   },
   "codeGenerator": {
     "title": "代码生成器",

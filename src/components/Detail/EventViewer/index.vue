@@ -166,11 +166,8 @@ import { useI18n } from 'vue-i18n'
 import {
   I_Event_item,
   WSEventAndRequestHistory,
-  detailName,
-  expandedKeys,
-  getParentListFromKey,
-  selectedKeys,
 } from '../../../state'
+import { openProtocolDoc } from '../../../state/protocol-doc'
 import JsonViewer from './JsonViewer.vue'
 
 const { t } = useI18n()
@@ -276,14 +273,7 @@ const handleImageClick = () => {
 }
 
 const handleSeeDoc = (item: I_Event_item) => {
-  detailName.value = item.name
-  selectedKeys.value = [item.name]
-  const expandedList = getParentListFromKey(item.name)
-  expandedList.forEach((key) => {
-    if (!expandedKeys.value.includes(key)) {
-      expandedKeys.value.push(key)
-    }
-  })
+  openProtocolDoc(item.name)
 }
 
 const handleRemove = (element: I_Event_item) => {

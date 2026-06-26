@@ -50,7 +50,35 @@
     "search": "搜尋事件名…",
     "category": "事件分類",
     "showRequests": "顯示請求",
-    "empty": "暫無事件"
+    "empty": "暫無事件",
+    "columns": {
+      "time": "時間",
+      "type": "類型",
+      "name": "名稱",
+      "summary": "摘要",
+      "payload": "原始數據"
+    },
+    "summary": {
+      "requestSuccessful": "請求成功",
+      "requestFailed": "請求失敗",
+      "fields": {
+        "scene": "場景",
+        "item": "源項",
+        "input": "輸入",
+        "itemId": "源項 ID",
+        "enabled": "啟用",
+        "locked": "鎖定",
+        "active": "啟用",
+        "state": "狀態",
+        "transition": "轉場",
+        "duration": "時長",
+        "kind": "類型",
+        "vendor": "Vendor",
+        "eventType": "事件類型",
+        "eventData": "事件數據",
+        "message": "訊息"
+      }
+    }
   },
   "codeGenerator": {
     "title": "代碼生成器",

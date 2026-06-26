@@ -5,6 +5,10 @@
   "comingSoon": "即将推出",
   "inDevelopment": "开发中",
   "github": "GitHub 仓库",
+  "protocolDoc": {
+    "openInDebugger": "在调试器中打开",
+    "close": "关闭文档面板"
+  },
   "modules": {
     "debugger": {
       "title": "调试器",

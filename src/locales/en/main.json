@@ -5,6 +5,10 @@
   "comingSoon": "Coming Soon",
   "inDevelopment": "In Development",
   "github": "GitHub Repository",
+  "protocolDoc": {
+    "openInDebugger": "Open in Debugger",
+    "close": "Close doc panel"
+  },
   "nav": {
     "home": "Home"
   },

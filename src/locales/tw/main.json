@@ -5,6 +5,10 @@
   "comingSoon": "即將推出",
   "inDevelopment": "開發中",
   "github": "GitHub 倉庫",
+  "protocolDoc": {
+    "openInDebugger": "在除錯器中打開",
+    "close": "關閉文檔面板"
+  },
   "modules": {
     "debugger": {
       "title": "除錯器",

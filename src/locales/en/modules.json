@@ -50,7 +50,35 @@
     "search": "Search events…",
     "category": "Category",
     "showRequests": "Show requests",
-    "empty": "No events yet — connect to OBS"
+    "empty": "No events yet — connect to OBS",
+    "columns": {
+      "time": "Time",
+      "type": "Type",
+      "name": "Name",
+      "summary": "Summary",
+      "payload": "Payload"
+    },
+    "summary": {
+      "requestSuccessful": "Request successful",
+      "requestFailed": "Request failed",
+      "fields": {
+        "scene": "Scene",
+        "item": "Item",
+        "input": "Input",
+        "itemId": "Item ID",
+        "enabled": "Enabled",
+        "locked": "Locked",
+        "active": "Active",
+        "state": "State",
+        "transition": "Transition",
+        "duration": "Duration",
+        "kind": "Kind",
+        "vendor": "Vendor",
+        "eventType": "Event Type",
+        "eventData": "Event Data",
+        "message": "Message"
+      }
+    }
   },
   "codeGenerator": {
     "title": "Code Generator",

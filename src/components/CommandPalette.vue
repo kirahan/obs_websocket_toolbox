@@ -46,16 +46,10 @@
 import { computed, nextTick, onBeforeUnmount, onMounted, ref } from 'vue'
 import { message } from 'ant-design-vue'
 import { useStorage } from '@vueuse/core'
-import { useRouter } from 'vue-router'
 import { SearchOutlined } from '@ant-design/icons-vue'
 import OBS from '../obs'
 import { OBSConnectionConfig, WSEventAndRequestHistory, WSconnected } from '../state'
-import {
-  detailName,
-  expandedKeys,
-  getParentListFromKey,
-  selectedKeys,
-} from '../state'
+import { openProtocolDoc } from '../state/protocol-doc'
 import { obsEventDetailData } from '../data/events'
 import { obsRequestDetailData } from '../data/requests'
 import type { OBSRequestTypes } from 'obs-websocket-js'
@@ -78,7 +72,6 @@ interface PaletteCommand {
   run: () => void | Promise<void>
 }
 
-const router = useRouter()
 const obs = OBS.getInstance()
 const open = ref(false)
 const query = ref('')
@@ -86,15 +79,8 @@ const searchInputRef = ref()
 const requestPresets = useStorage<RequestPreset[]>('requestPresets', [])
 const connectionProfiles = useStorage<ConnectionProfile[]>('connectionProfiles', [])
 
-const navigateToProtocolItem = async (name: string) => {
-  await router.push('/debug')
-  detailName.value = name
-  selectedKeys.value = [name]
-  for (const key of getParentListFromKey(name)) {
-    if (!expandedKeys.value.includes(key)) {
-      expandedKeys.value.push(key)
-    }
-  }
+const navigateToProtocolItem = (name: string) => {
+  openProtocolDoc(name)
 }
 
 const replayPreset = async (preset: RequestPreset) => {

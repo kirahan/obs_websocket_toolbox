@@ -9,9 +9,12 @@ import CodeGenerator from './pages/CodeGenerator/index.vue'
 import VendorExplorer from './pages/VendorExplorer/index.vue'
 import ScreenshotStudio from './pages/ScreenshotStudio/index.vue'
 
+import ProtocolDoc from './pages/ProtocolDoc/index.vue'
+
 const routes = [
   { path: '/', component: Main },
   { path: '/debug', component: Debug },
+  { path: '/doc/:name', component: ProtocolDoc },
   { path: '/controller', component: Controller },
   { path: '/simulator', component: Simulator },
   { path: '/batch-runner', component: BatchRunner },
