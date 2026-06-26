@@ -8,6 +8,7 @@
     "build": "vue-tsc && vite build",
     "preview": "vite preview",
     "sync-protocol": "node scripts/sync-protocol.mjs",
+    "capture-screenshots": "node scripts/capture-screenshots.mjs",
     "test": "vitest run"
   },
   "dependencies": {

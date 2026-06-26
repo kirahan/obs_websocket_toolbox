@@ -1,6 +1,6 @@
 {
   "title": "OBS Websocket 工具集",
-  "subtitle": "OBS WebSocket 协议调试与控制工具",
+  "subtitle": "OBS WebSocket 模块化工具集 — 调试、导播、监听与集成",
   "enterModule": "进入模块",
   "comingSoon": "即将推出",
   "inDevelopment": "开发中",
