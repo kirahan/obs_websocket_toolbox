@@ -1,6 +1,9 @@
 {
   "title": "OBS Websocket Toolkit",
+  "subtitle": "Debug and control tools for OBS WebSocket protocol",
   "enterModule": "Enter Module",
+  "comingSoon": "Coming Soon",
+  "github": "GitHub Repository",
   "nav": {
     "home": "Home"
   },

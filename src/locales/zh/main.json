@@ -1,6 +1,9 @@
 {
   "title": "OBS Websocket 工具集",
+  "subtitle": "OBS WebSocket 协议调试与控制工具",
   "enterModule": "进入模块",
+  "comingSoon": "即将推出",
+  "github": "GitHub 仓库",
   "modules": {
     "debugger": {
       "title": "调试器",

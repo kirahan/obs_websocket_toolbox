@@ -1,107 +1,191 @@
 <template>
-  <div class="main-container">
+  <div class="main-page">
     <NavHeader />
-    <div class="content">
-      <h1>{{ $t('main.title') }}</h1>
-      <div class="modules">
-        <div v-for="module in modules" :key="module.name" class="module-card">
-          <h2>{{ $t(`main.modules.${module.name}.title`) }}</h2>
-          <p>{{ $t(`main.modules.${module.name}.description`) }}</p>
-          <div class="button-container">
-            <a-button type="primary" @click="navigateTo(module.route)">{{ $t('main.enterModule') }}</a-button>
-          </div>
-        </div>
+    <main class="main-content">
+      <div class="hero">
+        <h1>{{ $t('main.title') }}</h1>
+        <p class="subtitle">{{ $t('main.subtitle') }}</p>
       </div>
-    </div>
+      <div class="modules-grid">
+        <article
+          v-for="module in modules"
+          :key="module.name"
+          class="module-card"
+          :class="{ disabled: module.disabled }"
+          @click="navigateTo(module)"
+        >
+          <div class="card-icon" :class="module.name">
+            <BugOutlined v-if="module.name === 'debugger'" />
+            <ControlOutlined v-else-if="module.name === 'controller'" />
+            <ExperimentOutlined v-else />
+          </div>
+          <div class="card-body">
+            <h2>{{ $t(`main.modules.${module.name}.title`) }}</h2>
+            <p>{{ $t(`main.modules.${module.name}.description`) }}</p>
+          </div>
+          <div class="card-action">
+            <span v-if="module.disabled" class="badge-coming">{{ $t('main.comingSoon') }}</span>
+            <span v-else class="badge-enter">
+              {{ $t('main.enterModule') }}
+              <ArrowRightOutlined />
+            </span>
+          </div>
+        </article>
+      </div>
+    </main>
   </div>
 </template>
 
 <script setup lang="ts">
-import { ref } from 'vue';
-import { useRouter } from 'vue-router';
-import NavHeader from '../../components/NavHeader.vue';
-import { message } from 'ant-design-vue';
+import { ref } from 'vue'
+import { useRouter } from 'vue-router'
+import {
+  BugOutlined,
+  ControlOutlined,
+  ExperimentOutlined,
+  ArrowRightOutlined,
+} from '@ant-design/icons-vue'
+import NavHeader from '../../components/NavHeader.vue'
 
-const router = useRouter();
+const router = useRouter()
 
 const modules = ref([
-  {
-    name: 'debugger',
-    route: '/debug'
-  },
-  {
-    name: 'controller',
-    route: '/controller'
-  },
-  {
-    name: 'simulator',
-    route: '/simulator'
-  }
-]);
+  { name: 'debugger', route: '/debug', disabled: false },
+  { name: 'controller', route: '/controller', disabled: false },
+  { name: 'simulator', route: '/simulator', disabled: true },
+])
 
-const navigateTo = (route: string) => {
-  if(route === '/simulator' || route === '/controller'){
-    message.warning('This module is not implemented yet');
-    return;
-  }
-  router.push(route);
-};
+const navigateTo = (module: { route: string; disabled: boolean }) => {
+  if (module.disabled) return
+  router.push(module.route)
+}
 </script>
 
-<style scoped>
-.main-container {
-  width: 100vw;
-  height: 100vh;
+<style scoped lang="scss">
+.main-page {
+  min-height: 100vh;
   display: flex;
   flex-direction: column;
+  background: var(--color-bg);
 }
 
-.content {
-  flex-grow: 1;
+.main-content {
+  flex: 1;
   display: flex;
   flex-direction: column;
-  justify-content: center;
   align-items: center;
-  padding: 20px;
+  padding: var(--space-xl) var(--space-lg);
+  max-width: 960px;
+  margin: 0 auto;
+  width: 100%;
 }
 
-.modules {
+.hero {
+  text-align: center;
+  margin-bottom: var(--space-xl);
+
+  h1 {
+    font-size: 28px;
+    font-weight: 700;
+    letter-spacing: -0.02em;
+    margin-bottom: var(--space-sm);
+  }
+
+  .subtitle {
+    color: var(--color-text-secondary);
+    font-size: 15px;
+    margin: 0;
+  }
+}
+
+.modules-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-  gap: 20px;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: var(--space-md);
   width: 100%;
-  max-width: 1200px;
 }
 
 .module-card {
-  border: 1px solid #e8e8e8;
-  border-radius: 8px;
-  padding: 20px;
-  text-align: center;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+  background: var(--color-bg-elevated);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  padding: var(--space-lg);
+  cursor: pointer;
+  transition: border-color 0.2s, box-shadow 0.2s, transform 0.15s;
   display: flex;
   flex-direction: column;
-  height: 100%;
+  gap: var(--space-md);
+
+  &:hover:not(.disabled) {
+    border-color: var(--color-primary);
+    box-shadow: var(--shadow-md);
+    transform: translateY(-2px);
+  }
+
+  &.disabled {
+    opacity: 0.55;
+    cursor: not-allowed;
+  }
 }
 
-.button-container {
-  margin-top: auto;
-  padding-top: 15px;
+.card-icon {
+  width: 40px;
+  height: 40px;
+  border-radius: var(--radius-md);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 18px;
+
+  &.debugger {
+    background: var(--color-primary-light);
+    color: var(--color-primary);
+  }
+
+  &.controller {
+    background: var(--color-success-bg);
+    color: var(--color-success);
+  }
+
+  &.simulator {
+    background: var(--color-info-bg);
+    color: var(--color-info);
+  }
 }
 
-h1 {
-  text-align: center;
-  margin-bottom: 30px;
-  font-size: 2.5em;
-  color: #1890ff;
+.card-body {
+  flex: 1;
+
+  h2 {
+    font-size: 16px;
+    font-weight: 600;
+    margin-bottom: var(--space-xs);
+  }
+
+  p {
+    font-size: 13px;
+    color: var(--color-text-secondary);
+    line-height: 1.6;
+    margin: 0;
+  }
 }
 
-h2 {
-  color: #1890ff;
-}
+.card-action {
+  .badge-enter {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 13px;
+    font-weight: 500;
+    color: var(--color-primary);
+  }
 
-p {
-  margin-bottom: 15px;
-  flex-grow: 1;
+  .badge-coming {
+    font-size: 12px;
+    color: var(--color-text-muted);
+    background: var(--color-bg-subtle);
+    padding: 2px 10px;
+    border-radius: 12px;
+  }
 }
 </style>

@@ -1,6 +1,9 @@
 {
   "title": "OBS Websocket 工具集",
+  "subtitle": "OBS WebSocket 協議除錯與控制工具",
   "enterModule": "進入模組",
+  "comingSoon": "即將推出",
+  "github": "GitHub 倉庫",
   "modules": {
     "debugger": {
       "title": "除錯器",
