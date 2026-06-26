@@ -3,7 +3,16 @@
   "searchPlaceholder": "Search requests or events…",
   "selectRequest": "Select a request or event from the sidebar",
   "notSupported": "Not Supported",
-  "noEvents": "No request or event history yet",
+    "noEvents": "No request or event history yet",
+    "jsonViewer": {
+      "tree": "Structured",
+      "raw": "JSON",
+      "copy": "Copy JSON",
+      "copied": "Copied to clipboard",
+      "copyFailed": "Copy failed",
+      "empty": "No data",
+      "fieldCount": "{count} fields"
+    },
   "connection": {
     "disconnected": "WebSocket not connected",
     "profile": "Profile",

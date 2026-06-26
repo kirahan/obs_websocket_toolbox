@@ -15,9 +15,9 @@ export default defineConfig({
     vue({
       template: {
         compilerOptions: {
-          isCustomElement: tag => tag === 'pretty-json'
-        }
-      }
+          isCustomElement: (tag) => tag === 'pretty-json',
+        },
+      },
     }),
     Components({
       resolvers:[

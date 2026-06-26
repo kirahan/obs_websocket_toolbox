@@ -50,18 +50,58 @@
     <a-drawer
       placement="right"
       :closable="true"
-      :title="selectedTitle"
-      :width="480"
+      :width="520"
       :open="open"
+      :body-style="{ padding: 0 }"
       @close="onClose"
     >
-      <template #extra>
-        <a-button type="text" size="small" @click="handleCopy">
-          <CopyOutlined />
-        </a-button>
+      <template #title>
+        <div class="drawer-title">
+          <span class="drawer-name">{{ selectedItem?.name }}</span>
+          <span v-if="selectedItem" class="drawer-type-badge" :class="selectedItem.type">
+            {{ typeLabel(selectedItem.type) }}
+          </span>
+        </div>
       </template>
-      <div ref="resultRef">
-        <pretty-json>{{ selectedData }}</pretty-json>
+
+      <template #extra>
+        <div class="drawer-actions">
+          <a-segmented
+            v-model:value="viewMode"
+            size="small"
+            :options="viewModeOptions"
+          />
+          <a-tooltip :title="$t('debug.jsonViewer.copy')">
+            <a-button type="text" size="small" @click="handleCopy">
+              <CopyOutlined />
+            </a-button>
+          </a-tooltip>
+        </div>
+      </template>
+
+      <div class="drawer-body">
+        <div v-if="selectedItem" class="drawer-meta">
+          <span class="meta-time">{{ selectedItem.timestamp }}</span>
+          <span v-if="fieldCount > 0" class="meta-count">
+            {{ $t('debug.jsonViewer.fieldCount', { count: fieldCount }) }}
+          </span>
+        </div>
+
+        <div
+          v-if="selectedItem?.name === 'GetSourceScreenshot' && selectedItem.type === 'response'"
+          class="screenshot-wrap"
+        >
+          <a-image
+            :src="selectedItem.params['imageData']"
+            :width="'100%'"
+          />
+        </div>
+
+        <JsonViewer
+          v-else-if="selectedItem"
+          :data="parsedParams"
+          :view-mode="viewMode"
+        />
       </div>
     </a-drawer>
   </div>
@@ -69,6 +109,9 @@
 
 <script setup lang="ts">
 import { CopyOutlined, CloseOutlined } from '@ant-design/icons-vue'
+import { message } from 'ant-design-vue'
+import { computed, ref } from 'vue'
+import { useI18n } from 'vue-i18n'
 import {
   I_Event_item,
   WSEventAndRequestHistory,
@@ -77,13 +120,37 @@ import {
   getParentListFromKey,
   selectedKeys,
 } from '../../../state'
-import { ref } from 'vue'
+import JsonViewer from './JsonViewer.vue'
+
+const { t } = useI18n()
 
 const showBigImage = ref(false)
-const selectedTitle = ref('')
-const selectedData = ref('{}')
-const resultRef = ref<HTMLElement>()
+const selectedItem = ref<I_Event_item | null>(null)
 const open = ref(false)
+const viewMode = ref<'tree' | 'raw'>('tree')
+
+const viewModeOptions = computed(() => [
+  { label: t('debug.jsonViewer.tree'), value: 'tree' },
+  { label: t('debug.jsonViewer.raw'), value: 'raw' },
+])
+
+const parsedParams = computed(() => {
+  const params = selectedItem.value?.params
+  if (typeof params === 'string') {
+    try {
+      return JSON.parse(params)
+    } catch {
+      return { message: params }
+    }
+  }
+  return params ?? {}
+})
+
+const fieldCount = computed(() => {
+  const data = parsedParams.value
+  if (!data || typeof data !== 'object') return 0
+  return Object.keys(data).length
+})
 
 const typeLabel = (type: string) => {
   if (type === 'request') return 'REQ'
@@ -130,20 +197,20 @@ const handleRemove = (element: I_Event_item) => {
   )
 }
 
-const handleCopy = () => {
-  navigator.clipboard.writeText(selectedData.value)
+const handleCopy = async () => {
+  try {
+    const text = JSON.stringify(parsedParams.value, null, 2)
+    await navigator.clipboard.writeText(text)
+    message.success(t('debug.jsonViewer.copied'))
+  } catch {
+    message.error(t('debug.jsonViewer.copyFailed'))
+  }
 }
 
 const handleSelect = (item: I_Event_item) => {
+  selectedItem.value = item
+  viewMode.value = 'tree'
   open.value = true
-  selectedTitle.value = item.name
-  selectedData.value = JSON.stringify(item.params || {}, null, 2)
-  if (resultRef.value) {
-    resultRef.value.innerHTML = ''
-    const prettyJson = document.createElement('pretty-json')
-    prettyJson.textContent = JSON.stringify(item.params, null, 2)
-    resultRef.value.appendChild(prettyJson)
-  }
 }
 </script>
 
@@ -190,22 +257,16 @@ const handleSelect = (item: I_Event_item) => {
     background: var(--color-bg-subtle);
   }
 
-  &.request {
-    .type-label {
-      color: var(--color-success);
-    }
+  &.request .type-label {
+    color: var(--color-success);
   }
 
-  &.response {
-    .type-label {
-      color: var(--color-primary);
-    }
+  &.response .type-label {
+    color: var(--color-primary);
   }
 
-  &.error {
-    .type-label {
-      color: var(--color-error);
-    }
+  &.error .type-label {
+    color: var(--color-error);
   }
 }
 
@@ -275,5 +336,80 @@ const handleSelect = (item: I_Event_item) => {
   font-size: 13px;
   border: 1px dashed var(--color-border);
   border-radius: var(--radius-md);
+}
+
+.drawer-title {
+  display: flex;
+  align-items: center;
+  gap: var(--space-sm);
+  min-width: 0;
+}
+
+.drawer-name {
+  font-size: 14px;
+  font-weight: 600;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.drawer-type-badge {
+  font-size: 10px;
+  font-weight: 600;
+  padding: 2px 8px;
+  border-radius: 4px;
+  letter-spacing: 0.04em;
+  flex-shrink: 0;
+
+  &.request {
+    background: var(--color-success-bg);
+    color: var(--color-success);
+  }
+
+  &.response {
+    background: var(--color-primary-light);
+    color: var(--color-primary);
+  }
+
+  &.error {
+    background: var(--color-error-bg);
+    color: var(--color-error);
+  }
+}
+
+.drawer-actions {
+  display: flex;
+  align-items: center;
+  gap: var(--space-xs);
+}
+
+.drawer-body {
+  padding: var(--space-md);
+}
+
+.drawer-meta {
+  display: flex;
+  align-items: center;
+  gap: var(--space-md);
+  margin-bottom: var(--space-md);
+  padding-bottom: var(--space-sm);
+  border-bottom: 1px solid var(--color-border-light);
+}
+
+.meta-time {
+  font-size: 12px;
+  font-family: var(--font-mono);
+  color: var(--color-text-muted);
+}
+
+.meta-count {
+  font-size: 12px;
+  color: var(--color-text-secondary);
+}
+
+.screenshot-wrap {
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  overflow: hidden;
 }
 </style>

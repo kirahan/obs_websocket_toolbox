@@ -4,6 +4,15 @@
   "selectRequest": "从左侧选择一个请求或事件",
   "notSupported": "不支持",
   "noEvents": "暂无请求或事件记录",
+  "jsonViewer": {
+    "tree": "结构化",
+    "raw": "JSON",
+    "copy": "复制 JSON",
+    "copied": "已复制到剪贴板",
+    "copyFailed": "复制失败",
+    "empty": "无数据",
+    "fieldCount": "{count} 个字段"
+  },
   "connection": {
     "disconnected": "WebSocket 未连接",
     "profile": "配置",

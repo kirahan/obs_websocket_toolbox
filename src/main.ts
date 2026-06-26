@@ -1,5 +1,6 @@
 import { createApp } from 'vue'
 import './style.scss'
+import './libs/pretty-json.js'
 import App from './App.vue'
 import router from './router'
 import i18n from './locales'
