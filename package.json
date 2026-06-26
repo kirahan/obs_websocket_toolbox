@@ -6,7 +6,8 @@
   "scripts": {
     "dev": "vite",
     "build": "vue-tsc && vite build",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "sync-protocol": "node scripts/sync-protocol.mjs"
   },
   "dependencies": {
     "@ant-design/icons-vue": "^7.0.1",

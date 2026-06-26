@@ -43,8 +43,28 @@ URL:[https://kirahan.github.io/obs_websocket_toolbox](https://kirahan.github.io/
 ### 构建说明:
 
 1. 克隆仓库
-2. Run `npm install`
-3. Run `npm run dev`
+2. Run `yarn install`
+3. Run `yarn dev`
+
+### 同步 OBS 协议文档
+
+协议数据从 obs-websocket 官方文档自动生成，无需手动维护：
+
+```bash
+yarn sync-protocol
+```
+
+脚本会从 [protocol.md](https://github.com/obsproject/obs-websocket/blob/master/docs/generated/protocol.md) 拉取最新内容，更新：
+
+- `src/data/generated/protocol.json` — 结构化协议数据
+- `src/locales/en/debug.json` — 英文描述（全量替换协议相关字段）
+- `src/locales/zh/debug.json` / `tw/debug.json` — 保留已有中文翻译，仅补充新增条目
+
+也可使用本地文件调试：
+
+```bash
+node scripts/sync-protocol.mjs --local path/to/protocol.md
+```
 
 
 ### 待办事项
