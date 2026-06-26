@@ -100,6 +100,27 @@ h1, h2, h3, h4 {
   color: var(--color-primary) !important;
 }
 
+/* directory-tree 选中时 ::before 会覆盖缩进区域，改为统一浅色背景 */
+.ant-tree.ant-tree-directory {
+  .ant-tree-treenode::before {
+    border-radius: var(--radius-sm);
+  }
+
+  .ant-tree-treenode-selected::before,
+  .ant-tree-treenode-selected:hover::before {
+    background: var(--color-primary-light) !important;
+  }
+
+  .ant-tree-treenode-selected .ant-tree-node-content-wrapper {
+    color: var(--color-primary) !important;
+    background: transparent !important;
+  }
+
+  .ant-tree-treenode-selected .ant-tree-switcher {
+    color: var(--color-primary) !important;
+  }
+}
+
 .ant-table {
   font-size: 13px;
 }
