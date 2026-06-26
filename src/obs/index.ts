@@ -5,6 +5,15 @@ import { OBSEventTypes, OBSRequestTypes, OBSResponseTypes } from 'obs-websocket-
 import { obsEventDetailData } from '../data/events';
 import { message } from 'ant-design-vue';
 import { currentScene, inputsList, scenesList, transitionsList } from './state';
+import { isSimulatorConnection } from '../simulator/connection';
+import { mockObsClient } from '../simulator';
+
+type ObsRpcClient = {
+    call(request: string, data?: Record<string, unknown>): Promise<any>
+    on(event: string, callback: (data: unknown) => void): void
+    disconnect(): Promise<void>
+    connect(url: string, password?: string): Promise<unknown>
+}
 
 type DiffSnapshotValue = string | number | boolean | unknown[] | Record<string, unknown>
 
@@ -34,11 +43,22 @@ class OBS {
     private constructor() {
     }
 
-    
+    private getClient(): ObsRpcClient {
+        return (isSimulatorConnection() ? mockObsClient : this.ws) as ObsRpcClient
+    }
 
     async connect(){
         if(this.connected.value) return;
         try {
+            if (isSimulatorConnection()) {
+                console.log('[obs]连接模拟器')
+                const res = await mockObsClient.connect()
+                console.log('[obs]模拟器连接成功', res)
+                this.connected.value = true
+                await this.initWhenConnected()
+                this.registOBSEvent()
+                return
+            }
             const wsUrl = `ws://${this.config.host.value}:${this.config.port.value}`
             console.log("[obs]开始连接", wsUrl);
             const res = await this.ws.connect(wsUrl, this.config.password.value);
@@ -57,7 +77,7 @@ class OBS {
         if(!this.connected.value) return;
         try {
             console.log("[obs]开始断开连接");
-            await this.ws.disconnect();
+            await this.getClient().disconnect();
             console.log("[obs]断开连接成功");
             this.connected.value = false;
         } catch (error) {
@@ -67,9 +87,9 @@ class OBS {
     };
 
     async getStatus() {
-        const SS = await this.ws?.call("GetStreamStatus");
-        const RS = await this.ws?.call("GetRecordStatus");
-        const { studioModeEnabled } = await this.ws?.call("GetStudioModeEnabled");
+        const SS = await this.getClient().call("GetStreamStatus");
+        const RS = await this.getClient().call("GetRecordStatus");
+        const { studioModeEnabled } = await this.getClient().call("GetStudioModeEnabled");
 
         this.status.isStreaming.value = !!SS.outputActive;
         this.status.isRecording.value = !!RS.outputActive;
@@ -79,7 +99,7 @@ class OBS {
     }
 
     async getVersions() {
-        const version = await this.ws?.call("GetVersion");
+        const version = await this.getClient().call("GetVersion");
         this.version.value = {
             obsVersion: version.obsVersion,
             obsWebSocketVersion: version.obsWebSocketVersion,
@@ -90,13 +110,13 @@ class OBS {
     }
 
     async getStats() {
-        const stats = await this.ws?.call("GetStats");
+        const stats = await this.getClient().call("GetStats");
         this.stats.value = stats;
         console.log("[obs]GetStats", stats);
     }
 
     async getVideoSettings() {
-        const videoConfig = await this.ws?.call("GetVideoSettings");
+        const videoConfig = await this.getClient().call("GetVideoSettings");
         this.videoConfig.fpsDenominator.value = videoConfig.fpsDenominator;
         this.videoConfig.fpsNumerator.value = videoConfig.fpsNumerator;
         this.videoConfig.baseHeight.value = videoConfig.baseHeight;
@@ -107,7 +127,7 @@ class OBS {
     }
 
     async getSceneCollectionList(){
-        const { currentSceneCollectionName, sceneCollections } = await this.ws?.call("GetSceneCollectionList");
+        const { currentSceneCollectionName, sceneCollections } = await this.getClient().call("GetSceneCollectionList");
         this.generalConfig.currentSCname.value = currentSceneCollectionName;
         this.generalConfig.sceneCollectionList.value = sceneCollections
         console.log("[obs]sceneCollections", sceneCollections);
@@ -115,7 +135,7 @@ class OBS {
     }
 
     async getProfileList(){
-        const { currentProfileName, profiles } = await this.ws?.call("GetProfileList");
+        const { currentProfileName, profiles } = await this.getClient().call("GetProfileList");
         this.generalConfig.currentProfile.value = currentProfileName;
         this.generalConfig.profileList.value = profiles
         console.log("[obs]profileList", profiles);
@@ -136,7 +156,7 @@ class OBS {
     }
 
     async getSceneList() {
-        const { scenes, currentProgramSceneName } = await this.ws?.call("GetSceneList");
+        const { scenes, currentProgramSceneName } = await this.getClient().call("GetSceneList");
         scenesList.value = scenes.map((scene, index) => ({
             name: scene.sceneName as string,
             sceneIndex: index
@@ -147,7 +167,7 @@ class OBS {
     }
 
     async getInputList() {
-        const { inputs } = await this.ws?.call("GetInputList");
+        const { inputs } = await this.getClient().call("GetInputList");
         inputsList.value = inputs.map((input) => ({
             name: input.inputName as string,
             kind: input.inputKind as string,
@@ -157,7 +177,7 @@ class OBS {
     }
 
     async getSceneTransitionList() {
-        const { transitions } = await this.ws?.call("GetSceneTransitionList");
+        const { transitions } = await this.getClient().call("GetSceneTransitionList");
         transitionsList.value = transitions.map((transition) => ({
             name: transition.transitionName as string,
             kind: transition.transitionKind as string | undefined,
@@ -178,31 +198,31 @@ class OBS {
     async captureDiffSnapshot(): Promise<OBSDiffSnapshot> {
         const sceneList = await this.safeSnapshotCall(
             { currentProgramSceneName: '', scenes: [] as any[] },
-            () => this.ws.call('GetSceneList'),
+            () => this.getClient().call('GetSceneList'),
         )
         const inputList = await this.safeSnapshotCall(
             { inputs: [] as any[] },
-            () => this.ws.call('GetInputList'),
+            () => this.getClient().call('GetInputList'),
         )
         const transition = await this.safeSnapshotCall(
             { transitionName: '', transitionDuration: 0 },
-            () => this.ws.call('GetCurrentSceneTransition'),
+            () => this.getClient().call('GetCurrentSceneTransition'),
         )
         const streamStatus = await this.safeSnapshotCall(
             { outputActive: false, outputTimecode: '' },
-            () => this.ws.call('GetStreamStatus'),
+            () => this.getClient().call('GetStreamStatus'),
         )
         const recordStatus = await this.safeSnapshotCall(
             { outputActive: false, outputTimecode: '' },
-            () => this.ws.call('GetRecordStatus'),
+            () => this.getClient().call('GetRecordStatus'),
         )
         const profileList = await this.safeSnapshotCall(
             { currentProfileName: '', profiles: [] as string[] },
-            () => this.ws.call('GetProfileList'),
+            () => this.getClient().call('GetProfileList'),
         )
         const sceneCollectionList = await this.safeSnapshotCall(
             { currentSceneCollectionName: '', sceneCollections: [] as string[] },
-            () => this.ws.call('GetSceneCollectionList'),
+            () => this.getClient().call('GetSceneCollectionList'),
         )
 
         return {
@@ -232,7 +252,7 @@ class OBS {
 
     async sendRequest(request: keyof OBSRequestTypes,query?:any) {
         try {
-            const res = await this.ws.call(request,query)
+            const res = await this.getClient().call(request,query)
             // @ts-ignore
             res && WSEventAndRequestHistory.value.push({
                 uuid: Math.random().toString(),
@@ -261,10 +281,11 @@ class OBS {
     }
 
     registOBSEvent(){
+        const client = this.getClient()
         for(let item in obsEventDetailData){
             const eventName = obsEventDetailData[item].key
             // @ts-ignore
-            this.ws.on(eventName,async(data)=>{
+            client.on(eventName,async(data)=>{
                 console.log(`[obs event]${eventName}:`, data)
                 WSEventAndRequestHistory.value.push({
                     uuid: Math.random().toString(),
@@ -275,12 +296,14 @@ class OBS {
                 })
             })
         }
-        this.ws.on('ConnectionClosed',()=>{
-            this.connected.value = false
-        })
-        this.ws.on('ConnectionError',(err)=>{
-            console.error('ConnectionError',err)
-        })
+        if (!isSimulatorConnection()) {
+            this.ws.on('ConnectionClosed',()=>{
+                this.connected.value = false
+            })
+            this.ws.on('ConnectionError',(err)=>{
+                console.error('ConnectionError',err)
+            })
+        }
     }
 
 

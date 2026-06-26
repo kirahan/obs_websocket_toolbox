@@ -10,15 +10,31 @@
   "modules": {
     "debugger": {
       "title": "Debugger",
-      "description": "OBS Websocket debugging tool for testing and validating Websocket connections and commands."
+      "description": "Connect OBS, browse API, send requests, view responses and events."
     },
     "controller": {
       "title": "Controller",
-      "description": "Interface for remote control of OBS, providing shortcuts for common operations."
+      "description": "Remote control: scenes, sources, audio and transitions."
     },
     "simulator": {
       "title": "OBS Simulator",
-      "description": "Simulates an OBS Websocket server for development and testing without an OBS environment."
+      "description": "Mock WebSocket responses and events without OBS."
+    },
+    "batchRunner": {
+      "title": "Batch Runner",
+      "description": "Run multiple requests in serial or parallel."
+    },
+    "eventMonitor": {
+      "title": "Event Monitor",
+      "description": "Timeline of OBS events with filter and export."
+    },
+    "codeGenerator": {
+      "title": "Code Generator",
+      "description": "Generate JavaScript, Python, curl snippets."
+    },
+    "vendorExplorer": {
+      "title": "Vendor Explorer",
+      "description": "Test CallVendorRequest and VendorEvent."
     }
   }
 }

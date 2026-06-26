@@ -15,9 +15,7 @@
           @click="navigateTo(module)"
         >
           <div class="card-icon" :class="module.name">
-            <BugOutlined v-if="module.name === 'debugger'" />
-            <ControlOutlined v-else-if="module.name === 'controller'" />
-            <ExperimentOutlined v-else />
+            <component :is="module.icon" />
           </div>
           <div class="card-body">
             <h2>{{ $t(`main.modules.${module.name}.title`) }}</h2>
@@ -37,23 +35,30 @@
 </template>
 
 <script setup lang="ts">
-import { ref } from 'vue'
 import { useRouter } from 'vue-router'
 import {
   BugOutlined,
   ControlOutlined,
   ExperimentOutlined,
+  ApartmentOutlined,
+  RadarChartOutlined,
+  CodeOutlined,
+  ApiOutlined,
   ArrowRightOutlined,
 } from '@ant-design/icons-vue'
 import NavHeader from '../../components/NavHeader.vue'
 
 const router = useRouter()
 
-const modules = ref([
-  { name: 'debugger', route: '/debug', disabled: false },
-  { name: 'controller', route: '/controller', disabled: false },
-  { name: 'simulator', route: '/simulator', disabled: true },
-])
+const modules = [
+  { name: 'debugger', route: '/debug', disabled: false, icon: BugOutlined },
+  { name: 'controller', route: '/controller', disabled: false, icon: ControlOutlined },
+  { name: 'simulator', route: '/simulator', disabled: false, icon: ExperimentOutlined },
+  { name: 'batchRunner', route: '/batch-runner', disabled: false, icon: ApartmentOutlined },
+  { name: 'eventMonitor', route: '/event-monitor', disabled: false, icon: RadarChartOutlined },
+  { name: 'codeGenerator', route: '/code-generator', disabled: false, icon: CodeOutlined },
+  { name: 'vendorExplorer', route: '/vendor-explorer', disabled: false, icon: ApiOutlined },
+]
 
 const navigateTo = (module: { route: string; disabled: boolean }) => {
   if (module.disabled) return
@@ -75,7 +80,7 @@ const navigateTo = (module: { route: string; disabled: boolean }) => {
   flex-direction: column;
   align-items: center;
   padding: var(--space-xl) var(--space-lg);
-  max-width: 960px;
+  max-width: 1100px;
   margin: 0 auto;
   width: 100%;
 }
@@ -136,6 +141,8 @@ const navigateTo = (module: { route: string; disabled: boolean }) => {
   align-items: center;
   justify-content: center;
   font-size: 18px;
+  background: var(--color-bg-subtle);
+  color: var(--color-text-secondary);
 
   &.debugger {
     background: var(--color-primary-light);
@@ -150,6 +157,14 @@ const navigateTo = (module: { route: string; disabled: boolean }) => {
   &.simulator {
     background: var(--color-info-bg);
     color: var(--color-info);
+  }
+
+  &.batchRunner,
+  &.eventMonitor,
+  &.codeGenerator,
+  &.vendorExplorer {
+    background: var(--color-primary-light);
+    color: var(--color-primary);
   }
 }
 

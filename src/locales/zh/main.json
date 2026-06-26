@@ -7,15 +7,31 @@
   "modules": {
     "debugger": {
       "title": "调试器",
-      "description": "OBS Websocket 调试工具，用于测试和验证 Websocket 连接和命令。"
+      "description": "连接 OBS、浏览 API、发送请求、查看响应与事件。"
     },
     "controller": {
       "title": "控制器",
-      "description": "用于远程控制 OBS 的界面，提供常用操作的快捷方式。"
+      "description": "远程控制 OBS：场景、源、音频与转场。"
     },
     "simulator": {
       "title": "OBS 模拟器",
-      "description": "模拟 OBS Websocket 服务器，用于开发和测试没有 OBS 环境的情况。"
+      "description": "无 OBS 环境时模拟 WebSocket 响应与事件。"
+    },
+    "batchRunner": {
+      "title": "批处理执行器",
+      "description": "编排多个 Request 串行或并行执行。"
+    },
+    "eventMonitor": {
+      "title": "事件监视器",
+      "description": "时间轴监听 OBS 事件，支持过滤与导出。"
+    },
+    "codeGenerator": {
+      "title": "代码生成器",
+      "description": "生成 JavaScript、Python、curl 等调用代码。"
+    },
+    "vendorExplorer": {
+      "title": "Vendor 探索器",
+      "description": "测试第三方插件 Vendor Request 与 Event。"
     }
   }
 }

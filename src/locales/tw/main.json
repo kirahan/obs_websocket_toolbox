@@ -7,15 +7,31 @@
   "modules": {
     "debugger": {
       "title": "除錯器",
-      "description": "OBS Websocket 除錯工具，用於測試和驗證 Websocket 連接和命令。"
+      "description": "連接 OBS、瀏覽 API、發送請求、查看回應與事件。"
     },
     "controller": {
       "title": "控制器",
-      "description": "用於遠程控制 OBS 的界面，提供常用操作的快捷方式。"
+      "description": "遠程控制 OBS：場景、源、音訊與轉場。"
     },
     "simulator": {
       "title": "OBS 模擬器",
-      "description": "模擬 OBS Websocket 伺服器，用於開發和測試沒有 OBS 環境的情況。"
+      "description": "無 OBS 環境時模擬 WebSocket 回應與事件。"
+    },
+    "batchRunner": {
+      "title": "批處理執行器",
+      "description": "編排多個 Request 串行或並行執行。"
+    },
+    "eventMonitor": {
+      "title": "事件監視器",
+      "description": "時間軸監聽 OBS 事件，支援過濾與匯出。"
+    },
+    "codeGenerator": {
+      "title": "代碼生成器",
+      "description": "生成 JavaScript、Python、curl 等調用代碼。"
+    },
+    "vendorExplorer": {
+      "title": "Vendor 探索器",
+      "description": "測試第三方插件 Vendor Request 與 Event。"
     }
   }
 }
