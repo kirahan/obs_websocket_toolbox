@@ -1,0 +1,45 @@
+name: Sync OBS WebSocket Protocol
+
+on:
+  schedule:
+    # 每周一 UTC 02:00 检查协议更新
+    - cron: '0 2 * * 1'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+  pull-requests: write
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - name: Sync protocol from obs-websocket
+        run: node scripts/sync-protocol.mjs
+
+      - name: Create Pull Request
+        uses: peter-evans/create-pull-request@v6
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          commit-message: 'chore: 同步 obs-websocket 协议文档'
+          title: 'chore: 同步 obs-websocket 协议文档'
+          body: |
+            自动从 [obs-websocket protocol.md](https://github.com/obsproject/obs-websocket/blob/master/docs/generated/protocol.md) 同步最新协议数据。
+
+            **变更文件：**
+            - `src/data/generated/protocol.json`
+            - `src/locales/en/debug.json`
+            - `src/locales/zh/debug.json`（仅补充新增条目）
+            - `src/locales/tw/debug.json`（仅补充新增条目）
+
+            合并前请确认构建通过：`yarn build`
+          branch: chore/sync-protocol
+          delete-branch: true

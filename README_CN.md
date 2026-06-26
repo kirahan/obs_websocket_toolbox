@@ -66,6 +66,8 @@ yarn sync-protocol
 node scripts/sync-protocol.mjs --local path/to/protocol.md
 ```
 
+GitHub Actions 会每周一自动运行同步脚本，如有变更则创建 Pull Request（工作流：`Sync OBS WebSocket Protocol`）。也可在 Actions 页面手动触发。
+
 
 ### 待办事项
 
