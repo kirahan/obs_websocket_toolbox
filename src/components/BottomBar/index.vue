@@ -14,12 +14,37 @@
 
       <a-popover trigger="click" v-model:open="isConnectionConfigPopVisible" placement="topLeft">
         <template #content>
+          <div class="profile-panel">
+            <div class="profile-header">
+              <span>Connection Profiles</span>
+              <span class="profile-count">{{ connectionProfiles.length }}</span>
+            </div>
+            <div v-if="connectionProfiles.length" class="profile-list">
+              <div
+                v-for="profile in connectionProfiles"
+                :key="profile.id"
+                class="profile-item"
+              >
+                <button class="profile-main" @click="applyConnectionProfile(profile)">
+                  <span class="profile-name">{{ profile.name }}</span>
+                  <span class="profile-endpoint">{{ profile.host }}:{{ profile.port }}</span>
+                </button>
+                <a-button size="small" danger ghost @click="deleteConnectionProfile(profile.id)">
+                  Delete
+                </a-button>
+              </div>
+            </div>
+            <div v-else class="profile-empty">No profiles yet.</div>
+          </div>
           <a-form
             layout="vertical"
             :model="connectParms"
             class="config-form"
             @finish="setConnectParmsFinish"
           >
+            <a-form-item label="Profile name">
+              <a-input v-model:value="profileName" placeholder="Local OBS" />
+            </a-form-item>
             <a-form-item
               :label="$t('debug.connection.host')"
               name="host"
@@ -38,9 +63,14 @@
               <a-input-password v-model:value="connectParms.password" />
             </a-form-item>
             <a-form-item>
-              <a-button type="primary" html-type="submit" size="small">
-                {{ $t('debug.connection.save') }}
-              </a-button>
+              <a-space size="small">
+                <a-button type="primary" html-type="submit" size="small">
+                  {{ $t('debug.connection.save') }}
+                </a-button>
+                <a-button size="small" @click="saveConnectionProfile">
+                  Save profile
+                </a-button>
+              </a-space>
             </a-form-item>
           </a-form>
         </template>
@@ -80,7 +110,8 @@
 
 <script setup lang="ts">
 import { ref, computed, watch } from 'vue'
-import { notification } from 'ant-design-vue'
+import { message, notification } from 'ant-design-vue'
+import { useStorage } from '@vueuse/core'
 import {
   WindowsOutlined,
   LinkOutlined,
@@ -101,6 +132,17 @@ const Disk = computed(() => (WSstats.value.availableDiskSpace / 1024)?.toFixed(1
 
 const looptimer = ref(0)
 const isConnectionConfigPopVisible = ref(false)
+
+interface ConnectionProfile {
+  id: string
+  name: string
+  host: string
+  port: string
+  password: string
+}
+
+const connectionProfiles = useStorage<ConnectionProfile[]>('connectionProfiles', [])
+const profileName = ref('')
 
 const connectParms = ref({
   host: OBSConnectionConfig.host.value,
@@ -127,6 +169,49 @@ const setConnectParmsFinish = () => {
   OBSConnectionConfig.port.value = connectParms.value.port
   OBSConnectionConfig.password.value = connectParms.value.password
   isConnectionConfigPopVisible.value = false
+}
+
+const saveConnectionProfile = () => {
+  if (!connectParms.value.host || !connectParms.value.port) {
+    message.error('Host and port are required')
+    return
+  }
+
+  const name = profileName.value.trim() || `${connectParms.value.host}:${connectParms.value.port}`
+  const existingIndex = connectionProfiles.value.findIndex((profile) => profile.name === name)
+  const nextProfile = {
+    id: existingIndex >= 0 ? connectionProfiles.value[existingIndex].id : `${Date.now()}-${Math.random().toString(16).slice(2)}`,
+    name,
+    host: connectParms.value.host,
+    port: connectParms.value.port,
+    password: connectParms.value.password,
+  }
+
+  if (existingIndex >= 0) {
+    connectionProfiles.value.splice(existingIndex, 1, nextProfile)
+  } else {
+    connectionProfiles.value.unshift(nextProfile)
+  }
+  profileName.value = ''
+  message.success('Connection profile saved')
+}
+
+const applyConnectionProfile = (profile: ConnectionProfile) => {
+  connectParms.value = {
+    host: profile.host,
+    port: profile.port,
+    password: profile.password,
+  }
+  profileName.value = profile.name
+  OBSConnectionConfig.host.value = profile.host
+  OBSConnectionConfig.port.value = profile.port
+  OBSConnectionConfig.password.value = profile.password
+  message.success('Connection profile applied')
+}
+
+const deleteConnectionProfile = (id: string) => {
+  connectionProfiles.value = connectionProfiles.value.filter((profile) => profile.id !== id)
+  message.success('Connection profile deleted')
 }
 
 const connectOBS = async () => {
@@ -226,8 +311,78 @@ const pauseOBSstat = () => {
   }
 }
 
-.config-form {
-  width: 240px;
+.config-form,
+.profile-panel {
+  width: 280px;
+}
+
+.profile-panel {
+  margin-bottom: var(--space-md);
+  padding-bottom: var(--space-md);
+  border-bottom: 1px solid var(--color-border-light);
+}
+
+.profile-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: var(--space-sm);
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--color-text);
+}
+
+.profile-count {
+  color: var(--color-text-muted);
+  font-family: var(--font-mono);
+  font-weight: 400;
+}
+
+.profile-list {
+  display: grid;
+  gap: 6px;
+  max-height: 160px;
+  overflow-y: auto;
+}
+
+.profile-item {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  gap: var(--space-sm);
+  align-items: center;
+}
+
+.profile-main {
+  display: grid;
+  gap: 2px;
+  min-width: 0;
+  padding: 6px var(--space-sm);
+  text-align: left;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-sm);
+  background: var(--color-bg-subtle);
+  cursor: pointer;
+
+  &:hover {
+    border-color: var(--color-primary);
+    background: var(--color-primary-light);
+  }
+}
+
+.profile-name {
+  color: var(--color-text);
+  font-size: 12px;
+  font-weight: 600;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.profile-endpoint,
+.profile-empty {
+  color: var(--color-text-muted);
+  font-size: 11px;
+  font-family: var(--font-mono);
 }
 
 .stat-item {

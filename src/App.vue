@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { ConfigProvider, theme } from 'ant-design-vue'
 import { computed } from 'vue'
+import CommandPalette from './components/CommandPalette.vue'
 
 const themeConfig = computed(() => ({
   token: {
@@ -20,5 +21,6 @@ const themeConfig = computed(() => ({
 <template>
   <ConfigProvider :theme="themeConfig">
     <router-view />
+    <CommandPalette />
   </ConfigProvider>
 </template>

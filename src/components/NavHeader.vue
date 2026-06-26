@@ -8,6 +8,12 @@
       <slot name="middle" />
     </nav>
     <div class="right-section">
+      <a-tooltip title="Command Palette">
+        <button class="command-btn" @click="openCommandPalette">
+          <SearchOutlined />
+          <span>⌘K</span>
+        </button>
+      </a-tooltip>
       <a-select
         v-model:value="localLang"
         size="small"
@@ -29,7 +35,7 @@
 <script setup lang="ts">
 import { computed } from 'vue'
 import { useRouter, useRoute } from 'vue-router'
-import { ArrowLeftOutlined, GithubOutlined } from '@ant-design/icons-vue'
+import { ArrowLeftOutlined, GithubOutlined, SearchOutlined } from '@ant-design/icons-vue'
 import { localLang, switchLang } from '../state'
 
 const router = useRouter()
@@ -49,6 +55,10 @@ const goToGithub = () => {
 
 const goHome = () => {
   router.push('/')
+}
+
+const openCommandPalette = () => {
+  window.dispatchEvent(new CustomEvent('open-command-palette'))
 }
 </script>
 
@@ -104,6 +114,25 @@ const goHome = () => {
 
 .lang-select {
   width: 64px;
+}
+
+.command-btn {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  height: 28px;
+  padding: 0 8px;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-sm);
+  background: var(--color-bg-subtle);
+  color: var(--color-text-secondary);
+  cursor: pointer;
+  font-size: 12px;
+
+  &:hover {
+    color: var(--color-text);
+    border-color: var(--color-primary);
+  }
 }
 
 .github-icon {

@@ -4,7 +4,12 @@ import { OBSConnectionConfig, OBSGeneralConfig, OBSVideoConfig, OBSstatus, WSEve
 import { OBSEventTypes, OBSRequestTypes, OBSResponseTypes } from 'obs-websocket-js'
 import { obsEventDetailData } from '../data/events';
 import { message } from 'ant-design-vue';
-import { currentScene, scenesList } from './state';
+import { currentScene, inputsList, scenesList, transitionsList } from './state';
+
+type DiffSnapshotValue = string | number | boolean | unknown[] | Record<string, unknown>
+
+export type OBSDiffSnapshot = Record<string, DiffSnapshotValue>
+
 class OBS {
     static instance: OBS;
     static getInstance(): OBS {
@@ -125,6 +130,8 @@ class OBS {
         await this.getSceneCollectionList();
         await this.getProfileList();
         await this.getSceneList();
+        await this.getInputList();
+        await this.getSceneTransitionList();
         
     }
 
@@ -139,10 +146,96 @@ class OBS {
         console.log("[obs]当前场景", currentProgramSceneName);
     }
 
+    async getInputList() {
+        const { inputs } = await this.ws?.call("GetInputList");
+        inputsList.value = inputs.map((input) => ({
+            name: input.inputName as string,
+            kind: input.inputKind as string,
+            uuid: input.inputUuid as string | undefined
+        }));
+        console.log("[obs]输入列表", inputs);
+    }
+
+    async getSceneTransitionList() {
+        const { transitions } = await this.ws?.call("GetSceneTransitionList");
+        transitionsList.value = transitions.map((transition) => ({
+            name: transition.transitionName as string,
+            kind: transition.transitionKind as string | undefined,
+            uuid: transition.transitionUuid as string | undefined
+        }));
+        console.log("[obs]转场列表", transitions);
+    }
+
+    private async safeSnapshotCall<T>(fallback: unknown, call: () => Promise<T>): Promise<any> {
+        try {
+            return await call()
+        } catch (error) {
+            console.warn('[obs]diff snapshot failed', error)
+            return fallback
+        }
+    }
+
+    async captureDiffSnapshot(): Promise<OBSDiffSnapshot> {
+        const sceneList = await this.safeSnapshotCall(
+            { currentProgramSceneName: '', scenes: [] as any[] },
+            () => this.ws.call('GetSceneList'),
+        )
+        const inputList = await this.safeSnapshotCall(
+            { inputs: [] as any[] },
+            () => this.ws.call('GetInputList'),
+        )
+        const transition = await this.safeSnapshotCall(
+            { transitionName: '', transitionDuration: 0 },
+            () => this.ws.call('GetCurrentSceneTransition'),
+        )
+        const streamStatus = await this.safeSnapshotCall(
+            { outputActive: false, outputTimecode: '' },
+            () => this.ws.call('GetStreamStatus'),
+        )
+        const recordStatus = await this.safeSnapshotCall(
+            { outputActive: false, outputTimecode: '' },
+            () => this.ws.call('GetRecordStatus'),
+        )
+        const profileList = await this.safeSnapshotCall(
+            { currentProfileName: '', profiles: [] as string[] },
+            () => this.ws.call('GetProfileList'),
+        )
+        const sceneCollectionList = await this.safeSnapshotCall(
+            { currentSceneCollectionName: '', sceneCollections: [] as string[] },
+            () => this.ws.call('GetSceneCollectionList'),
+        )
+
+        return {
+            currentProgramScene: sceneList.currentProgramSceneName,
+            scenes: sceneList.scenes.map((scene) => scene.sceneName as string),
+            inputs: inputList.inputs.map((input) => ({
+                name: input.inputName,
+                kind: input.inputKind,
+                uuid: input.inputUuid,
+            })),
+            currentTransition: {
+                name: transition.transitionName,
+                duration: transition.transitionDuration,
+            },
+            stream: {
+                active: streamStatus.outputActive,
+            },
+            record: {
+                active: recordStatus.outputActive,
+            },
+            currentProfile: profileList.currentProfileName,
+            profiles: profileList.profiles,
+            currentSceneCollection: sceneCollectionList.currentSceneCollectionName,
+            sceneCollections: sceneCollectionList.sceneCollections,
+        }
+    }
+
     async sendRequest(request: keyof OBSRequestTypes,query?:any) {
-        this.ws.call(request,query).then((res)=>{
+        try {
+            const res = await this.ws.call(request,query)
             // @ts-ignore
             res && WSEventAndRequestHistory.value.push({
+                uuid: Math.random().toString(),
                 type: "response",
                 name: request,
                 params: res as any,
@@ -150,18 +243,21 @@ class OBS {
             });
             console.log('===========ws====',res);
             message.success('Send Request Success');
-        }).catch((err)=>{
+            return { ok: true, response: res as unknown }
+        } catch (err) {
+            const error = err as Error
             // 插入错误信息
             WSEventAndRequestHistory.value.push({
                 uuid: Math.random().toString(),
                 type: "error",
                 name: request,
-                params: err.message as any,
+                params: error.message as any,
                 timestamp: new Date().toLocaleTimeString()
             });
-            console.error('===========ws===err=',err.message)
-            message.error('Send Request Error:'+err.message);
-        });
+            console.error('===========ws===err=',error.message)
+            message.error('Send Request Error:'+error.message);
+            return { ok: false, error: error.message }
+        }
     }
 
     registOBSEvent(){
