@@ -22,7 +22,7 @@
             <p>{{ $t(`main.modules.${module.name}.description`) }}</p>
           </div>
           <div class="card-action">
-            <span v-if="module.disabled" class="badge-coming">{{ $t('main.comingSoon') }}</span>
+            <span v-if="module.disabled" class="badge-coming">{{ $t(`main.${module.badge ?? 'comingSoon'}`) }}</span>
             <span v-else class="badge-enter">
               {{ $t('main.enterModule') }}
               <ArrowRightOutlined />
@@ -44,13 +44,26 @@ import {
   RadarChartOutlined,
   CodeOutlined,
   ApiOutlined,
+  PictureOutlined,
+  AppstoreOutlined,
+  ThunderboltOutlined,
+  LinkOutlined,
+  ClusterOutlined,
   ArrowRightOutlined,
 } from '@ant-design/icons-vue'
+
+interface MainModule {
+  name: string
+  route: string
+  disabled: boolean
+  badge?: 'comingSoon' | 'inDevelopment'
+  icon: typeof BugOutlined
+}
 import NavHeader from '../../components/NavHeader.vue'
 
 const router = useRouter()
 
-const modules = [
+const modules: MainModule[] = [
   { name: 'debugger', route: '/debug', disabled: false, icon: BugOutlined },
   { name: 'controller', route: '/controller', disabled: false, icon: ControlOutlined },
   { name: 'simulator', route: '/simulator', disabled: false, icon: ExperimentOutlined },
@@ -58,9 +71,14 @@ const modules = [
   { name: 'eventMonitor', route: '/event-monitor', disabled: false, icon: RadarChartOutlined },
   { name: 'codeGenerator', route: '/code-generator', disabled: false, icon: CodeOutlined },
   { name: 'vendorExplorer', route: '/vendor-explorer', disabled: false, icon: ApiOutlined },
+  { name: 'screenshotStudio', route: '/screenshot-studio', disabled: false, icon: PictureOutlined },
+  { name: 'streamDeck', route: '', disabled: true, badge: 'inDevelopment', icon: AppstoreOutlined },
+  { name: 'automation', route: '', disabled: true, badge: 'inDevelopment', icon: ThunderboltOutlined },
+  { name: 'webhookBridge', route: '', disabled: true, badge: 'inDevelopment', icon: LinkOutlined },
+  { name: 'multiObs', route: '', disabled: true, badge: 'inDevelopment', icon: ClusterOutlined },
 ]
 
-const navigateTo = (module: { route: string; disabled: boolean }) => {
+const navigateTo = (module: MainModule) => {
   if (module.disabled) return
   router.push(module.route)
 }
@@ -162,9 +180,18 @@ const navigateTo = (module: { route: string; disabled: boolean }) => {
   &.batchRunner,
   &.eventMonitor,
   &.codeGenerator,
-  &.vendorExplorer {
+  &.vendorExplorer,
+  &.screenshotStudio {
     background: var(--color-primary-light);
     color: var(--color-primary);
+  }
+
+  &.streamDeck,
+  &.automation,
+  &.webhookBridge,
+  &.multiObs {
+    background: var(--color-warning-bg);
+    color: var(--color-warning);
   }
 }
 

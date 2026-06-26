@@ -7,6 +7,7 @@ import BatchRunner from './pages/BatchRunner/index.vue'
 import EventMonitor from './pages/EventMonitor/index.vue'
 import CodeGenerator from './pages/CodeGenerator/index.vue'
 import VendorExplorer from './pages/VendorExplorer/index.vue'
+import ScreenshotStudio from './pages/ScreenshotStudio/index.vue'
 
 const routes = [
   { path: '/', component: Main },
@@ -17,6 +18,7 @@ const routes = [
   { path: '/event-monitor', component: EventMonitor },
   { path: '/code-generator', component: CodeGenerator },
   { path: '/vendor-explorer', component: VendorExplorer },
+  { path: '/screenshot-studio', component: ScreenshotStudio },
 ]
 
 const router = createRouter({

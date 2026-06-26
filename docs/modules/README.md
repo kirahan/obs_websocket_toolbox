@@ -8,7 +8,12 @@
 |------|------|------|
 | Debugger | ✅ 已上线 | 协议调试：连接、查文档、发请求、看事件 |
 | Controller | ✅ 已上线 | 导播遥控：场景、源、音频、转场 |
-| Simulator | 📋 规划中 | 模拟 OBS WebSocket 服务端 |
+| Simulator | ✅ 已上线 | 模拟 OBS WebSocket 服务端 |
+| Batch Runner | ✅ 已上线 | 批处理执行器 |
+| Event Monitor | ✅ 已上线 | 事件监视器 |
+| Code Generator | ✅ 已上线 | 代码生成器 |
+| Vendor Explorer | ✅ 已上线 | Vendor 探索器 |
+| Screenshot Studio | ✅ 已上线 | 截图预览、导出与批量下载 |
 
 ## 候选模块
 

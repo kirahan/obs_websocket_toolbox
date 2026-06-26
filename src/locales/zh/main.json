@@ -3,6 +3,7 @@
   "subtitle": "OBS WebSocket 协议调试与控制工具",
   "enterModule": "进入模块",
   "comingSoon": "即将推出",
+  "inDevelopment": "开发中",
   "github": "GitHub 仓库",
   "modules": {
     "debugger": {
@@ -32,6 +33,26 @@
     "vendorExplorer": {
       "title": "Vendor 探索器",
       "description": "测试第三方插件 Vendor Request 与 Event。"
+    },
+    "screenshotStudio": {
+      "title": "截图工作室",
+      "description": "预览、调整参数并导出场景与源截图。"
+    },
+    "streamDeck": {
+      "title": "自定义按钮面板",
+      "description": "自定义布局的 OBS 遥控面板，按钮绑定 WebSocket 操作。"
+    },
+    "automation": {
+      "title": "自动化编排",
+      "description": "事件或定时触发 Request 序列，可视化规则引擎。"
+    },
+    "webhookBridge": {
+      "title": "Webhook 桥接",
+      "description": "OBS 事件出站 HTTP，外部 Webhook 触发 OBS 请求。"
+    },
+    "multiObs": {
+      "title": "多实例管理",
+      "description": "同时连接多台 OBS，统一查看状态并批量遥控。"
     }
   }
 }

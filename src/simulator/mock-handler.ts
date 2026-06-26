@@ -103,6 +103,16 @@ export function handleMockRequest(
       const height = Number(requestData?.imageHeight ?? 360)
       return { imageData: mockScreenshotBase64(sourceName, width, height) }
     }
+    case 'SaveSourceScreenshot': {
+      const sourceName = String(requestData?.sourceName ?? state.currentProgramScene)
+      const width = Number(requestData?.imageWidth ?? 640)
+      const height = Number(requestData?.imageHeight ?? 360)
+      const imageFilePath = String(requestData?.imageFilePath ?? '')
+      return {
+        imageData: mockScreenshotBase64(sourceName, width, height),
+        imageFilePath,
+      }
+    }
     case 'GetSceneItemList': {
       const sceneName = String(requestData?.sceneName ?? state.currentProgramScene)
       return { sceneItems: state.sceneItems[sceneName] ?? [] }

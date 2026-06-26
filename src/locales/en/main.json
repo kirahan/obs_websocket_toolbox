@@ -3,6 +3,7 @@
   "subtitle": "Debug and control tools for OBS WebSocket protocol",
   "enterModule": "Enter Module",
   "comingSoon": "Coming Soon",
+  "inDevelopment": "In Development",
   "github": "GitHub Repository",
   "nav": {
     "home": "Home"
@@ -35,6 +36,26 @@
     "vendorExplorer": {
       "title": "Vendor Explorer",
       "description": "Test CallVendorRequest and VendorEvent."
+    },
+    "screenshotStudio": {
+      "title": "Screenshot Studio",
+      "description": "Preview, tune params and export scene or source screenshots."
+    },
+    "streamDeck": {
+      "title": "Stream Deck Lite",
+      "description": "Custom OBS control panel with buttons bound to WebSocket actions."
+    },
+    "automation": {
+      "title": "Automation",
+      "description": "Event or scheduled triggers for request sequences via visual rules."
+    },
+    "webhookBridge": {
+      "title": "Webhook Bridge",
+      "description": "OBS events to outbound HTTP; external webhooks trigger OBS requests."
+    },
+    "multiObs": {
+      "title": "Multi-OBS Manager",
+      "description": "Connect multiple OBS instances, view status and control in one place."
     }
   }
 }
