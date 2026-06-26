@@ -1,10 +1,44 @@
 import { obsRequestDetailData } from '../data/requests'
+import { emitMockEvent } from './mock-events'
 import { simulatorCustomResponses, simulatorState } from './mock-state'
+
+function mockScreenshotBase64(label: string, width = 640, height = 360): string {
+  if (typeof document === 'undefined') {
+    return 'iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mP8z8BQDwAEhQGAhKmMIQAAAABJRU5ErkJggg=='
+  }
+  const canvas = document.createElement('canvas')
+  canvas.width = width
+  canvas.height = height
+  const ctx = canvas.getContext('2d')
+  if (!ctx) return ''
+  const hash = label.split('').reduce((sum, char) => sum + char.charCodeAt(0), 0)
+  ctx.fillStyle = `hsl(${hash % 360}, 55%, 42%)`
+  ctx.fillRect(0, 0, width, height)
+  ctx.fillStyle = 'rgba(255,255,255,0.85)'
+  ctx.font = `${Math.max(12, Math.floor(width / 16))}px sans-serif`
+  ctx.fillText(label, 12, height / 2)
+  const dataUrl = canvas.toDataURL('image/jpeg', 0.85)
+  return dataUrl.split(',')[1] ?? ''
+}
 
 export function handleMockRequest(
   requestType: string,
   requestData?: Record<string, unknown>,
 ): unknown {
+  if (requestType === '__emitVolumeMeters') {
+    const state = simulatorState.value
+    return {
+      inputs: state.inputs.map((input) => {
+        const level = Math.random() * (state.inputVolumes[input.inputName]?.muted ? 0.02 : 0.7)
+        return {
+          inputName: input.inputName,
+          inputLevelsMul: [level],
+          inputLevelsDb: [20 * Math.log10(Math.max(level, 0.0001))],
+        }
+      }),
+    }
+  }
+
   if (simulatorCustomResponses.value[requestType]) {
     return simulatorCustomResponses.value[requestType]
   }
@@ -52,8 +86,79 @@ export function handleMockRequest(
     case 'SetCurrentProgramScene':
       if (requestData?.sceneName) {
         state.currentProgramScene = String(requestData.sceneName)
+        emitMockEvent('CurrentProgramSceneChanged', { sceneName: state.currentProgramScene })
       }
       return {}
+    case 'GetCurrentPreviewScene':
+      return { currentPreviewSceneName: state.previewScene }
+    case 'SetCurrentPreviewScene':
+      if (requestData?.sceneName) {
+        state.previewScene = String(requestData.sceneName)
+        emitMockEvent('CurrentPreviewSceneChanged', { sceneName: state.previewScene })
+      }
+      return {}
+    case 'GetSourceScreenshot': {
+      const sourceName = String(requestData?.sourceName ?? state.currentProgramScene)
+      const width = Number(requestData?.imageWidth ?? 640)
+      const height = Number(requestData?.imageHeight ?? 360)
+      return { imageData: mockScreenshotBase64(sourceName, width, height) }
+    }
+    case 'GetSceneItemList': {
+      const sceneName = String(requestData?.sceneName ?? state.currentProgramScene)
+      return { sceneItems: state.sceneItems[sceneName] ?? [] }
+    }
+    case 'GetSourceFilterList': {
+      const sourceName = String(requestData?.sourceName ?? '')
+      return { filters: state.sourceFilters[sourceName] ?? [] }
+    }
+    case 'SetSceneItemEnabled': {
+      const sceneName = String(requestData?.sceneName ?? '')
+      const sceneItemId = Number(requestData?.sceneItemId)
+      const items = state.sceneItems[sceneName] ?? []
+      const item = items.find((entry) => entry.sceneItemId === sceneItemId)
+      if (item) item.sceneItemEnabled = !!requestData?.sceneItemEnabled
+      return {}
+    }
+    case 'SetSceneItemLocked': {
+      const sceneName = String(requestData?.sceneName ?? '')
+      const sceneItemId = Number(requestData?.sceneItemId)
+      const items = state.sceneItems[sceneName] ?? []
+      const item = items.find((entry) => entry.sceneItemId === sceneItemId)
+      if (item) item.sceneItemLocked = !!requestData?.sceneItemLocked
+      return {}
+    }
+    case 'GetInputVolume': {
+      const inputName = String(requestData?.inputName ?? '')
+      return { inputVolumeMul: state.inputVolumes[inputName]?.volumeMul ?? 1 }
+    }
+    case 'SetInputVolume': {
+      const inputName = String(requestData?.inputName ?? '')
+      if (!state.inputVolumes[inputName]) {
+        state.inputVolumes[inputName] = { volumeMul: 1, muted: false }
+      }
+      state.inputVolumes[inputName].volumeMul = Number(requestData?.inputVolumeMul ?? 1)
+      return {}
+    }
+    case 'GetInputMute': {
+      const inputName = String(requestData?.inputName ?? '')
+      return { inputMuted: state.inputVolumes[inputName]?.muted ?? false }
+    }
+    case 'ToggleInputMute': {
+      const inputName = String(requestData?.inputName ?? '')
+      if (!state.inputVolumes[inputName]) {
+        state.inputVolumes[inputName] = { volumeMul: 1, muted: false }
+      }
+      state.inputVolumes[inputName].muted = !state.inputVolumes[inputName].muted
+      return { inputMuted: state.inputVolumes[inputName].muted }
+    }
+    case 'SetInputMute': {
+      const inputName = String(requestData?.inputName ?? '')
+      if (!state.inputVolumes[inputName]) {
+        state.inputVolumes[inputName] = { volumeMul: 1, muted: false }
+      }
+      state.inputVolumes[inputName].muted = !!requestData?.inputMuted
+      return {}
+    }
     case 'GetStreamStatus':
       return {
         outputActive: state.streaming,
@@ -72,6 +177,14 @@ export function handleMockRequest(
         outputDuration: 0,
         outputBytes: 0,
       }
+    case 'GetVirtualCamStatus':
+      return { outputActive: state.virtualCam, outputTimecode: '00:00:00.000' }
+    case 'StartVirtualCam':
+      state.virtualCam = true
+      return {}
+    case 'StopVirtualCam':
+      state.virtualCam = false
+      return {}
     case 'StartStream':
       state.streaming = true
       return {}
@@ -92,6 +205,25 @@ export function handleMockRequest(
       return { outputActive: state.recording }
     case 'GetStudioModeEnabled':
       return { studioModeEnabled: state.studioMode }
+    case 'SetStudioModeEnabled':
+      state.studioMode = !!requestData?.studioModeEnabled
+      emitMockEvent('StudioModeStateChanged', { studioModeEnabled: state.studioMode })
+      return {}
+    case 'SetCurrentSceneTransition':
+      if (requestData?.transitionName) {
+        state.currentTransition = String(requestData.transitionName)
+      }
+      return {}
+    case 'SetCurrentSceneTransitionDuration':
+      state.transitionDuration = Number(requestData?.transitionDuration ?? 300)
+      return {}
+    case 'SetTBarPosition':
+      state.tBarPosition = Number(requestData?.position ?? 0)
+      return {}
+    case 'TriggerStudioModeTransition':
+      state.currentProgramScene = state.previewScene
+      emitMockEvent('CurrentProgramSceneChanged', { sceneName: state.currentProgramScene })
+      return {}
     case 'GetVideoSettings':
       return {
         fpsNumerator: 60,
@@ -126,13 +258,12 @@ export function handleMockRequest(
     case 'GetCurrentSceneTransition':
       return {
         transitionName: state.currentTransition,
-        transitionDuration: 300,
+        transitionDuration: state.transitionDuration,
         transitionUuid: 'fade-uuid',
         transitionKind: 'fade_transition',
       }
     case 'Sleep':
-      const ms = Number(requestData?.sleepMillis ?? 0)
-      return new Promise((resolve) => setTimeout(() => resolve({}), ms))
+      return new Promise((resolve) => setTimeout(() => resolve({}), Number(requestData?.sleepMillis ?? 0)))
     case 'CallVendorRequest':
       return {
         vendorName: requestData?.vendorName ?? '',

@@ -24,6 +24,16 @@ body {
   color: var(--color-text);
 }
 
+body.is-col-resizing {
+  cursor: col-resize !important;
+  user-select: none;
+}
+
+body.is-row-resizing {
+  cursor: row-resize !important;
+  user-select: none;
+}
+
 #app {
   margin: 0;
   padding: 0;

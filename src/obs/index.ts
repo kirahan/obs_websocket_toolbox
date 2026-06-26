@@ -90,10 +90,12 @@ class OBS {
         const SS = await this.getClient().call("GetStreamStatus");
         const RS = await this.getClient().call("GetRecordStatus");
         const { studioModeEnabled } = await this.getClient().call("GetStudioModeEnabled");
+        const vcam = await this.getClient().call("GetVirtualCamStatus").catch(() => ({ outputActive: false }));
 
         this.status.isStreaming.value = !!SS.outputActive;
         this.status.isRecording.value = !!RS.outputActive;
         this.status.isStudioModule.value = !!studioModeEnabled;
+        this.status.isVirtualCam.value = !!vcam.outputActive;
         console.log("[obs]obsState", this.status);
         console.log("[obs]isStudioModule", this.status.isStudioModule.value);
     }

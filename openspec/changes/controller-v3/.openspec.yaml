@@ -1,0 +1,4 @@
+name: controller-v3
+schema: spec-driven
+status: proposed
+description: Controller 3.0 导播控制台整合重构（PVW-PGM 监视器 + 三栏可调布局）

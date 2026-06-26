@@ -27,8 +27,8 @@ export const OBSstatus = {
     isRecording: ref(false),
     isReplayBufferActive: ref(false),
     isVirtualCam: ref(false),
-    outputName: ref('')
-};
+    outputName: ref(''),
+}
 
 export const OBSVideoConfig = {
     fpsDenominator: ref(0),
