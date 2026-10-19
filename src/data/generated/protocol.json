@@ -1,7 +1,7 @@
 {
   "meta": {
     "source": "https://raw.githubusercontent.com/obsproject/obs-websocket/master/docs/generated/protocol.md",
-    "syncedAt": "2026-06-26T02:11:05.539Z",
+    "syncedAt": "2026-10-19T07:07:42.424Z",
     "protocolVersion": "5.x.x"
   },
   "events": [
